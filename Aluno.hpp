@@ -8,9 +8,10 @@
 
 class Aluno : public Usuario{
 private:
-    const std::string _id;
     const std::string _matricula;
 public:
+    Aluno(const std::string id, const std::string senha, const std::string matricula);
+    ~Aluno();
     std::string get_matricula() const;
     std::string get_id() const override;
 };

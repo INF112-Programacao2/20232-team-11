@@ -8,15 +8,16 @@
 
 class Notificacoes{
 private:
-    const std::string _messagem;
+    const std::string _mensagem;
+    void set_mensagem(std::string mensagem);
 protected:
     std::vector<Evento> _eventos;
     std::vector<Usuario> _usuarios;
 public:
-    Notificacoes();
+    Notificacoes(std::string mensagem);
     ~Notificacoes();
-    std::string get_messagem() const;
-    std::string affichar_messagem() const;
+    std::string get_mensagem() const;
+    std::string affichar_mensagem() const;
 };
 
 #endif

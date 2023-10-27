@@ -7,10 +7,10 @@ class Evento{
 protected:
     std::string _titulo;
     std::string _descricao;
-    tm *_data;
+    tm *_DataHora;
     std::string _local;
 public:
-    Evento(std::string titulo, std::string descricao, tm data, std::string hora, std::string local);
+    Evento(std::string titulo, std::string descricao, tm DataHora, std::string local);
     ~Evento();
 
     void set_titulo(std::string titulo);
@@ -19,14 +19,12 @@ public:
     void set_descricao(std::string descricao);
     std::string get_descricao();
 
-    void set_data(std::string data);
-    std::string get_data();
-
-    void set_hora(std::string data);
-    std::string get_hora();
+    void set_DataHora(tm DataHora);
+    tm get_DataHora();
 
     void set_local(std::string local);
     std::string get_local();
+
 };
 
 #endif

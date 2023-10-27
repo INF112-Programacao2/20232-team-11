@@ -5,10 +5,10 @@
 
 class Professor : public Usuario{
 private:
-    const std::string _id;
-    const std::string _senha;
 public:
-    std::string get_senha() const;
+    Professor(const std::string id, const std::string senha);
+    ~Professor();
+    std::string get_senha() const override;
     std::string get_id() const override;
 };
 
