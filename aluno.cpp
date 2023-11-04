@@ -13,3 +13,9 @@ std::string Aluno::get_id() const{
     return _id;
 }
 
+// Sobrescreve o método criarEvento para adicionar eventos ao calendário
+void Aluno::criarEvento(Calendario& calendario, const Evento& evento) {
+    calendario.adicionarEvento(evento);
+}
+
+

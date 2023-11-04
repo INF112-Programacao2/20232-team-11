@@ -8,7 +8,7 @@ std::string Notificacoes::get_mensagem() const{
     return _mensagem;
 }
 
-void Notificacoes::set_mensagem(std::string mensagem){
+void Notificacoes::set_mensagem(const std::string& mensagem){
     _mensagem = mensagem;
 }
 
