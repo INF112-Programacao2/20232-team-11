@@ -11,15 +11,14 @@ protected:
     const std::string _id;
     std::string _senha;
     
-    virtual void set_senha(const std::string& senha);
+    virtual void alterar_senha(const std::string& senha);
 public:
     Usuario(const std::string id, const std::string senha);
     ~Usuario();
     virtual std::string get_senha() const;
     virtual std::string get_id() const;
-    void criarEvento(Calendario& calendario, const Evento& evento) {
-    
-}
+    void criarEvento(Calendario& calendario, const Evento& evento) ;
+    bool Usuario::fazer_login(const std::string& id, const std::string& senha) const ;
     
 };
 

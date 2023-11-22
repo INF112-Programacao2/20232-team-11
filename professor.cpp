@@ -26,6 +26,12 @@ void Professor::criarEvento(Calendario& calendario, const Evento& evento) {
     calendario.adicionarEvento(evento);
 }
 
+void Professor::alterar_senha(const std::string& senha) {
+    // Lógica para permitir que apenas o professor mude sua própria senha
+    _senha = senha;
+}
+
+
 
 
 

@@ -15,3 +15,7 @@ std::string Administrador::get_id() const{
     return _id;
 }
 
+void Administrador::alterar_senha(const std::string& senha) {
+    // Lógica para permitir que apenas o aluno mude sua própria senha
+    _senha = senha;
+}

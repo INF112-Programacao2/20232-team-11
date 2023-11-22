@@ -18,4 +18,7 @@ void Aluno::criarEvento(Calendario& calendario, const Evento& evento) {
     calendario.adicionarEvento(evento);
 }
 
-
+void Aluno::alterar_senha(const std::string& senha) {
+    // Lógica para permitir que apenas o aluno mude sua própria senha
+    _senha = senha;
+}

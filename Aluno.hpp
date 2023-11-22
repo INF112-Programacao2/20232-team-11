@@ -6,6 +6,7 @@
 #include "Usuario.hpp"
 #include "Evento.hpp"
 
+
 class Aluno : public Usuario{
 private:
     const std::string _matricula;
@@ -18,6 +19,9 @@ public:
     
     // Sobrescreve o método criarEvento para adicionar eventos ao calendário
     void criarEvento(Calendario& calendario, const Evento& evento) ;
+
+    // Sobrescreva o método alterar_senha para permitir apenas ao aluno mudar sua própria senha
+    void alterar_senha(const std::string& senha) override;
 
 };
 

@@ -3,9 +3,16 @@
 
 #include <string>
 
+// Declaração avançada para evitar dependências cíclicas
+class Aluno;
+class Professor;
+class Administrador;
+
 class Interface{
 private:
     void executar_opcao(int opcao);
+    void recuperar_senha(Aluno& aluno, Professor& professor, Administrador& administrador);
+    void realizar_login(Aluno& aluno, Professor& professor , Administrador& administrador);
 public:
     void menu_principal();
     void menu_cadastro();
@@ -19,6 +26,8 @@ public:
     void menu_exclusao();
     void menu_listagem();
     void menu_listagem_data();
+    
+    
 
 };
 

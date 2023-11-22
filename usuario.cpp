@@ -5,7 +5,7 @@ Usuario::Usuario(const std::string id, const std::string senha) : _id(id), _senh
 Usuario::~Usuario(){}
 
 
-void Usuario::set_senha(const std::string& senha){
+void Usuario::alterar_senha(const std::string& senha){
     _senha = senha;
 }
 
@@ -19,6 +19,10 @@ std::string Usuario::get_id() const{
 // Implementação padrão vazia para criarEvento
 void Usuario::criarEvento(Calendario& calendario, const Evento& evento) {
     // Não faz nada por padrão
+}
+bool Usuario::fazer_login(const std::string& id, const std::string& senha) const {
+    // Verificar se as credenciais são válidas
+    return (_id == id && _senha == senha);
 }
 
 
