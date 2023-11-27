@@ -1,84 +1,135 @@
 #include "Calendario.hpp"
 #include <iostream>
-#include <iomanip>
+#include <string>
+#include <vector>
+#include "Evento.hpp"
 
-Calendario::Calendario(std::vector<Evento> eventos) : _eventos(eventos){}
-Calendario::~Calendario(){}
+Calendario::Calendario() {}     // Construtor
 
-void Calendario::adicionarEvento(Evento evento){
-    _eventos.push_back(evento);
+Calendario::~Calendario() {}        // Destrutor
+
+// Métodos para adicinar eventos
+void Calendario::adicionarEvento(const Evento& evento) {
+    eventos.push_back(evento);      // Adiciona o evento no final do vetor
 }
 
-void Calendario::excluirEvento(Evento evento){
-    for(int i = 0; i < _eventos.size(); i++){
-        if(_eventos[i].get_titulo() == evento.get_titulo()){
+// Métodos para excluir eventos
+void Calendario::excluirEvento(const Evento& evento, const std::string& id) {
+    for (int i = 0; i < eventos.size(); i++) {      // Percorre o vetor de eventos
+        if (eventos[i].getTitulo() == evento.getTitulo() && eventos[i].getCriador() == id) {        // Verifica se o evento existe
+            eventos.erase(eventos.begin() + i);     // Apaga o evento
+            std::cout << "Evento excluido com sucesso!" << std::endl;       
         }
     }
+    std::cout << "Evento nao encontrado!" << std::endl;     // Caso o evento nao exista
 }
 
-void Calendario::editarEvento(Evento evento){
-    for(int i = 0; i < _eventos.size(); i++){
-        if(_eventos[i].get_titulo() == evento.get_titulo()){
-            _eventos[i] = evento;
+// Métodos para editar eventos
+void Calendario::editarEvento(const Evento& evento, const std::string& id) {        // Edita o evento
+    for (int i = 0; i < eventos.size(); i++) {    // Percorre o vetor de eventos
+        if (eventos[i].getTitulo() == evento.getTitulo() && eventos[i].getCriador() == id) {    // Verifica se o evento existe
+            // Edita o evento
+            eventos[i].setTitulo(evento.getTitulo());
+            eventos[i].setDescricao(evento.getDescricao());
+            eventos[i].setData(evento.getData());
+            eventos[i].setHora(evento.getHora());
+            eventos[i].setLocal(evento.getLocal());
+            std::cout << "Evento editado com sucesso!" << std::endl;
         }
     }
+    std::cout << "Evento nao encontrado!" << std::endl;     // Caso o evento nao exista
 }
 
-void Calendario::pesquisarEvento(std::string titulo){   //perquisar por titulo
-    for(int i = 0; i < _eventos.size(); i++){
-        if(_eventos[i].get_titulo() == titulo){
-            std::cout << "Titulo: " << _eventos[i].get_titulo() << std::endl;
-            std::cout << "Descricao: " << _eventos[i].get_descricao() << std::endl;
-            std::cout << "Data: " << _eventos[i].get_DataHora().tm_mday << "/" << _eventos[i].get_DataHora().tm_mon << "/" << _eventos[i].get_DataHora().tm_year << std::endl;
-            std::cout << "Hora: " << std::setfill('0') << std::setw(2) << _eventos[i].get_DataHora().tm_hour << ":" << std::setfill('0') << std::setw(2) << _eventos[i].get_DataHora().tm_min << std::endl;
-            std::cout << "Local: " << _eventos[i].get_local() << std::endl;
-        }else{
-            std::cout << "Nao ha eventos com esse titulo" << std::endl;
+// Métodos para pesquisar eventos
+void Calendario::pesquisarEventoPorTitulo(const std::string& titulo) {
+    for (int i = 0; i < eventos.size(); i++) {      // Percorre o vetor de eventos
+        if (eventos[i].getTitulo() == titulo) {     // Verifica se o evento existe
+            // Imprime o evento
+            std::cout << "Tipo: " << eventos[i].getTipo() << std::endl;
+            std::cout << "Titulo: " << eventos[i].getTitulo() << std::endl;
+            std::cout << "Descricao: " << eventos[i].getDescricao() << std::endl;
+            std::cout << "Data: " << eventos[i].getData() << std::endl;
+            std::cout << "Hora: " << eventos[i].getHora() << std::endl;
+            std::cout << "Local: " << eventos[i].getLocal() << std::endl;
         }
     }
+    std::cout << "Evento nao encontrado!" << std::endl;     // Caso o evento nao exista
 }
 
-void Calendario::pesquisarEvento(tm data){   //pesquisar por data
-    for(int i = 0; i < _eventos.size(); i++){
-        if(_eventos[i].get_DataHora().tm_mday == data.tm_mday && _eventos[i].get_DataHora().tm_mon == data.tm_mon && _eventos[i].get_DataHora().tm_year == data.tm_year){
-            std::cout << "Titulo: " << _eventos[i].get_titulo() << std::endl;
-            std::cout << "Descricao: " << _eventos[i].get_descricao() << std::endl;
-            std::cout << "Data: " << _eventos[i].get_DataHora().tm_mday << "/" << _eventos[i].get_DataHora().tm_mon << "/" << _eventos[i].get_DataHora().tm_year << std::endl;
-            std::cout << "Hora: " << std::setfill('0') << std::setw(2) << _eventos[i].get_DataHora().tm_hour << ":" << std::setfill('0') << std::setw(2) << _eventos[i].get_DataHora().tm_min << std::endl;
-            std::cout << "Local: " << _eventos[i].get_local() << std::endl;
-        }else{
-            std::cout << "Nao ha eventos nessa data" << std::endl;
-        }
-    }
-}
-
-void Calendario::listarEventos(){       //listar todos os eventos
-    for(int i = 0; i < _eventos.size(); i++){
-        std::cout << "Titulo: " << _eventos[i].get_titulo() << std::endl;
-        std::cout << "Descricao: " << _eventos[i].get_descricao() << std::endl;
-        std::cout << "Data: " << _eventos[i].get_DataHora().tm_mday << "/" << _eventos[i].get_DataHora().tm_mon << "/" << _eventos[i].get_DataHora().tm_year << std::endl;
-        std::cout << "Hora: " << std::setfill('0') << std::setw(2) << _eventos[i].get_DataHora().tm_hour << ":" << std::setfill('0') << std::setw(2) << _eventos[i].get_DataHora().tm_min << std::endl;
-        std::cout << "Local: " << _eventos[i].get_local() << std::endl;
-        std::cout << std::endl;
-    }
-}
-
-void Calendario::listarEventos(tm data){        //listar eventos por data
-    for(int i = 0; i < _eventos.size(); i++){
-        if(_eventos[i].get_DataHora().tm_mday == data.tm_mday && _eventos[i].get_DataHora().tm_mon == data.tm_mon && _eventos[i].get_DataHora().tm_year == data.tm_year){
-            std::cout << "Titulo: " << _eventos[i].get_titulo() << std::endl;
-            std::cout << "Descricao: " << _eventos[i].get_descricao() << std::endl;
-            std::cout << "Data: " << _eventos[i].get_DataHora().tm_mday << "/" << _eventos[i].get_DataHora().tm_mon << "/" << _eventos[i].get_DataHora().tm_year << std::endl;
-            std::cout << "Hora: " << std::setfill('0') << std::setw(2) << _eventos[i].get_DataHora().tm_hour << ":" << std::setfill('0') << std::setw(2) << _eventos[i].get_DataHora().tm_min << std::endl;
-            std::cout << "Local: " << _eventos[i].get_local() << std::endl;
+// Métodos para listar eventos por tipo
+void Calendario::listarEventosTipo(const TipoEvento& tipo) {       
+    for (int i = 0; i < eventos.size(); i++) {      // Percorre o vetor de eventos
+        if (eventos[i].getTipo() == tipo) {     // Verifica se o evento existe
+            // Imprime o evento
+            std::cout << "Tipo: " << eventos[i].getTipo() << std::endl;
+            std::cout << "Titulo: " << eventos[i].getTitulo() << std::endl;
+            std::cout << "Descricao: " << eventos[i].getDescricao() << std::endl;
+            std::cout << "Data: " << eventos[i].getData() << std::endl;
+            std::cout << "Hora: " << eventos[i].getHora() << std::endl;
+            std::cout << "Local: " << eventos[i].getLocal() << std::endl;
             std::cout << std::endl;
         }
     }
 }
 
-std::vector<Evento> Calendario::get_eventos() const{
-    return _eventos;
+// Métodos para listar eventos por data
+void Calendario::pesquisarEventoPorData(const std::string& data) {      
+    for (int i = 0; i < eventos.size(); i++) {      // Percorre o vetor de eventos
+        if (eventos[i].getData() == data) {     // Verifica se o evento existe
+            // Imprime o evento
+            std::cout << "Tipo: " << eventos[i].getTipo() << std::endl;
+            std::cout << "Titulo: " << eventos[i].getTitulo() << std::endl;
+            std::cout << "Descricao: " << eventos[i].getDescricao() << std::endl;
+            std::cout << "Data: " << eventos[i].getData() << std::endl;
+            std::cout << "Hora: " << eventos[i].getHora() << std::endl;
+            std::cout << "Local: " << eventos[i].getLocal() << std::endl;
+        }
+    }
+    std::cout << "Evento nao encontrado!" << std::endl;     // Caso o evento nao exista
 }
 
+// Métodos para listar todos os eventos
+void Calendario::listarEventosTodos() {
+    for (int i = 0; i < eventos.size(); i++) {    // Percorre o vetor de eventos
+        // Imprime o evento
+        std::cout << "Tipo: " << eventos[i].getTipo() << std::endl;
+        std::cout << "Titulo: " << eventos[i].getTitulo() << std::endl;
+        std::cout << "Descricao: " << eventos[i].getDescricao() << std::endl;
+        std::cout << "Data: " << eventos[i].getData() << std::endl;
+        std::cout << "Hora: " << eventos[i].getHora() << std::endl;
+        std::cout << "Local: " << eventos[i].getLocal() << std::endl;
+        std::cout << std::endl;
+    }
+}
 
+// Métodos para listar eventos por dia
+void Calendario::listarEventosDia(const std::string& data) {
+    for (int i = 0; i < eventos.size(); i++) {      // Percorre o vetor de eventos
+        if (eventos[i].getData() == data) {     // Verifica se o evento existe
+            // Imprime o evento
+            std::cout << "Tipo: " << eventos[i].getTipo() << std::endl;
+            std::cout << "Titulo: " << eventos[i].getTitulo() << std::endl;
+            std::cout << "Descricao: " << eventos[i].getDescricao() << std::endl;
+            std::cout << "Data: " << eventos[i].getData() << std::endl;
+            std::cout << "Hora: " << eventos[i].getHora() << std::endl;
+            std::cout << "Local: " << eventos[i].getLocal() << std::endl;
+            std::cout << std::endl;
+        }
+    }
+}
 
+// Métodos para listar eventos por criador
+void Calendario::listarMeusEventos(const std::string& id) { 
+    for (int i = 0; i < eventos.size(); i++) {      // Percorre o vetor de eventos
+        if (eventos[i].getCriador() == id) {        // Verifica se o evento existe
+            // Imprime o evento
+            std::cout << "Tipo: " << eventos[i].getTipo() << std::endl;
+            std::cout << "Titulo: " << eventos[i].getTitulo() << std::endl;
+            std::cout << "Descricao: " << eventos[i].getDescricao() << std::endl;
+            std::cout << "Data: " << eventos[i].getData() << std::endl;
+            std::cout << "Hora: " << eventos[i].getHora() << std::endl;
+            std::cout << "Local: " << eventos[i].getLocal() << std::endl;
+            std::cout << std::endl;
+        }
+    }
+}

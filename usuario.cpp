@@ -1,28 +1,37 @@
 #include "Usuario.hpp"
 #include <iostream>
 
-Usuario::Usuario(const std::string id, const std::string senha) : _id(id), _senha(senha){}
-Usuario::~Usuario(){}
+Usuario::Usuario(const std::string& id, const std::string& senha) : _id(id), _senha(senha) {}       //construtor
 
+Usuario::~Usuario() {}      //destrutor
 
-void Usuario::alterar_senha(const std::string& senha){
-    _senha = senha;
+std::string Usuario::getId() const {        
+    return _id; 
 }
 
-std::string Usuario::get_senha() const{
+std::string Usuario::getSenha() const {
     return _senha;
 }
 
-std::string Usuario::get_id() const{
-    return _id;
+void Usuario::setSenha(const std::string& senha) {
+    _senha = senha;
 }
-// Implementação padrão vazia para criarEvento
-void Usuario::criarEvento(Calendario& calendario, const Evento& evento) {
-    // Não faz nada por padrão
+
+void Usuario::criarEvento(const TipoEvento& tipo, const std::string& titulo, const std::string& descricao, const std::string& data, const std::string& hora, const std::string& local, const std::string& criador){
+    Evento evento(tipo, titulo, descricao, data, hora, local, criador);     //cria um evento
+    std::cout << "Evento criado com sucesso!" << std::endl;
 }
-bool Usuario::fazer_login(const std::string& id, const std::string& senha) const {
-    // Verificar se as credenciais são válidas
-    return (_id == id && _senha == senha);
+
+bool Usuario::fazerLogin(const std::string& id, const std::string& senha){      
+    if(id == _id && senha == _senha){           //verifica se o id e a senha estao corretos
+        std::cout << "Login realizado com sucesso!" << std::endl;
+        return true;
+    }
+    else{
+        std::cout << "Login ou senha incorretos!" << std::endl;
+        return false;
+    }
 }
+
 
 

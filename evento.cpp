@@ -1,38 +1,61 @@
 #include "Evento.hpp"
-#include <iostream>
-#include <ctime>
 
-Evento::Evento(std::string titulo, std::string descricao, tm DataHora, std::string local) : _titulo(titulo), _descricao(descricao), _DataHora(&DataHora), _local(local){}
-Evento::~Evento(){}
+Evento::Evento(const TipoEvento& tipo, const std::string& titulo, const std::string& descricao, const std::string& data, const std::string& hora, const std::string& local, const std::string& criador) : _titulo(titulo), _descricao(descricao), _data(data), _hora(hora), _local(local), _criador(criador) {}
 
-void Evento::set_titulo(std::string titulo){
-    _titulo = titulo;
+Evento::~Evento() {}
+
+TipoEvento Evento::getTipo() const {
+    return _tipo;
 }
 
-std::string Evento::get_titulo(){
+std::string Evento::getTitulo() const {
     return _titulo;
 }
 
-void Evento::set_descricao(std::string descricao){
-    _descricao = descricao;
-}
-
-std::string Evento::get_descricao(){
+std::string Evento::getDescricao() const {
     return _descricao;
 }
 
-void Evento::set_DataHora(tm DataHora){
-    _DataHora = &DataHora;
+std::string Evento::getData() const {
+    return _data;
 }
 
-tm Evento::get_DataHora(){
-    return *_DataHora;
+std::string Evento::getHora() const {
+    return _hora;
 }
 
-void Evento::set_local(std::string local){
+std::string Evento::getLocal() const {
+    return _local;
+}
+
+std::string Evento::getCriador() const {
+    return _criador;
+}
+
+void Evento::setTipo(const TipoEvento& tipo) {
+    _tipo = tipo;
+}
+
+void Evento::setTitulo(const std::string& titulo) {
+    _titulo = titulo;
+}
+
+void Evento::setDescricao(const std::string& descricao) {
+    _descricao = descricao;
+}
+
+void Evento::setData(const std::string& data) {
+    _data = data;
+}
+
+void Evento::setHora(const std::string& hora) {
+    _hora = hora;
+}
+
+void Evento::setLocal(const std::string& local) {
     _local = local;
 }
 
-std::string Evento::get_local(){
-    return _local;
+void Evento::setCriador(const std::string& criador) {
+    _criador = criador;
 }

@@ -1,24 +1,7 @@
-#include "Usuario.hpp"
 #include "Aluno.hpp"
-#include <iostream>
 
-Aluno::Aluno(const std::string id, const std::string senha, const std::string matricula) : Usuario(id, senha), _matricula(matricula){}
-Aluno::~Aluno(){}
-
-std::string Aluno::get_matricula() const{
-    return _matricula;
+Aluno::Aluno(const std::string& id, const std::string& senha) : Usuario(id, senha) {        // Construtor
+    _matricula = id;        // Matrícula do aluno é o próprio id
 }
 
-std::string Aluno::get_id() const{
-    return _id;
-}
-
-// Sobrescreve o método criarEvento para adicionar eventos ao calendário
-void Aluno::criarEvento(Calendario& calendario, const Evento& evento) {
-    calendario.adicionarEvento(evento);
-}
-
-void Aluno::alterar_senha(const std::string& senha) {
-    // Lógica para permitir que apenas o aluno mude sua própria senha
-    _senha = senha;
-}
+Aluno::~Aluno() {}      // Destrutor
