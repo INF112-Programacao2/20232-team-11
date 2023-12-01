@@ -193,3 +193,90 @@ void recuperar_senha(Aluno& aluno, Professor& professor, Administrador& administ
 }
 
 
+void Interface::cadastrar_usuario() {
+    int opcao;
+    std::cout << "Escolha uma opção de cadastro:" << std::endl;
+    std::cout << "1 - Administrador" << std::endl;
+    std::cout << "2 - Professor" << std::endl;
+    std::cout << "3 - Aluno" << std::endl;
+    std::cout << "4 - Voltar" << std::endl;
+
+    std::cout << "Opção: ";
+    std::cin >> opcao;
+
+    switch (opcao) {
+        case 1:
+            if (administradorCadastrado) {
+                cadastrar_administrador();
+            } else {
+                std::cout << "Já existe um administrador cadastrado." << std::endl;
+            }
+            break;
+        case 2:
+            cadastrar_professor();
+            break;
+        case 3:
+            cadastrar_aluno();
+            break;
+        case 4:
+            menu_principal();
+            break;
+        default:
+            std::cout << "Opção inválida." << std::endl;
+            break;
+    }
+}
+
+Administrador Interface::cadastrar_administrador() {
+    std::string id, senha;
+
+    std::cout << "Informe o ID do administrador: ";
+    std::cin >> id;
+
+    std::cout << "Informe a senha do administrador: ";
+    std::cin >> senha;
+
+    // Criar uma nova instância de Administrador
+    Administrador novo_administrador(id, senha);
+
+    // Retornar o novo objeto Administrador
+    return novo_administrador;
+}
+
+Professor Interface::cadastrar_professor() {
+    std::string id, senha;
+
+    std::cout << "Informe o ID do professor: ";
+    std::cin >> id;
+
+    std::cout << "Informe a senha do professor: ";
+    std::cin >> senha;
+
+    // Criar uma nova instância de Professor
+    Professor novo_professor(id, senha);
+
+    // Definir a flag como true
+    administradorCadastrado = true;
+
+    // Retornar o novo objeto Professor
+    return novo_professor;
+}
+
+Aluno Interface::cadastrar_aluno() {
+    std::string id, senha, matricula;
+
+    std::cout << "Informe o ID do aluno: ";
+    std::cin >> id;
+
+    std::cout << "Informe a senha do aluno: ";
+    std::cin >> senha;
+
+    std::cout << "Informe a matrícula do aluno: ";
+    std::cin >> matricula;
+
+    // Criar uma nova instância de Aluno
+    Aluno novoAluno(id, senha, matricula);
+
+    // Retornar o novo objeto Aluno
+    return novoAluno;
+}

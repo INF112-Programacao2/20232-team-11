@@ -170,8 +170,8 @@ void Notificacao::exibirNotificacao(const std::vector<Evento>& eventos){
     //verifica se o evento é uma prova
     if(notifProva){     
         for(int i = 0; i < eventos.size(); i++){        //percorre o vetor de eventos
-            TipoEvento tipo = eventos[i].getTipo();     
-            if(tipo == PROVA){      //verifica se o evento é uma prova
+            std::string tipo = eventos[i].getTipo();     
+            if(tipo == "PROVA"){      //verifica se o evento é uma prova
                 //imprime o evento
                 std::cout << "Tipo: " << eventos[i].getTipo() << std::endl;
                 std::cout << "Titulo: " << eventos[i].getTitulo() << std::endl;
@@ -187,8 +187,8 @@ void Notificacao::exibirNotificacao(const std::vector<Evento>& eventos){
     //verifica se o evento é um trabalho
     if(notifTrabalho){      
         for(int i = 0; i < eventos.size(); i++){        //percorre o vetor de eventos
-            TipoEvento tipo = eventos[i].getTipo();     //verifica se o evento é um trabalho
-            if(tipo == TRABALHO){       //verifica se o evento é um trabalho
+            std::string tipo = eventos[i].getTipo();     //verifica se o evento é um trabalho
+            if(tipo == "TRABALHO"){       //verifica se o evento é um trabalho
                 //imprime o evento
                 std::cout << "Tipo: " << eventos[i].getTipo() << std::endl;
                 std::cout << "Titulo: " << eventos[i].getTitulo() << std::endl;
@@ -204,8 +204,8 @@ void Notificacao::exibirNotificacao(const std::vector<Evento>& eventos){
     //verifica se o evento é uma apresentação
     if(notifApresentacao){      
         for(int i = 0; i < eventos.size(); i++){        //percorre o vetor de eventos
-            TipoEvento tipo = eventos[i].getTipo();     //verifica se o evento é uma apresentação   
-            if(tipo == APRESENTACAO){       //verifica se o evento é uma apresentação
+            std::string tipo = eventos[i].getTipo();     //verifica se o evento é uma apresentação   
+            if(tipo == "APRESENTACAO"){       //verifica se o evento é uma apresentação
                 //imprime o evento
                 std::cout << "Tipo: " << eventos[i].getTipo() << std::endl;
                 std::cout << "Titulo: " << eventos[i].getTitulo() << std::endl;
@@ -221,8 +221,8 @@ void Notificacao::exibirNotificacao(const std::vector<Evento>& eventos){
     //verifica se o evento é outro
     if(notifOutro){
         for(int i = 0; i < eventos.size(); i++){        //percorre o vetor de eventos
-            TipoEvento tipo = eventos[i].getTipo();         //verifica se o evento é outro   
-            if(tipo == OUTRO){              //verifica se o evento é outro
+            std::string tipo = eventos[i].getTipo();         //verifica se o evento é outro   
+            if(tipo == "OUTRO"){              //verifica se o evento é outro
                 //imprime o evento
                 std::cout << "Tipo: " << eventos[i].getTipo() << std::endl;
                 std::cout << "Titulo: " << eventos[i].getTitulo() << std::endl;

@@ -57,7 +57,7 @@ void Calendario::pesquisarEventoPorTitulo(const std::string& titulo) {
 }
 
 // Métodos para listar eventos por tipo
-void Calendario::listarEventosTipo(const TipoEvento& tipo) {       
+void Calendario::listarEventosTipo(const std::string& tipo) {       
     for (int i = 0; i < eventos.size(); i++) {      // Percorre o vetor de eventos
         if (eventos[i].getTipo() == tipo) {     // Verifica se o evento existe
             // Imprime o evento

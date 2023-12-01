@@ -3,17 +3,9 @@
 
 #include <string>
 
-// Enumeração para os tipos de eventos
-enum TipoEvento {
-    PROVA,
-    TRABALHO,
-    APRESENTACAO,
-    OUTRO,
-};
-
 class Evento {
 private:
-    TipoEvento _tipo;
+    std::string _tipo;
     std::string _titulo;
     std::string _descricao;
     std::string _data;
@@ -22,11 +14,11 @@ private:
     std:: string _criador;
 
 public:
-    Evento(const TipoEvento& tipo, const std::string& titulo, const std::string& descricao, const std::string& data, const std::string& hora, const std::string& local, const std::string& criador);    // Construtor
+    Evento(const std::string& tipo, const std::string& titulo, const std::string& descricao, const std::string& data, const std::string& hora, const std::string& local, const std::string& criador);    // Construtor
     ~Evento();                    // Destrutor
 
     // Métodos get
-    TipoEvento getTipo() const;
+    std::string getTipo() const;
     std::string getTitulo() const;
     std::string getDescricao() const;
     std::string getData() const;
@@ -35,7 +27,7 @@ public:
     std::string getCriador() const;
 
     // Métodos set
-    void setTipo(const TipoEvento& tipo);
+    void setTipo(const std::string& tipo);
     void setTitulo(const std::string& titulo);
     void setDescricao(const std::string& descricao);
     void setData(const std::string& data);

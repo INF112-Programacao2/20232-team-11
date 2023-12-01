@@ -10,9 +10,13 @@ class Administrador;
 
 class Interface{
 private:
+    bool administradorCadastrado = false;
     void executar_opcao(int opcao);
     void recuperar_senha(Aluno& aluno, Professor& professor, Administrador& administrador);
     void realizar_login(Aluno& aluno, Professor& professor , Administrador& administrador);
+    Administrador cadastrar_administrador();
+    Professor cadastrar_professor();
+    Aluno cadastrar_aluno();
 public:
     void menu_principal();
     void menu_cadastro();
@@ -26,7 +30,7 @@ public:
     void menu_exclusao();
     void menu_listagem();
     void menu_listagem_data();
-    
+    void cadastrar_usuario();
     
 
 };

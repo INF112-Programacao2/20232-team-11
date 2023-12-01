@@ -21,7 +21,7 @@ public:
     void pesquisarEventoPorTitulo(const std::string& titulo);
     void pesquisarEventoPorData(const std::string& data);
     void listarEventosTodos();
-    void listarEventosTipo(const TipoEvento& tipo);
+    void listarEventosTipo(const std::string& tipo);
     void listarEventosDia(const std::string& data);
     void listarMeusEventos(const std::string& id);
 };
