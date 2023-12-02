@@ -45,21 +45,48 @@ void Interface::menu_cadastro(){
     std::cout << "4 - Voltar" << std::endl;
 }
 
-/*void Interface::menu_login(){
-    std::cout << "Escolha uma opcao:" << std::endl;
-    std::cout << "1 - Administrador" << std::endl;
-    std::cout << "2 - Professor" << std::endl;
-    std::cout << "3 - Aluno" << std::endl;
-    std::cout << "4 - Voltar" << std::endl;
-}
-*/  // provavelmente nao vai precisar dessa parte , a funcao realizar login , ja identifica qual o tipo do usuario
-void Interface::menu_administrador(){
-    std::cout << "Escolha uma opcao:" << std::endl;
-    std::cout << "1 - Cadastrar Professor" << std::endl;
-    std::cout << "2 - Cadastrar Aluno" << std::endl;
-    std::cout << "3 - Excluir Professor" << std::endl;
-    std::cout << "4 - Excluir Aluno" << std::endl;
-    std::cout << "5 - Voltar" << std::endl;
+void Interface::menu_administrador(std::vector<Aluno>& alunos, std::vector<Professor>& professores) {
+    int escolha;
+    do {
+        std::cout << "Escolha uma opcao:" << std::endl;
+        std::cout << "1 - Cadastrar Professor" << std::endl;
+        std::cout << "2 - Cadastrar Aluno" << std::endl;
+        std::cout << "3 - Excluir Professor" << std::endl;
+        std::cout << "4 - Excluir Aluno" << std::endl;
+        std::cout << "5 - Voltar" << std::endl;
+
+        std::cout << "Opcao: ";
+        std::cin >> escolha;
+
+        switch (escolha) {
+            case 1:
+                // Chamar a função para cadastrar professor
+                cadastrar_professor();
+                break;
+
+            case 2:
+                // Chamar a função para cadastrar aluno
+                cadastrar_aluno();
+                break;
+
+            case 3:
+                excluir_professor(professores);
+                break;
+            case 4:
+                excluir_aluno(alunos);
+                break;
+            case 5:
+                // Opção para voltar
+                std::cout << "Voltando ao menu principal." << std::endl;
+                break;
+
+            default:
+                // Mensagem de erro para opções inválidas
+                std::cout << "Opcao invalida. Tente novamente." << std::endl;
+                break;
+        }
+
+    } while (escolha != 5); // Continue o loop até que a opção 5 (Voltar) seja escolhida
 }
 
 void Interface::menu_professor(){
@@ -122,7 +149,7 @@ void Interface::menu_listagem_data(){
     std::cout << "2 - Voltar" << std::endl;
 }
 
-void Interface::realizar_login(Aluno& aluno, Professor& professor, Administrador& administrador) {
+void Interface::realizar_login(Aluno& aluno, Professor& professor, Administrador& administrador, std::vector<Aluno>& alunos, std::vector<Professor>& professores) {
     std::string id, senha;
 
     std::cout << "Informe o ID: ";
@@ -148,7 +175,7 @@ void Interface::realizar_login(Aluno& aluno, Professor& professor, Administrador
     // Verifique o login para Administrador
     if (administrador.fazer_login(id, senha)) {
         std::cout << "Login bem-sucedido para o adminstrador " << professor.get_id() << std::endl;
-        menu_administrador();
+        menu_administrador(alunos , professores);
         return;
     }
 
@@ -228,7 +255,7 @@ void Interface::cadastrar_usuario() {
 }
 
 Administrador Interface::cadastrar_administrador() {
-    std::string id, senha;
+    std::string id, senha , nome ;
 
     std::cout << "Informe o ID do administrador: ";
     std::cin >> id;
@@ -236,15 +263,18 @@ Administrador Interface::cadastrar_administrador() {
     std::cout << "Informe a senha do administrador: ";
     std::cin >> senha;
 
+    std::cout << "Informe o nome do administrador: ";
+    std::cin >> nome;
+
     // Criar uma nova instância de Administrador
-    Administrador novo_administrador(id, senha);
+    Administrador novo_administrador(nome, id, senha);
 
     // Retornar o novo objeto Administrador
     return novo_administrador;
 }
 
 Professor Interface::cadastrar_professor() {
-    std::string id, senha;
+    std::string id, senha , nome;
 
     std::cout << "Informe o ID do professor: ";
     std::cin >> id;
@@ -252,8 +282,11 @@ Professor Interface::cadastrar_professor() {
     std::cout << "Informe a senha do professor: ";
     std::cin >> senha;
 
+    std::cout << "Informe o nome do professor: ";
+    std::cin >> nome;
+
     // Criar uma nova instância de Professor
-    Professor novo_professor(id, senha);
+    Professor novo_professor(nome , id, senha);
 
     // Definir a flag como true
     administradorCadastrado = true;
@@ -263,7 +296,7 @@ Professor Interface::cadastrar_professor() {
 }
 
 Aluno Interface::cadastrar_aluno() {
-    std::string id, senha, matricula;
+    std::string id, senha, matricula , nome;
 
     std::cout << "Informe o ID do aluno: ";
     std::cin >> id;
@@ -273,10 +306,45 @@ Aluno Interface::cadastrar_aluno() {
 
     std::cout << "Informe a matrícula do aluno: ";
     std::cin >> matricula;
+    
+    std::cout << "Informe o nome do aluno: ";
+    std::cin >> nome;
 
     // Criar uma nova instância de Aluno
-    Aluno novoAluno(id, senha, matricula);
+    Aluno novoAluno(nome, id, senha, matricula);
 
     // Retornar o novo objeto Aluno
     return novoAluno;
+}
+
+void Interface::excluir_professor(std::vector<Professor>& professores) {
+    std::string id_prof;
+    std::cout << "Digite o ID do professor a ser excluído: ";
+    std::cin >> id_prof;
+
+    auto it = std::remove_if(professores.begin(), professores.end(),
+                             [id_prof](const Professor& professor) { return professor.get_id() == id_prof; });
+
+    if (it != professores.end()) {
+        professores.erase(it, professores.end());
+        std::cout << "Professor excluído com sucesso." << std::endl;
+    } else {
+        std::cout << "Professor não encontrado." << std::endl;
+    }
+}
+
+void Interface::excluir_aluno(std::vector<Aluno>& alunos) {
+    std::string id_aluno;
+    std::cout << "Digite o ID do aluno a ser excluído: ";
+    std::cin >> id_aluno;
+
+    auto it = std::remove_if(alunos.begin(), alunos.end(),
+                             [id_aluno](const Aluno& aluno) { return aluno.get_id() == id_aluno; });
+
+    if (it != alunos.end()) {
+        alunos.erase(it, alunos.end());
+        std::cout << "Aluno excluído com sucesso." << std::endl;
+    } else {
+        std::cout << "Aluno não encontrado." << std::endl;
+    }
 }
