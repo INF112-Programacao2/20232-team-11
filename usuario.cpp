@@ -1,19 +1,22 @@
 #include "Usuario.hpp"
 #include <iostream>
 
-Usuario::Usuario(const std::string& id, const std::string& senha) : _id(id), _senha(senha) {}       //construtor
+Usuario::Usuario(const std::string& nome, const std::string& id, const std::string& senha) : _nome(nome), _id(id), _senha(senha) {}       //construtor
 
 Usuario::~Usuario() {}      //destrutor
 
-std::string Usuario::getId() const {        
+std::string Usuario::get_id() const {        
     return _id; 
 }
 
-std::string Usuario::getSenha() const {
+std::string Usuario::get_senha() const {
     return _senha;
 }
+std::string Usuario::get_nome() const {
+    return _nome;
+}
 
-void Usuario::setSenha(const std::string& senha) {
+void Usuario::alterar_senha(const std::string& senha) {
     _senha = senha;
 }
 
@@ -22,7 +25,7 @@ void Usuario::criarEvento(const std::string& tipo, const std::string& titulo, co
     std::cout << "Evento criado com sucesso!" << std::endl;
 }
 
-bool Usuario::fazerLogin(const std::string& id, const std::string& senha){      
+bool Usuario::fazer_login(const std::string& id, const std::string& senha){      
     if(id == _id && senha == _senha){           //verifica se o id e a senha estao corretos
         std::cout << "Login realizado com sucesso!" << std::endl;
         return true;
@@ -68,4 +71,10 @@ void Usuario::cadastrar() {
     std::cout << "Cadastro de usuário concluído." << std::endl;
 }
 
+void Usuario::inativar() {
+    _ativo = false;
+}
 
+bool Usuario::esta_ativo() const {
+    return _ativo;
+}

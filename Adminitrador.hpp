@@ -5,7 +5,7 @@
 
 class Administrador : public Usuario {
 public:
-    Administrador(const std::string& id, const std::string& senha);         // Construtor
+    Administrador(const std::string nome, const std::string& id, const std::string& senha);         // Construtor
     ~Administrador();                                 // Destrutor
 };
 

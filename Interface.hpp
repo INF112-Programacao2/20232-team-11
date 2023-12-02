@@ -13,7 +13,9 @@ private:
     bool administradorCadastrado = false;
     void executar_opcao(int opcao);
     void recuperar_senha(Aluno& aluno, Professor& professor, Administrador& administrador);
-    void realizar_login(Aluno& aluno, Professor& professor , Administrador& administrador);
+    void realizar_login(Aluno& aluno, Professor& professor , Administrador& administrador ,std::vector<Aluno>& alunos, std::vector<Professor>& professores);
+    void excluir_aluno(std::vector<Aluno>& alunos);
+    Aluno& escolher_aluno();
     Administrador cadastrar_administrador();
     Professor cadastrar_professor();
     Aluno cadastrar_aluno();
@@ -21,7 +23,7 @@ public:
     void menu_principal();
     void menu_cadastro();
     void menu_login();
-    void menu_administrador();
+    void menu_administrador(std::vector<Aluno>& alunos, std::vector<Professor>& professores);
     void menu_professor();
     void menu_aluno();
     void menu_evento();
@@ -31,6 +33,8 @@ public:
     void menu_listagem();
     void menu_listagem_data();
     void cadastrar_usuario();
+    void excluir_professor(std::vector<Professor>& professores);
+    void excluir_aluno(std::vector<Aluno>& alunos);
     
 
 };

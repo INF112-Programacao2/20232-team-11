@@ -14,22 +14,30 @@
 
 int main(){
 
-    std::vector<Evento> eventos;
+    std::vector<Usuario*> usuarios;
+    std::vector<Evento*> eventos;
 
-    Calendario Calendario;
+    Calendario calendario;
 
-    Usuario* usuario = new Administrador("admin", "admin");
-    Usuario* usuario2 = new Aluno("aluno", "aluno");
-    Usuario* usuario3 = new Professor("professor", "professor");
+    Usuario* usuario = new Administrador("joao","admin", "admin");
+    Usuario* usuario2 = new Aluno("Maria", "aluno", "aluno" , "123");
+    Usuario* usuario3 = new Professor("Joseph", "professor", "professor");
+
+    usuarios.push_back(usuario);
+    usuarios.push_back(usuario2);
+    usuarios.push_back(usuario3);
 
     Evento* evento = new Evento("PROVA", "Título 1", "Descrição 1", "25-11-2023", "02:00", "Local A", "admin");
     Evento* evento2 = new Evento("TRABALHO", "Título 2", "Descrição 2", "25-11-2023", "03:00", "Local A", "aluno");
     Evento* evento3 = new Evento("APRESENTACAO", "Título 3", "Descrição 3", "25-11-2023", "20:00", "Local A", "professor");
 
-    Calendario.adicionarEvento(*evento);
-    Calendario.adicionarEvento(*evento2);
-    Calendario.adicionarEvento(*evento3);
+    eventos.push_back(evento);
+    eventos.push_back(evento2);
+    eventos.push_back(evento3);
 
+    calendario.adicionarEvento(*evento);
+    calendario.adicionarEvento(*evento2);
+    calendario.adicionarEvento(*evento3);
     //Calendario.listarEventosTodos();
 
     // Calendario.excluirEvento(*evento, "admin");
