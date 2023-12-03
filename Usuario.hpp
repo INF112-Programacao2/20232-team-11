@@ -13,6 +13,7 @@ protected:
 
 public:
     Usuario(const std::string& nome,const std::string& id, const std::string& senha);       // Construtor
+    Usuario();
     ~Usuario();                                                // Destrutor
     //metodos 
     virtual std::string get_id() const;                    // Retorna o id do usuario

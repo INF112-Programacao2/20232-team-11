@@ -2,6 +2,7 @@
 #include <iostream>
 
 Usuario::Usuario(const std::string& nome, const std::string& id, const std::string& senha) : _nome(nome), _id(id), _senha(senha) {}       //construtor
+Usuario::Usuario(): _nome(""), _id(""), _senha(""){}; 
 
 Usuario::~Usuario() {}      //destrutor
 

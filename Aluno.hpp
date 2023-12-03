@@ -18,6 +18,7 @@ private:
     
 public:
     Aluno(const std::string nome,const std::string id, const std::string senha, const std::string matricula);
+    Aluno();
     ~Aluno();
     std::string get_matricula() const;
     std::string get_id() const override;

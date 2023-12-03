@@ -25,13 +25,14 @@ void Interface::menu_principal(Aluno& aluno, Professor& professor, Administrador
             break;
         case 2:
             std::cout << "Login" << std::endl;
-            Interface::realizar_login(aluno, professor, administrador, alunos, professores);
+            realizar_login(aluno, professor, administrador, alunos, professores);
             break;
         case 3:
             std::cout << "Sair" << std::endl;
             break;
         default:
             std::cout << "Opcao invalida" << std::endl;
+            menu_principal(aluno, professor, administrador, alunos, professores);
             break;
     }
 }
@@ -212,33 +213,59 @@ void Interface::menu_listagem_data(){
 }
 
 
+void Interface::solicitar_e_recuperar_senha(std::vector<Aluno>& alunos, std::vector<Professor>& professores, Administrador& administrador) {
+    std::string id;
+    std::cout << "Digite o id: ";
+    std::cin >> id;
 
-void recuperar_senha(Aluno& aluno, Professor& professor, Administrador& administrador) {
-    // Implemente a lógica para recuperar a senha
-    std::string novo_id, nova_senha;
+    // Try to find the user with the given ID
+    Aluno* aluno = encontrar_usuario_pelo_ID(alunos, id);
+    Professor* professor = encontrar_usuario_pelo_ID(professores, id);
 
-    std::cout << "Informe o ID novamente: ";
-    std::cin >> novo_id;
-
-    // Modifique para solicitar a nova senha de uma maneira segura, como via e-mail ou outro meio seguro
-    std::cout << "Informe a nova senha: ";
-    std::cin >> nova_senha;
-
-    // Encontre o usuário correspondente e altere a senha
-    if (aluno.get_id() == novo_id) {
-        aluno.alterar_senha(nova_senha);
-        std::cout << "Senha alterada com sucesso para o aluno " << aluno.get_id() << std::endl;
-    } else if (professor.get_id() == novo_id) {
-        professor.alterar_senha(nova_senha);
-        std::cout << "Senha alterada com sucesso para o professor " << professor.get_id() << std::endl;
-    } else if (administrador.get_id() == novo_id) {
-        administrador.alterar_senha(nova_senha);
-        std::cout << "Senha alterada com sucesso para o administrador " << administrador.get_id() << std::endl;
-    } else {
-        std::cout << "Usuário não encontrado. Operação de recuperação de senha cancelada." << std::endl;
+    // Check if the ID belongs to an Aluno
+    if (aluno != nullptr) {
+        recuperar_senha(*aluno);
+        return;
     }
+
+    // Check if the ID belongs to a Professor
+    if (professor != nullptr) {
+        recuperar_senha(*professor);
+        return;
+    }
+
+    // Check if the ID belongs to the Administrador
+    if (administrador.get_id() == id) {
+        recuperar_senha(administrador);
+        return;
+    }
+
+    std::cout << "Usuario nao encontrado operacao cancelada." << std::endl;
 }
 
+// Function to find a user by ID in a vector
+template<typename UserType>
+UserType* Interface::encontrar_usuario_pelo_ID(const std::vector<UserType>& users, const std::string& id) {
+    for (auto& user : users) {
+        if (user.get_id() == id) {
+            return const_cast<UserType*>(&user);
+        }
+    }
+    return nullptr;
+}
+
+// Function to recover password for a user
+template<typename UserType>
+void Interface::recuperar_senha(UserType& user) {
+    std::string new_password;
+    std::cout << "Digite a nova senha " << user.get_id() << ": ";
+    std::cin >> new_password;
+
+    // Set the new password for the user
+    user.alterar_senha(new_password);
+
+    std::cout << "Senha modificada com sucesso " << user.get_id() << std::endl;
+}
 void Interface::realizar_login(Aluno& aluno, Professor& professor, Administrador& administrador, std::vector<Aluno>& alunos, std::vector<Professor>& professores) {
     std::string id, senha;
 
@@ -274,7 +301,7 @@ void Interface::realizar_login(Aluno& aluno, Professor& professor, Administrador
     std::cout << "Digite (s) para sim, caso contrário, será direcionado ao menu principal: ";
     std::cin >> resposta;
     if (resposta == 's' || resposta == 'S') {
-        recuperar_senha(aluno, professor, administrador);
+        solicitar_e_recuperar_senha(alunos, professores, administrador);
     } else {
         menu_principal(aluno, professor, administrador, alunos, professores);
     }
@@ -313,6 +340,7 @@ void Interface::cadastrar_usuario(Aluno& aluno, Professor& professor, Administra
             break;
         default:
             std::cout << "Opção inválida." << std::endl;
+            menu_principal(aluno, professor, administrador, alunos, professores);
             break;
     }
 }
