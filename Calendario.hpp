@@ -20,10 +20,10 @@ public:
     void editarEvento(const Evento& evento, const std::string& id);
     void pesquisarEventoPorTitulo(const std::string& titulo);
     void pesquisarEventoPorData(const std::string& data);
-    void listarEventosTodos();
+    void listarEventosTodos()const ;
     void listarEventosTipo(const std::string& tipo);
     void listarEventosDia(const std::string& data);
-    void listarMeusEventos(const std::string& id);
+    void listarMeusEventos(const std::string& id) const ;
 };
 
 #endif

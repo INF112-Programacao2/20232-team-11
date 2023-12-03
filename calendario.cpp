@@ -89,7 +89,7 @@ void Calendario::pesquisarEventoPorData(const std::string& data) {
 }
 
 // Métodos para listar todos os eventos
-void Calendario::listarEventosTodos() {
+void Calendario::listarEventosTodos() const  {
     for (int i = 0; i < eventos.size(); i++) {    // Percorre o vetor de eventos
         // Imprime o evento
         std::cout << "Tipo: " << eventos[i].getTipo() << std::endl;
@@ -119,7 +119,7 @@ void Calendario::listarEventosDia(const std::string& data) {
 }
 
 // Métodos para listar eventos por criador
-void Calendario::listarMeusEventos(const std::string& id) { 
+void Calendario::listarMeusEventos(const std::string& id) const { 
     for (int i = 0; i < eventos.size(); i++) {      // Percorre o vetor de eventos
         if (eventos[i].getCriador() == id) {        // Verifica se o evento existe
             // Imprime o evento

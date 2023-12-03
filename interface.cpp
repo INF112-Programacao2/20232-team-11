@@ -2,20 +2,30 @@
 #include "Aluno.hpp"
 #include "Professor.hpp"
 #include "Adminitrador.hpp"
+#include "Calendario.hpp"
 #include <iostream>
 
-void Interface::executar_opcao(int opcao){
-    menu_principal();
+void Interface::menu_principal(Aluno& aluno, Professor& professor, Administrador& administrador, std::vector<Aluno>& alunos, std::vector<Professor>& professores) {
+    std::cout << "Bem vindo ao Calendario Academico!" << std::endl;
+    std::cout << "Escolha uma opcao:" << std::endl;
+    std::cout << "1 - Cadastrar" << std::endl;
+    std::cout << "2 - Login" << std::endl;
+    std::cout << "3 - Sair" << std::endl;
     std::cout << std::endl;
-    switch(opcao){
+
+    int opcao;
+    std::cout << "Digite sua opcao: ";
+    std::cin >> opcao;
+
+    switch(opcao) {
         case 1:
             std::cout << "Cadastrar" << std::endl;
-            menu_cadastro();
+            cadastrar_usuario(aluno, professor, administrador, alunos, professores);
             std::cout << std::endl;
             break;
         case 2:
             std::cout << "Login" << std::endl;
-            realizar_login;
+            realizar_login(aluno, professor, administrador, alunos, professores);
             break;
         case 3:
             std::cout << "Sair" << std::endl;
@@ -26,24 +36,6 @@ void Interface::executar_opcao(int opcao){
     }
 }
 
-
-
-void Interface::menu_principal()
-{
-    std::cout << "Bem vindo ao Calendario Academico!" << std::endl;
-    std::cout << "Escolha uma opcao:" << std::endl;
-    std::cout << "1 - Cadastrar" << std::endl;
-    std::cout << "2 - Login" << std::endl;
-    std::cout << "3 - Sair" << std::endl;
-}
-
-void Interface::menu_cadastro(){
-    std::cout << "Escolha uma opcao:" << std::endl;
-    std::cout << "1 - Administrador" << std::endl;
-    std::cout << "2 - Professor" << std::endl;
-    std::cout << "3 - Aluno" << std::endl;
-    std::cout << "4 - Voltar" << std::endl;
-}
 
 void Interface::menu_administrador(std::vector<Aluno>& alunos, std::vector<Professor>& professores) {
     int escolha;
@@ -89,15 +81,51 @@ void Interface::menu_administrador(std::vector<Aluno>& alunos, std::vector<Profe
     } while (escolha != 5); // Continue o loop até que a opção 5 (Voltar) seja escolhida
 }
 
-void Interface::menu_professor(){
-    std::cout << "Escolha uma opcao:" << std::endl;
+void Interface::menu_professor( Professor& professor){
+// Exiba as opções do menu
+    std::cout << "Escolha uma opção:" << std::endl;
     std::cout << "1 - Cadastrar Evento" << std::endl;
     std::cout << "2 - Editar Evento" << std::endl;
     std::cout << "3 - Excluir Evento" << std::endl;
     std::cout << "4 - Pesquisar Evento" << std::endl;
     std::cout << "5 - Listar Eventos" << std::endl;
     std::cout << "6 - Voltar" << std::endl;
-}
+
+    // Leia a opção do usuário
+    int opcao;
+    std::cin >> opcao;
+
+    // Execute a ação correspondente à opção selecionada
+    switch (opcao) {
+      case 1:
+        // Cadastrar evento
+        professor_criar_evento(professor);
+        break;
+      case 2:
+        // Editar evento
+        professor_editar_evento(professor);
+        break;
+      case 3:
+        // Excluir evento
+        professor_excluir_evento(professor);
+        break;
+      case 4:
+        // Pesquisar evento
+        professor_pesquisar_evento(professor);
+        break;
+      case 5:
+        // Listar eventos
+        professor_listar_eventos(professor);
+        break;
+      case 6:
+        menu_professor(professor);// Voltar
+      default:
+        // Opção inválida
+        std::cout << "Opção inválida." << std::endl;
+    }
+  }
+
+
 
 void Interface::menu_aluno(){
     std::cout << "Escolha uma opcao:" << std::endl;
@@ -168,7 +196,7 @@ void Interface::realizar_login(Aluno& aluno, Professor& professor, Administrador
     // Verifique o login para Professor
     if (professor.fazer_login(id, senha)) {
         std::cout << "Login bem-sucedido para o professor " << professor.get_id() << std::endl;
-        menu_professor();
+        menu_professor(professor);
         return;
     }
 
@@ -183,12 +211,12 @@ void Interface::realizar_login(Aluno& aluno, Professor& professor, Administrador
     std::cout << "Credenciais de login inválidas." << std::endl;
     char resposta;
     std::cout << "Esqueceu sua senha ?" << std::endl;
-    std::cout << "Digite (s) para sim , caso contrario sera direcionado ao menu principal ?" << std::endl;
+    std::cout << "Digite (s) para sim , caso contrario sera direcionado ao menu principal !" << std::endl;
     if(resposta == 's' || resposta == 'S'){
         recuperar_senha(aluno, professor ,administrador);
     }
     else {
-        menu_principal();
+        menu_principal(aluno, professor, administrador, alunos, professores);
     }
 
 }
@@ -220,7 +248,7 @@ void recuperar_senha(Aluno& aluno, Professor& professor, Administrador& administ
 }
 
 
-void Interface::cadastrar_usuario() {
+void Interface::cadastrar_usuario(Aluno& aluno, Professor& professor, Administrador& administrador, std::vector<Aluno>& alunos, std::vector<Professor>& professores) {
     int opcao;
     std::cout << "Escolha uma opção de cadastro:" << std::endl;
     std::cout << "1 - Administrador" << std::endl;
@@ -246,7 +274,7 @@ void Interface::cadastrar_usuario() {
             cadastrar_aluno();
             break;
         case 4:
-            menu_principal();
+            menu_principal(aluno, professor, administrador, alunos, professores);
             break;
         default:
             std::cout << "Opção inválida." << std::endl;
@@ -334,6 +362,7 @@ void Interface::excluir_professor(std::vector<Professor>& professores) {
 }
 
 void Interface::excluir_aluno(std::vector<Aluno>& alunos) {
+
     std::string id_aluno;
     std::cout << "Digite o ID do aluno a ser excluído: ";
     std::cin >> id_aluno;
@@ -346,5 +375,212 @@ void Interface::excluir_aluno(std::vector<Aluno>& alunos) {
         std::cout << "Aluno excluído com sucesso." << std::endl;
     } else {
         std::cout << "Aluno não encontrado." << std::endl;
+    }
+}
+
+    
+void Interface::professor_criar_evento(Professor& professor){
+    std::string tipo, titulo, descricao, data, hora, local, criador;
+
+    // Pedir ao usuário para inserir informações
+    std::cout << "Digite o tipo: "; std::cin >> tipo;
+    std::cout << "Digite o titulo: "; std::cin >> titulo;
+    std::cout << "Digite a descricao: "; std::cin >> descricao;
+    std::cout << "Digite a data: "; std::cin >> data;
+    std::cout << "Digite a hora: "; std::cin >> hora;
+    std::cout << "Digite o local: "; std::cin >> local;
+
+    // Criar uma instância de Evento com as informações inseridas
+    Evento novoEvento(tipo, titulo, descricao, data, hora, local, professor.get_nome());
+
+    professor.criarEvento(novoEvento);
+
+}
+
+void Interface::professor_editar_evento(Professor& professor) {
+    // Listar os eventos existentes
+    professor.listarEventosTodos();
+
+    // Pedir ao usuário para escolher um evento
+    std::cout << "Digite o título do evento que deseja editar: ";
+    std::string tituloEscolhido;
+    std::cin >> tituloEscolhido;
+
+    // Criar uma instância temporária do evento com o título escolhido
+    Evento eventoEscolhido(tituloEscolhido, "", "", "", "", "", "");
+
+    // Encontrar o evento pelo título
+    auto it = std::find_if(professor.getEventos().begin(), professor.getEventos().end(),[tituloEscolhido](const Evento& evento) {return evento.getTitulo() == tituloEscolhido;});
+
+    if (it != professor.getEventos().end()) {
+        // Evento encontrado, permitir ao usuário escolher o que editar
+        std::cout << "Escolha o que deseja editar:\n";
+        std::cout << "1 - Título\n";
+        std::cout << "2 - Descrição\n";
+        std::cout << "3 - Data\n";
+        std::cout << "4 - Hora\n";
+        std::cout << "5 - Local\n";
+        std::cout << "0 - Cancelar\n";
+
+        int opcao;
+        std::cin >> opcao;
+
+        switch (opcao) {
+            case 1: {
+                std::string novoTitulo;
+                std::cout << "Novo título: ";
+                std::cin >> novoTitulo;
+                it->setTitulo(novoTitulo);
+                break;
+            }
+            case 2: {
+                std::string novaDescricao;
+                std::cout << "Nova descrição: ";
+                std::cin >> novaDescricao;
+                it->setDescricao(novaDescricao);
+                break;
+            }
+            case 3: {
+                std::string novaData;
+                std::cout << "Nova data: ";
+                std::cin >> novaData;
+                it->setData(novaData);
+                break;
+            }
+            case 4: {
+                std::string novaHora;
+                std::cout << "Nova hora: ";
+                std::cin >> novaHora;
+                it->setHora(novaHora);
+                break;
+            }
+            case 5: {
+                std::string novoLocal;
+                std::cout << "Novo local: ";
+                std::cin >> novoLocal;
+                it->setLocal(novoLocal);
+                break;
+            }
+            case 0: {
+                std::cout << "Edição cancelada.\n";
+                break;
+            }
+            default: {
+                std::cout << "Opção inválida.\n";
+                break;
+            }
+        }
+    } else {
+        std::cout << "Evento não encontrado.\n";
+    }
+}
+
+void Interface::professor_excluir_evento(Professor& professor) {
+    // Listar os eventos existentes
+    professor.listarEventosTodos();
+
+    // Pedir ao usuário para escolher um evento para excluir
+    std::cout << "Digite o título do evento que deseja excluir: ";
+    std::string tituloEscolhido;
+    std::cin >> tituloEscolhido;
+
+    // Criar um evento temporário apenas para realizar a comparação
+    Evento eventoTemporario(tituloEscolhido, "", "", "", "", "", "");
+
+    // Excluir o evento
+    professor.excluirEvento(eventoTemporario);
+}
+
+void Interface::professor_pesquisar_evento(Professor& professor) {
+    // Exiba as opções para o tipo de pesquisa
+    std::cout << "Escolha o tipo de pesquisa:" << std::endl;
+    std::cout << "1 - Pesquisar por Tipo" << std::endl;
+    std::cout << "2 - Pesquisar por Data" << std::endl;
+    std::cout << "3 - Pesquisar por Título" << std::endl;
+    std::cout << "0 - Cancelar" << std::endl;
+
+    // Leia a opção do usuário
+    int opcao;
+    std::cin >> opcao;
+
+    switch (opcao) {
+        case 1: {
+            // Pesquisar por Tipo
+            std::string tipo;
+            std::cout << "Digite o tipo: ";
+            std::cin >> tipo;
+            professor.listarEventosTipo(tipo);
+            break;
+        }
+        case 2: {
+            // Pesquisar por Data
+            std::string data;
+            std::cout << "Digite a data: ";
+            std::cin >> data;
+            professor.pesquisarEventoPorData(data);
+            break;
+        }
+        case 3: {
+            // Pesquisar por Título
+            std::string titulo;
+            std::cout << "Digite o título: ";
+            std::cin >> titulo;
+            professor.pesquisarEventoPorTitulo(titulo);
+            break;
+        }
+        case 0: {
+            // Cancelar
+            std::cout << "Operação cancelada." << std::endl;
+            break;
+        }
+        default: {
+            // Opção inválida
+            std::cout << "Opção inválida." << std::endl;
+            break;
+        }
+    }
+}
+
+void Interface::professor_listar_eventos(Professor& professor) {
+    // Exiba as opções para o tipo de listagem
+    std::cout << "Escolha o tipo de listagem:" << std::endl;
+    std::cout << "1 - Listar Todos os Eventos" << std::endl;
+    std::cout << "2 - Listar Eventos por Dia" << std::endl;
+    std::cout << "3 - Listar Meus Eventos" << std::endl;
+    std::cout << "0 - Cancelar" << std::endl;
+
+    // Leia a opção do usuário
+    int opcao;
+    std::cin >> opcao;
+
+    switch (opcao) {
+        case 1: {
+            // Listar Todos os Eventos
+            professor.listarEventosTodos();
+            break;
+        }
+        case 2: {
+            // Listar Eventos por Dia
+            std::string data;
+            std::cout << "Digite a data: ";
+            std::cin >> data;
+            professor.listarEventosDia(data);
+            break;
+        }
+        case 3: {
+            // Listar Meus Eventos
+            professor.listarMeusEventos();
+            break;
+        }
+        case 0: {
+            // Cancelar
+            std::cout << "Operação cancelada." << std::endl;
+            break;
+        }
+        default: {
+            // Opção inválida
+            std::cout << "Opção inválida." << std::endl;
+            break;
+        }
     }
 }
