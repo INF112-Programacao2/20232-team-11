@@ -125,8 +125,6 @@ void Interface::menu_professor( Professor& professor){
     }
   }
 
-
-
 void Interface::menu_aluno(){
     std::cout << "Escolha uma opcao:" << std::endl;
     std::cout << "1 - Cadastrar Evento" << std::endl;
