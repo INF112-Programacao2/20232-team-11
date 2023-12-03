@@ -5,7 +5,6 @@
 #include <iostream>
 
 Professor::Professor(const std::string nome, const std::string& id, const std::string& senha) : Usuario(nome, id, senha){}
-Professor::Professor() : Usuario() {}
 
 Professor::~Professor(){}
 

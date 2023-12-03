@@ -3,7 +3,6 @@
 #include <iostream>
 
 Aluno::Aluno(const std::string nome, const std::string id, const std::string senha, const std::string matricula) : Usuario(nome, id, senha), _matricula(matricula){}
-Aluno::Aluno() : Usuario("", "", ""), _matricula(""){};
 Aluno::~Aluno(){}
 
 std::string Aluno::get_matricula() const{

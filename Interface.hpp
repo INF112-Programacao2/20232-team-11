@@ -21,8 +21,11 @@ private:
     void executar_opcao(int opcao);
     void realizar_login(Aluno& aluno, Professor& professor, Administrador& administrador, std::vector<Aluno>& alunos, std::vector<Professor>& professores);
     Administrador cadastrar_administrador();
-    Professor cadastrar_professor();
-    Aluno cadastrar_aluno();
+    Professor cadastrar_professor(std::vector<Professor>& professores);
+    Aluno cadastrar_aluno(std::vector<Aluno>& alunos);
+        // Função privada para adicionar um usuário ao vetor apropriado
+    template<typename UserType>
+    void adicionar_usuario(std::vector<UserType>& users, const UserType& user);
     
 public:
     void menu_principal(Aluno& aluno, Professor& professor, Administrador& administrador, std::vector<Aluno>& alunos, std::vector<Professor>& professores);

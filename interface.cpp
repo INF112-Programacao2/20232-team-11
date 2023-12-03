@@ -21,6 +21,7 @@ void Interface::menu_principal(Aluno& aluno, Professor& professor, Administrador
         case 1:
             std::cout << "Cadastrar" << std::endl;
             cadastrar_usuario(aluno, professor, administrador, alunos, professores);
+            realizar_login(aluno, professor, administrador, alunos, professores);
             std::cout << std::endl;
             break;
         case 2:
@@ -54,28 +55,34 @@ void Interface::menu_administrador(std::vector<Aluno>& alunos, std::vector<Profe
         switch (escolha) {
             case 1:
                 // Chamar a função para cadastrar professor
-                cadastrar_professor();
+                cadastrar_professor(professores);
+                menu_administrador(alunos , professores);
                 break;
 
             case 2:
                 // Chamar a função para cadastrar aluno
-                cadastrar_aluno();
+                cadastrar_aluno(alunos);
+                menu_administrador(alunos , professores);
                 break;
 
             case 3:
                 excluir_professor(professores);
+                menu_administrador(alunos , professores);
                 break;
             case 4:
                 excluir_aluno(alunos);
+                menu_administrador(alunos , professores);
                 break;
             case 5:
                 // Opção para voltar
-                std::cout << "Voltando ao menu principal." << std::endl;
+                std::cout << "Voltando ao menu principal do administrador." << std::endl;
+                menu_administrador(alunos , professores);
                 break;
 
             default:
                 // Mensagem de erro para opções inválidas
                 std::cout << "Opcao invalida. Tente novamente." << std::endl;
+                menu_administrador(alunos , professores);
                 break;
         }
 
@@ -101,28 +108,34 @@ void Interface::menu_professor( Professor& professor){
       case 1:
         // Cadastrar evento
         professor_criar_evento(professor);
+        menu_professor(professor);
         break;
       case 2:
         // Editar evento
         professor_editar_evento(professor);
+        menu_professor(professor);
         break;
       case 3:
         // Excluir evento
         professor_excluir_evento(professor);
+        menu_professor(professor);
         break;
       case 4:
         // Pesquisar evento
         professor_pesquisar_evento(professor);
+        menu_professor(professor);
         break;
       case 5:
         // Listar eventos
         professor_listar_eventos(professor);
+        menu_professor(professor);
         break;
       case 6:
         menu_professor(professor);// Voltar
       default:
         // Opção inválida
-        std::cout << "Opção inválida." << std::endl;
+        std::cout << "Opção inválida, voce voltara ao menu do professor." << std::endl;
+        menu_professor(professor);
     }
   }
 
@@ -145,73 +158,36 @@ void Interface::menu_aluno( Aluno& aluno){
       case 1:
         // Cadastrar evento
         aluno_criar_evento(aluno);
+        menu_aluno(aluno);
         break;
       case 2:
         // Editar evento
         aluno_editar_evento(aluno);
+        menu_aluno(aluno);
         break;
       case 3:
         // Excluir evento
         aluno_excluir_evento(aluno);
+        menu_aluno(aluno);
         break;
       case 4:
         // Pesquisar evento
         aluno_pesquisar_evento(aluno);
+        menu_aluno(aluno);
         break;
       case 5:
         // Listar eventos
         aluno_listar_eventos(aluno);
+        menu_aluno(aluno);
         break;
       case 6:
         menu_aluno(aluno);// Voltar
       default:
         // Opção inválida
         std::cout << "Opção inválida." << std::endl;
+        menu_aluno(aluno);
     }
   }
-
-void Interface::menu_evento(){
-    std::cout << "Escolha uma opcao:" << std::endl;
-    std::cout << "1 - Titulo" << std::endl;
-    std::cout << "2 - Data" << std::endl;
-    std::cout << "3 - Voltar" << std::endl;
-}
-
-void Interface::menu_pesquisa(){
-    std::cout << "Escolha uma opcao:" << std::endl;
-    std::cout << "1 - Titulo" << std::endl;
-    std::cout << "2 - Data" << std::endl;
-    std::cout << "3 - Voltar" << std::endl;
-}
-
-void Interface::menu_edicao(){
-    std::cout << "Escolha uma opcao:" << std::endl;
-    std::cout << "1 - Titulo" << std::endl;
-    std::cout << "2 - Data" << std::endl;
-    std::cout << "3 - Voltar" << std::endl;
-}
-
-void Interface::menu_exclusao(){
-    std::cout << "Escolha uma opcao:" << std::endl;
-    std::cout << "1 - Titulo" << std::endl;
-    std::cout << "2 - Data" << std::endl;
-    std::cout << "3 - Voltar" << std::endl;
-}
-
-void Interface::menu_listagem(){
-    std::cout << "Escolha uma opcao:" << std::endl;
-    std::cout << "1 - Listar Todos" << std::endl;
-    std::cout << "2 - Listar por Data" << std::endl;
-    std::cout << "3 - Listar por Titulo" << std::endl;
-    std::cout << "4 - Voltar" << std::endl;
-}
-
-void Interface::menu_listagem_data(){
-    std::cout << "Escolha uma opcao:" << std::endl;
-    std::cout << "1 - Listar por Data" << std::endl;
-    std::cout << "2 - Voltar" << std::endl;
-}
-
 
 void Interface::solicitar_e_recuperar_senha(std::vector<Aluno>& alunos, std::vector<Professor>& professores, Administrador& administrador) {
     std::string id;
@@ -269,7 +245,7 @@ void Interface::recuperar_senha(UserType& user) {
 void Interface::realizar_login(Aluno& aluno, Professor& professor, Administrador& administrador, std::vector<Aluno>& alunos, std::vector<Professor>& professores) {
     std::string id, senha;
 
-    std::cout << "Informe o ID: ";
+    std::cout << "Informe o ID para realizar o login: ";
     std::cin >> id;
 
     std::cout << "Informe a senha: ";
@@ -302,6 +278,7 @@ void Interface::realizar_login(Aluno& aluno, Professor& professor, Administrador
     std::cin >> resposta;
     if (resposta == 's' || resposta == 'S') {
         solicitar_e_recuperar_senha(alunos, professores, administrador);
+        realizar_login(aluno, professor , administrador , alunos , professores);
     } else {
         menu_principal(aluno, professor, administrador, alunos, professores);
     }
@@ -330,10 +307,10 @@ void Interface::cadastrar_usuario(Aluno& aluno, Professor& professor, Administra
             }
             break;
         case 2:
-            cadastrar_professor();
+            cadastrar_professor(professores);
             break;
         case 3:
-            cadastrar_aluno();
+            cadastrar_aluno(alunos);
             break;
         case 4:
             menu_principal(aluno, professor, administrador, alunos, professores);
@@ -343,6 +320,11 @@ void Interface::cadastrar_usuario(Aluno& aluno, Professor& professor, Administra
             menu_principal(aluno, professor, administrador, alunos, professores);
             break;
     }
+}
+
+template<typename UserType>
+void Interface::adicionar_usuario(std::vector<UserType>& users, const UserType& user) {
+    users.push_back(user);
 }
 
 Administrador Interface::cadastrar_administrador() {
@@ -364,9 +346,8 @@ Administrador Interface::cadastrar_administrador() {
     return novo_administrador;
 }
 
-Professor Interface::cadastrar_professor() {
-    std::string id, senha , nome;
-
+Professor Interface::cadastrar_professor(std::vector<Professor>& professores) {
+    std::string id, senha, nome;
     std::cout << "Informe o ID do professor: ";
     std::cin >> id;
 
@@ -377,18 +358,17 @@ Professor Interface::cadastrar_professor() {
     std::cin >> nome;
 
     // Criar uma nova instância de Professor
-    Professor novo_professor(nome , id, senha);
+    Professor novo_professor(nome, id, senha);
 
-    // Definir a flag como true
-    administradorCadastrado = true;
+    // Adicionar o novo professor ao vetor de professores
+    adicionar_usuario(professores, novo_professor);
 
     // Retornar o novo objeto Professor
     return novo_professor;
 }
 
-Aluno Interface::cadastrar_aluno() {
-    std::string id, senha, matricula , nome;
-
+Aluno Interface::cadastrar_aluno(std::vector<Aluno>& alunos) {
+    std::string id, senha, matricula, nome;
     std::cout << "Informe o ID do aluno: ";
     std::cin >> id;
 
@@ -397,15 +377,18 @@ Aluno Interface::cadastrar_aluno() {
 
     std::cout << "Informe a matrícula do aluno: ";
     std::cin >> matricula;
-    
+
     std::cout << "Informe o nome do aluno: ";
     std::cin >> nome;
 
     // Criar uma nova instância de Aluno
-    Aluno novoAluno(nome, id, senha, matricula);
+    Aluno novo_aluno(nome, id, senha, matricula);
+
+    // Adicionar o novo aluno ao vetor de alunos
+    adicionar_usuario(alunos, novo_aluno);
 
     // Retornar o novo objeto Aluno
-    return novoAluno;
+    return novo_aluno;
 }
 
 void Interface::excluir_professor(std::vector<Professor>& professores) {

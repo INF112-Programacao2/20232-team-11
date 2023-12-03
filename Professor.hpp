@@ -16,7 +16,6 @@ private:
     void criarEventoTurma(const std::string& tipo, const std::string& titulo, const std::string& descricao, const std::string& data, const std::string& hora, const std::string& local, const std::string& criador);
 public:
     Professor(const std::string nome, const std::string& id, const std::string& senha);
-    Professor();
     ~Professor();
     std::string get_senha() const override;
     std::string get_id() const override;
