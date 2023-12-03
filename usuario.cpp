@@ -16,7 +16,7 @@ std::string Usuario::get_nome() const {
     return _nome;
 }
 
-void Usuario::alterar_senha(const std::string& senha) {
+void Usuario::alterar_senha(const std::string& senha)  {
     _senha = senha;
 }
 

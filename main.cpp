@@ -5,6 +5,7 @@
 #include "Evento.hpp"
 #include "Calendario.hpp"
 #include "Notificacoes.hpp"
+#include "Interface.hpp"
 
 
 #include <iostream>
@@ -13,13 +14,28 @@
 
 
 int main(){
+    Interface interface;
 
     std::vector<Usuario*> usuarios;
     std::vector<Evento*> eventos;
 
+    Aluno aluno("Jose", "ze", "aluno", "123");
+    Professor professor("Joao", "prof", "prof");
+    Administrador administrador("Admin", "admin", "admin");
+
+    // Create vectors to store multiple instances
+    std::vector<Aluno> alunos;
+    std::vector<Professor> professores;
+
+    // Add some initial data to the vectors (optional)
+    alunos.push_back(aluno);
+    professores.push_back(professor);
+
     Calendario calendario;
 
-    Usuario* usuario = new Administrador("joao","admin", "admin");
+     interface.menu_principal(aluno, professor, administrador, alunos, professores);
+
+  /*  Usuario* usuario = new Administrador("joao","admin", "admin");
     Usuario* usuario2 = new Aluno("Maria", "aluno", "aluno" , "123");
     Usuario* usuario3 = new Professor("Joseph", "professor", "professor");
 
@@ -38,6 +54,7 @@ int main(){
     calendario.adicionarEvento(*evento);
     calendario.adicionarEvento(*evento2);
     calendario.adicionarEvento(*evento3);
+    */
     //Calendario.listarEventosTodos();
 
     // Calendario.excluirEvento(*evento, "admin");
@@ -60,7 +77,7 @@ int main(){
 
     // notificacao.exibirNotificacao(eventos);
 
-    for(int i = 0; i < eventos.size(); i++){
+   /* for(int i = 0; i < eventos.size(); i++){
         delete &eventos[i];
     }
 
@@ -68,6 +85,6 @@ int main(){
     delete usuario2;
     delete usuario3;
 
-
+    */
     return 0;
 }

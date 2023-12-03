@@ -40,6 +40,7 @@ bool Notificacao::verificarDataHora(const std::vector<Evento>& eventos) {
             std::cout << "Data ou hora invalida!" << std::endl;     // Caso a leitura falhe
             return false;       
         }
+
         std::time_t dataHoraAtual = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());     // Pega a data e hora atual
         std::time_t dataHoraEvento = std::mktime(&tempo);       // Pega a data e hora do evento
 
@@ -47,6 +48,9 @@ bool Notificacao::verificarDataHora(const std::vector<Evento>& eventos) {
             return true;        // Caso a data e hora do evento seja igual a data e hora atual
         }
     }
+
+    // Se nenhum evento corresponder à data e hora atual, retorna falso
+    return false;
 }
 
 //métodos para verificar se o evento é uma semana antes
@@ -66,8 +70,10 @@ bool Notificacao::umaSemanaAntes(const std::vector<Evento>& eventos) {
 
         if(dataHoraEvento - dataHoraAtual == 604800) {      // Verifica se a data e hora do evento é igual a data e hora atual conversando para segundos (604800 segundos = 1 semana =  (7 dias * 24 horas * 60 minutos * 60 segundos)))
             return true;
-        }
+        }        
     }
+
+    return false;
 }
 
 //métodos para verificar se o evento é três dias antes
@@ -89,6 +95,8 @@ bool Notificacao::tresDiasAntes(const std::vector<Evento>& eventos) {
             return true;
         }
     }
+    
+    return false;
 }
 
 //métodos para verificar se o evento é um dia antes
@@ -110,6 +118,8 @@ bool Notificacao::umDiaAntes(const std::vector<Evento>& eventos) {
             return true;
         }
     }
+
+    return false;
 }
 
 //métodos para verificar se o evento é uma hora antes
@@ -131,6 +141,8 @@ bool Notificacao::umaHoraAntes(const std::vector<Evento>& eventos) {
             return true;
         }
     }
+    
+    return false;
 }
 
 //métodos para verificar se o evento é quinze minutos antes
@@ -152,6 +164,8 @@ bool Notificacao::quinzeMinutosAntes(const std::vector<Evento>& eventos) {
             return true;
         }
     }
+
+    return false;
 }
 
 //método para exibir a notificação

@@ -36,6 +36,8 @@ public:
     void listarEventosTodos() const;
     void listarEventosDia(const std::string& data);
     void listarMeusEventos() const;
+
+    bool operator==(const Professor& other) const;
 };
    
 

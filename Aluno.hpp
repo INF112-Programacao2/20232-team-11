@@ -14,19 +14,21 @@ class Aluno : public Usuario{
 private:
     std::string _matricula;
     std::vector<Evento> _eventos; // Eventos criados pelo aluno
+    Calendario _calendario;           // Instância de Calendario
     
 public:
     Aluno(const std::string nome,const std::string id, const std::string senha, const std::string matricula);
     ~Aluno();
     std::string get_matricula() const;
     std::string get_id() const override;
+    std::vector<Evento>& getEventos() ;
     
     // Sobrescreve o método criarEvento para adicionar eventos ao calendário
-    void criarEvento(Calendario& calendario, const Evento& evento) ;
+    void criarEvento(const Evento& evento) ;
 
     // Sobrescreva o método alterar_senha para permitir apenas ao aluno mudar sua própria senha
-    void alterar_senha(const std::string& senha) override;
-    void cadastrar() override; // Sobrescreve a função cadastrar da classe bases
+    void alterar_senha(const std::string& senha)  override ;
+    //void cadastrar() override; // Sobrescreve a função cadastrar da classe bases
 
     // Função para "excluir" o aluno
     void inativar() override;
@@ -36,6 +38,20 @@ public:
 
     // Função para "excluir" o aluno
     void excluir(std::vector<Aluno>& alunos);
+
+    void adicionarEvento(const Evento& evento);
+    void excluirEvento(const Evento& evento);
+    void editarEvento(const Evento& evento);
+    void pesquisarEventoPorTitulo(const std::string& titulo);
+    void listarEventosTipo(const std::string& tipo);
+    void pesquisarEventoPorData(const std::string& data);
+    void listarEventosTodos() const;
+    void listarEventosDia(const std::string& data);
+    void listarMeusEventos() const;
+
+     bool operator==(const Aluno& other) const;
+
+    
 
 };
 

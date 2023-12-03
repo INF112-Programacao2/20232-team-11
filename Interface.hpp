@@ -2,6 +2,7 @@
 #define INTERFACE_HPP
 
 #include <string>
+#include <vector>
 
 // Declaração avançada para evitar dependências cíclicas
 class Aluno;
@@ -13,17 +14,16 @@ private:
     bool administradorCadastrado = false;
     void executar_opcao(int opcao);
     void recuperar_senha(Aluno& aluno, Professor& professor, Administrador& administrador);
-    void realizar_login(Aluno& aluno, Professor& professor , Administrador& administrador ,std::vector<Aluno>& alunos, std::vector<Professor>& professores);
-    void excluir_aluno(std::vector<Aluno>& alunos);
-    Aluno& escolher_aluno();
+    void realizar_login(Aluno& aluno, Professor& professor, Administrador& administrador, std::vector<Aluno>& alunos, std::vector<Professor>& professores);
     Administrador cadastrar_administrador();
     Professor cadastrar_professor();
     Aluno cadastrar_aluno();
+    
 public:
     void menu_principal(Aluno& aluno, Professor& professor, Administrador& administrador, std::vector<Aluno>& alunos, std::vector<Professor>& professores);
     void menu_administrador(std::vector<Aluno>& alunos, std::vector<Professor>& professores);
     void menu_professor(Professor& professor);
-    void menu_aluno();
+    void menu_aluno(Aluno& aluno);
     void menu_evento();
     void menu_pesquisa();
     void menu_edicao();
@@ -38,6 +38,16 @@ public:
     void professor_excluir_evento(Professor& professor);
     void professor_pesquisar_evento(Professor& professor);
     void professor_listar_eventos(Professor& professor);
+
+    
+
+    
+    
+    void aluno_criar_evento(Aluno& aluno);
+    void aluno_editar_evento(Aluno& aluno);
+    void aluno_excluir_evento(Aluno& aluno);
+    void aluno_pesquisar_evento(Aluno& aluno);
+    void aluno_listar_eventos(Aluno& aluno);
     
 
 };

@@ -40,19 +40,9 @@ void Professor::alterar_senha(const std::string& senha) {
 
 // Função para "excluir" o aluno
 void Professor::excluir(std::vector<Professor>& professores) {
-    // Encontrar o iterador para o aluno no vetor
     auto it = std::find(professores.begin(), professores.end(), *this);
-
     if (it != professores.end()) {
-        // Remover o aluno do vetor
         professores.erase(it);
-
-        // Marcar o aluno como inativo
-        Usuario::inativar();
-
-        std::cout << "Professor excluído com sucesso." << std::endl;
-    } else {
-        std::cout << "Professor não encontrado." << std::endl;
     }
 }
 void Professor::adicionarEvento(const Evento& evento) {
@@ -89,4 +79,10 @@ void Professor::listarEventosDia(const std::string& data) {
 
 void Professor::listarMeusEventos() const {
     _calendario.listarMeusEventos(get_id());
+}
+
+bool Professor::operator==(const Professor& other) const {
+    return (this->get_id() == other.get_id()) &&
+           (this->get_senha() == other.get_senha()) &&
+           (this->get_nome() == other.get_nome());
 }
