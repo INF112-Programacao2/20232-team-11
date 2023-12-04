@@ -4,7 +4,7 @@
 #include "Adminitrador.hpp"
 #include "Evento.hpp"
 #include "Calendario.hpp"
-#include "Notificacoes.hpp"
+#include "Notificacao.hpp"
 
 #include <iostream>
 #include <string>
