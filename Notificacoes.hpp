@@ -12,18 +12,11 @@
 #include "Calendario.hpp"
 #include "Usuario.hpp"
 
-// enum TipoEvento {
-//     PROVA,
-//     TRABALHO,
-//     APRESENTACAO,
-//     OUTRO,
-// };
-
 class Notificacao {
 private:
-    std::string _mensagem;
-    std::string _data;
-    std::string _hora;
+    std::string _mensagem;  //variavel para armazenar a mensagem
+    std::string _data;    //variavel para armazenar a data
+    std::string _hora;  //variavel para armazenar a hora
 
 public:
     Notificacao();      // Construtor
@@ -37,9 +30,8 @@ public:
     void setMensagem(const std::string& mensagem);
     void setData(const std::string& data);
     void setHora(const std::string& hora);
-    bool verificarDataHora(const std::vector<Evento>& eventos);
     bool umaSemanaAntes(const std::vector<Evento>& eventos);
-    bool tresDiasAntes(const std::vector<Evento>& eventos);
+    bool tresDiasAntes(const Evento& eventos);
     bool umDiaAntes(const std::vector<Evento>& eventos);
     bool umaHoraAntes(const std::vector<Evento>& eventos);
     bool quinzeMinutosAntes(const std::vector<Evento>& eventos);

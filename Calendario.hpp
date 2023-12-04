@@ -8,7 +8,8 @@
 
 class Calendario {
 private:
-    std::vector<Evento> eventos;
+    std::vector<Evento> eventos;  //vetor de eventos para armazenar os eventos
+    std::vector<Usuario> usuarios; //vetor de usuarios para armazenar os usuarios
 
 public:
     Calendario();   // Construtor
@@ -16,14 +17,16 @@ public:
 
     // Métodos
     void adicionarEvento(const Evento& evento);
-    void excluirEvento(const Evento& evento, const std::string& id);
-    void editarEvento(const Evento& evento, const std::string& id);
-    void pesquisarEventoPorTitulo(const std::string& titulo);
-    void pesquisarEventoPorData(const std::string& data);
-    void listarEventosTodos()const ;
-    void listarEventosTipo(const std::string& tipo);
-    void listarEventosDia(const std::string& data);
-    void listarMeusEventos(const std::string& id) const ;
+    void excluirEvento(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
+    void editarEvento(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
+    void pesquisarEventoPorTitulo(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
+    void pesquisarEventoPorData(std::vector<Evento>& eventos);
+    void pesquisarEventoPorTipo(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
+    void listarEventosTodos(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
+    void listarEventosTipo(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
+    void listarMeusEventos(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
+    std::vector<Evento> getEventos() const;
+    void imprimirEvento(const Evento& evento);
 };
 
 #endif

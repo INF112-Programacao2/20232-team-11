@@ -3,10 +3,11 @@
 
 #include "Usuario.hpp"
 
+//classe administrador
 class Administrador : public Usuario {
 public:
-    Administrador(const std::string nome, const std::string& id, const std::string& senha);         // Construtor
-    ~Administrador();                                 // Destrutor
+    Administrador(const std::string& tipo, const std::string& id, const std::string& senha);  // Construtor
+    ~Administrador();    // Destrutor
 };
 
 #endif

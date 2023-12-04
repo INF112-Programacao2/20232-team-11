@@ -1,3 +1,4 @@
+/*
 #include "Interface.hpp"
 #include "Aluno.hpp"
 #include "Professor.hpp"
@@ -847,3 +848,4 @@ void Interface::aluno_listar_eventos(Aluno& aluno) {
         }
     }
 }
+*/

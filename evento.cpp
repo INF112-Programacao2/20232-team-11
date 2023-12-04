@@ -1,9 +1,12 @@
 #include "Evento.hpp"
 
-Evento::Evento(const std::string& tipo, const std::string& titulo, const std::string& descricao, const std::string& data, const std::string& hora, const std::string& local, const std::string& criador) : _titulo(titulo), _descricao(descricao), _data(data), _hora(hora), _local(local), _criador(criador) {}
+Evento::Evento(){}  // Construtor
 
-Evento::~Evento() {}
+Evento::Evento(const std::string &tipo, const std::string &titulo, const std::string &descricao, const std::string &data, const std::string &hora, const std::string &local, const std::string &criador, const std::string id) : _tipo(tipo), _titulo(titulo), _descricao(descricao), _data(data), _hora(hora), _local(local), _criador(criador), _id(id) {}    // Construtor
 
+Evento::~Evento() {}    // Destrutor
+
+//metodos get
 std::string Evento::getTipo() const {
     return _tipo;
 }
@@ -32,6 +35,11 @@ std::string Evento::getCriador() const {
     return _criador;
 }
 
+std::string Evento::getId() const {
+    return _id;
+}
+
+// Métodos set
 void Evento::setTipo(const std::string& tipo) {
     _tipo = tipo;
 }
