@@ -157,7 +157,7 @@ void Calendario::editarEvento() {        // Edita o evento
 
             
             remove("eventos.txt"); //remove o arquivo original
-            rename("temp.txt", "eventos.txt"); //renomeia o arquivo temporário para o nome do arquivo original
+            rename("temporario.txt", "eventos.txt"); //renomeia o arquivo temporário para o nome do arquivo original
 
             std::cout << "Evento editado com sucesso!" << std::endl;
             eventoEncontrado = true;    // Caso existam, a variavel recebe true
