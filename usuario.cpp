@@ -16,7 +16,6 @@ void Usuario::criarUsuario(std::vector<Usuario>& usuarios){
     std::cout << "=========CRIANDO USUARIO=========\n";
     std::cout << "Digite o número de usuários que deseja criar: ";
     std::cin >> numUsuarios;    //le o numero de usuarios que o usuario deseja criar
-    std::cin.ignore();  //ignora o enter
 
     std::ifstream arquivo("usuarios.txt"); // Abre o arquivo para leitura
 
@@ -44,6 +43,7 @@ void Usuario::criarUsuario(std::vector<Usuario>& usuarios){
 
         std::cout << "Criação de usuário n°" << i + 1 << std::endl;
         std::cout << "Digite o tipo de usuário (ADMIN, PROF, ALUNO): ";
+        std::cin.ignore();
         std::getline(std::cin, tipo);  //le o tipo do usuario
 
         if(tipo != "ADMIN" && tipo != "PROF" && tipo != "ALUNO"){
@@ -232,6 +232,7 @@ bool Usuario::fazerLogin(){
     std::string id, senha;  //variaveis para armazenar o id e a senha do usuario
     std::cout << "=========LOGIN=========\n";
     std::cout << "Digite seu ID: ";
+    std::cin.ignore();
     std::getline(std::cin, id);  //le o id do usuario
     std::cout << "Digite sua senha: ";
     std::getline(std::cin, senha);  //le a senha do usuario

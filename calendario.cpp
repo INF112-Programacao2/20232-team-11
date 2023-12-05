@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstdlib>
 #include "Evento.hpp"
 
 Calendario::Calendario() {}     // Construtor
@@ -13,11 +14,11 @@ void Calendario::excluirEvento() {
     std::cout << "==============EXCLUINDO EVENTO==============\n";
     std::string tipoUsuario, id, titulo;    // Variaveis para armazenar o tipo de usuario, o id e o titulo do evento
     std::cout << "Digite o seu tipo de usuario (ADMIN - PROF - ALUNO): ";
+    std::getline(std::cin, tipoUsuario);    // Recebe o tipo de usuario
     if(tipoUsuario != "ADMIN" && tipoUsuario != "PROF" && tipoUsuario != "ALUNO") {    // Verifica se o tipo de usuario e valido
         std::cout << "Tipo de usuario invalido!" << std::endl;
         return; // sai da funcao
     }
-    std::getline(std::cin, tipoUsuario);    // Recebe o tipo de usuario
     std::cout << "Digite o titulo do evento a ser excluido: ";
     std::getline(std::cin, titulo);    // Recebe o titulo do evento
     std::cout << "Digite o seu ID de usuario: ";
@@ -78,26 +79,28 @@ void Calendario::excluirEvento() {
 }
 
 // Métodos para editar eventos
-void Calendario::editarEvento() {        // Edita o evento
+void Calendario::editarEvento() {        
     std::cout << "==============EDITANDO EVENTO==============\n";
-    std::string id, titulo, tipo, descricao, data, hora, local;    // Variaveis para armazenar o id, o titulo, o tipo, a descricao, a data, a hora e o local do evento
+    std::string id, titulo, tipo, descricao, data, hora, local;
     std::cout << "Digite o seu ID de usuario: ";
-    std::getline(std::cin, id);  // Recebe o id do usuario
+    std::cin.ignore();
+    std::getline(std::cin, id); 
     std::cout << "Digite o titulo do evento: ";
-    std::getline(std::cin, titulo); // Recebe o titulo do evento
+    std::getline(std::cin, titulo);
 
-    std::ifstream arquivoEventos("eventos.txt"); //abre o arquivo para leitura
-
-    if(!arquivoEventos.is_open()) {    // Verifica se o arquivo foi aberto
+    std::fstream arquivoEventos("eventos.txt", std::ios::in | std::ios::out);
+    
+    if (!arquivoEventos.is_open()) {
         std::cout << "Erro ao abrir o arquivo!" << std::endl;
-        return; // sai da funcao
+        return;
     }
 
-    bool idEncontrado = false;  // Variavel para verificar se o id foi encontrado
-    bool eventoEncontrado = false;  // Variavel para verificar se o evento foi encontrado
+    bool idEncontrado = false;
+    bool eventoEncontrado = false;
     
-    //percorre o arquivo de eventos para encontrar os eventos associados ao id do usuário
     std::string linha;
+    std::streampos posEvento; // Guarda a posição do evento no arquivo
+
     while (std::getline(arquivoEventos, linha)) {
         std::stringstream ss(linha);
         std::string tipoEvento, tituloEvento, descricaoEvento, dataEvento, horaEvento, localEvento, criador, idEvento;
@@ -110,64 +113,68 @@ void Calendario::editarEvento() {        // Edita o evento
         std::getline(ss, criador, '|');
         std::getline(ss, idEvento, '|');
 
-        // Verifica se o id e o titulo do evento existem
         if (id == idEvento && titulo == tituloEvento) {
-            idEncontrado = true;    // Caso existam, a variavel recebe true
+            idEncontrado = true;
+            posEvento = arquivoEventos.tellg(); // Guarda a posição do início do evento no arquivo
             
             std::cout << "Digite o novo tipo de evento (PROVA - TRABALHO - APRESENTACAO - OUTRO): ";
-            std::getline(std::cin, tipo);   // Recebe o novo tipo de evento
-            if(tipo != "PROVA" && tipo != "TRABALHO" && tipo != "APRESENTACAO" && tipo != "OUTRO") {    // Verifica se o tipo de evento e valido
+            std::getline(std::cin, tipo);
+            if (tipo != "PROVA" && tipo != "TRABALHO" && tipo != "APRESENTACAO" && tipo != "OUTRO") {
                 std::cout << "Tipo de evento invalido!" << std::endl;
-                return; // sai da funcao
+                arquivoEventos.close();
+                return;
             }
             std::cout << "Digite a nova descricao do evento: ";
-            std::getline(std::cin, descricao);  // Recebe a nova descricao do evento
+            std::getline(std::cin, descricao);
             std::cout << "Digite a nova data do evento (DD-MM-AAAA): ";
-            std::getline(std::cin, data);   // Recebe a nova data do evento
-            if(data.size() != 10 || data[2] != '-' || data[5] != '-') { // Verifica se a data possui o tamanho correto
+            std::getline(std::cin, data);
+            if (data.size() != 10 || data[2] != '-' || data[5] != '-') {
                 std::cout << "Data invalida!" << std::endl;
-                return; // sai da funcao
+                arquivoEventos.close();
+                return;
             }
             std::cout << "Digite a nova hora do evento (HH:MM): ";
-            if(hora.size() != 5 || hora[2] != ':') { // Verifica se a hora possui o tamanho correto
+            std::getline(std::cin, hora);
+            if (hora.size() != 5 || hora[2] != ':') {
                 std::cout << "Hora invalida!" << std::endl;
-                return; // sai da funcao
+                arquivoEventos.close();
+                return;
             }
-            std::getline(std::cin, hora);   // Recebe a nova hora do evento
             std::cout << "Digite o novo local do evento: ";
-            std::getline(std::cin, local);  // Recebe o novo local do evento
+            std::getline(std::cin, local);
 
-            //atualiza os dados do evento
-            std::ofstream arquivoTemporario("temporario.txt"); //abre o arquivo temporário para escrita
-            if(!arquivoTemporario.is_open()) {    // Verifica se o arquivo foi aberto
-                std::cout << "Erro ao abrir o arquivo!" << std::endl;
-                return; // sai da funcao
-            }
+            // Move de volta para a posição do início do evento
+            arquivoEventos.seekg(posEvento);
 
-            //escreve os dados no arquivo temporário
-            arquivoTemporario << tipo << "|" << titulo << "|" << descricao << "|" << data << "|" << hora << "|" << local << "|" << criador << "|" << id << "|" << std::endl; 
-
-            //copiar o restante do arquivo para o arquivo temporário
-            while (std::getline(arquivoEventos, linha)) {
-                arquivoTemporario << linha << std::endl;
-            }
-
-            arquivoTemporario.close(); //fecha o arquivo temporário
-            arquivoEventos.close(); //fecha o arquivo
-
+            // Escreve os dados atualizados no arquivo
+            arquivoEventos << tipo << "|" << titulo << "|" << descricao << "|" << data << "|" << hora << "|" << local << "|" << criador << "|" << id << "|";
             
-            remove("eventos.txt"); //remove o arquivo original
-            rename("temporario.txt", "eventos.txt"); //renomeia o arquivo temporário para o nome do arquivo original
-
-            std::cout << "Evento editado com sucesso!" << std::endl;
-            eventoEncontrado = true;    // Caso existam, a variavel recebe true
-            return; // sai da funcao
+            eventoEncontrado = true;
+            break; // Não é necessário continuar lendo o arquivo após encontrar o evento
         }
     }
 
-    if (!idEncontrado) {    // Caso o id nao seja encontrado
-        std::cout << "Usuario ou ID nao encontrado!" << std::endl;
-    }else if (!eventoEncontrado) {    // Caso o evento nao seja encontrado
+    arquivoEventos.close();
+
+    if (idEncontrado && eventoEncontrado) {
+        // Remover o antigo evento do arquivo
+        std::ifstream arquivoOriginal("eventos.txt");
+        std::ofstream arquivoTemporario("temporario.txt");
+
+        while (std::getline(arquivoOriginal, linha)) {
+            // Copia todos os eventos exceto o evento que foi editado
+            if (arquivoOriginal.tellg() != posEvento)
+                arquivoTemporario << linha << std::endl;
+        }
+
+        arquivoTemporario.close();
+        arquivoOriginal.close();
+
+        remove("eventos.txt");
+        rename("temporario.txt", "eventos.txt");
+
+        std::cout << "Evento editado com sucesso!" << std::endl;
+    } else {
         std::cout << "Evento nao encontrado!" << std::endl;
     }
 }
@@ -270,11 +277,11 @@ void Calendario::pesquisarEventoPorTitulo() {
     std::cout << "Digite o titulo do evento a ser pesquisado: ";
     std::getline(std::cin, titulo); // Recebe o titulo do evento
     std::cout << "Digite o seu tipo de usuario (ADMIN - PROF - ALUNO): ";
+    std::getline(std::cin, tipo);   // Recebe o tipo de usuario
     if(tipo != "ADMIN" && tipo != "PROF" && tipo != "ALUNO") {    // Verifica se o tipo de usuario e valido
         std::cout << "Tipo de usuario invalido!" << std::endl;
         return; // sai da funcao
     }
-    std::getline(std::cin, tipo);   // Recebe o tipo de usuario
     std::cout << "Digite o seu ID de usuario: ";
     std::getline(std::cin, id); // Recebe o id do usuario
 

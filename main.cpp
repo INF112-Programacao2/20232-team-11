@@ -40,7 +40,6 @@ int main(){
         switch (opcao) {
             case 1: {
                 bool loggedIn = false;
-                usu.fazerLogin(); 
                 if (usu.fazerLogin()) {
                     loggedIn = true;
                     while (loggedIn) {
