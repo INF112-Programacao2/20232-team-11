@@ -36,9 +36,10 @@ public:
     virtual void criarEvento(std::vector<Evento>& eventos);   // Cria um evento  
     virtual void adicionarEvento(const Evento& evento); // Adiciona um evento
     virtual std::vector<Evento> getEventos(); // Retorna os eventos
-    virtual bool fazerLogin(const std::string& id, const std::string& senha); // Faz o login do usuario
+    virtual bool fazerLogin(); // Faz o login do usuario
     virtual void listarUsuarios(); // Lista os usuarios
     virtual std::vector<Usuario> getUsuarios() const; // Retorna os usuarios
+    virtual void logout(); // Faz o logout do usuario
 };
 
 #endif

@@ -33,7 +33,9 @@ void Notificacao::setHora(const std::string& hora) {
 //método para exibir a notificação
 void Notificacao::exibirNotificacao(){
     std::cout << "=======CALENDARIO ACADEMICO=======" << std::endl;
-    std::cout << "Você tem uma notificação!" << std::endl;
+    std::cout << std::endl;
+    std::cout << "---------Você tem uma notificação!---------" << std::endl;
+    std::cout << std::endl;
     bool encontrado = false; // variável para verificar se o evento foi encontrado
     bool notificacao = false; // variável para verificar se a notificação foi encontrada
     std::time_t dataHoraAtual = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); //variável para armazenar a data e hora atual
@@ -63,7 +65,7 @@ void Notificacao::exibirNotificacao(){
         std::tm tempo = {};
         std::istringstream dado(dataEvento + " " + horaEvento); //variável para armazenar a data e hora do evento
         dado >> std::get_time(&tempo, "%d-%m-%Y %H:%M");    //converte a data e hora do evento para o tipo time_t
-
+        
         if (dado.fail()) {
             std::cout << "Data ou hora invalida!" << std::endl;
             continue;   //pula para a próxima iteração
@@ -82,6 +84,8 @@ void Notificacao::exibirNotificacao(){
                     std::cout << "Hora: " << horaEvento << std::endl;
                     std::cout << "Local: " << localEvento << std::endl;
                     std::cout << std::endl;
+                    std::cout << "**********************************" << std::endl;
+                    std::cout << std::endl;
                     encontrado = true;
                 }
             }else if(tipoEvento == "TRABALHO"){                                 // 3 dias em segundos (3 jours * 24 heures * 60 minutes * 60 secondes)
@@ -93,6 +97,8 @@ void Notificacao::exibirNotificacao(){
                     std::cout << "Hora: " << horaEvento << std::endl;
                     std::cout << "Local: " << localEvento << std::endl;
                     std::cout << std::endl;
+                    std::cout << "**********************************" << std::endl;
+                    std::cout << std::endl;
                     encontrado = true;
                 }
             }else if(tipoEvento == "APRESENTACAO" || tipoEvento == "OUTRO"){  // 1 dia em segundos (1 jour * 24 heures * 60 minutes * 60 secondes)***// 1 dia em segundos (1 jour * 24 heures * 60 minutes * 60 secondes)
@@ -103,6 +109,8 @@ void Notificacao::exibirNotificacao(){
                     std::cout << "Data: " << dataEvento << std::endl;
                     std::cout << "Hora: " << horaEvento << std::endl;
                     std::cout << "Local: " << localEvento << std::endl;
+                    std::cout << std::endl;
+                    std::cout << "**********************************" << std::endl;
                     std::cout << std::endl;
                     encontrado = true;
                 }

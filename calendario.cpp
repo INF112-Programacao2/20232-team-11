@@ -13,6 +13,10 @@ void Calendario::excluirEvento() {
     std::cout << "==============EXCLUINDO EVENTO==============\n";
     std::string tipoUsuario, id, titulo;    // Variaveis para armazenar o tipo de usuario, o id e o titulo do evento
     std::cout << "Digite o seu tipo de usuario (ADMIN - PROF - ALUNO): ";
+    if(tipoUsuario != "ADMIN" && tipoUsuario != "PROF" && tipoUsuario != "ALUNO") {    // Verifica se o tipo de usuario e valido
+        std::cout << "Tipo de usuario invalido!" << std::endl;
+        return; // sai da funcao
+    }
     std::getline(std::cin, tipoUsuario);    // Recebe o tipo de usuario
     std::cout << "Digite o titulo do evento a ser excluido: ";
     std::getline(std::cin, titulo);    // Recebe o titulo do evento
@@ -112,17 +116,29 @@ void Calendario::editarEvento() {        // Edita o evento
             
             std::cout << "Digite o novo tipo de evento (PROVA - TRABALHO - APRESENTACAO - OUTRO): ";
             std::getline(std::cin, tipo);   // Recebe o novo tipo de evento
+            if(tipo != "PROVA" && tipo != "TRABALHO" && tipo != "APRESENTACAO" && tipo != "OUTRO") {    // Verifica se o tipo de evento e valido
+                std::cout << "Tipo de evento invalido!" << std::endl;
+                return; // sai da funcao
+            }
             std::cout << "Digite a nova descricao do evento: ";
             std::getline(std::cin, descricao);  // Recebe a nova descricao do evento
             std::cout << "Digite a nova data do evento (DD-MM-AAAA): ";
             std::getline(std::cin, data);   // Recebe a nova data do evento
+            if(data.size() != 10 || data[2] != '-' || data[5] != '-') { // Verifica se a data possui o tamanho correto
+                std::cout << "Data invalida!" << std::endl;
+                return; // sai da funcao
+            }
             std::cout << "Digite a nova hora do evento (HH:MM): ";
+            if(hora.size() != 5 || hora[2] != ':') { // Verifica se a hora possui o tamanho correto
+                std::cout << "Hora invalida!" << std::endl;
+                return; // sai da funcao
+            }
             std::getline(std::cin, hora);   // Recebe a nova hora do evento
             std::cout << "Digite o novo local do evento: ";
             std::getline(std::cin, local);  // Recebe o novo local do evento
 
             //atualiza os dados do evento
-            std::ofstream arquivoTemporario("temp.txt"); //abre o arquivo temporário para escrita
+            std::ofstream arquivoTemporario("temporario.txt"); //abre o arquivo temporário para escrita
             if(!arquivoTemporario.is_open()) {    // Verifica se o arquivo foi aberto
                 std::cout << "Erro ao abrir o arquivo!" << std::endl;
                 return; // sai da funcao
@@ -162,8 +178,16 @@ void Calendario::pesquisarEventoPorTipo() {
     std::string tipoEvento, tipoUsuario, id;    // Variaveis para armazenar o tipo de evento, o tipo de usuario e o id do usuario
     std::cout << "Digite o tipo de evento a ser pesquisado (PROVA - TRABALHO - APRESENTACAO - OUTRO): ";
     std::getline(std::cin, tipoEvento);   // Recebe o tipo de evento
+    if(tipoEvento != "PROVA" && tipoEvento != "TRABALHO" && tipoEvento != "APRESENTACAO" && tipoEvento != "OUTRO") {    // Verifica se o tipo de evento e valido
+        std::cout << "Tipo de evento invalido!" << std::endl;
+        return; // sai da funcao
+    }
     std::cout << "Digite o seu tipo de usuario (ADMIN - PROF - ALUNO): ";
     std::getline(std::cin, tipoUsuario);    // Recebe o tipo de usuario
+    if(tipoUsuario != "ADMIN" && tipoUsuario != "PROF" && tipoUsuario != "ALUNO") {    // Verifica se o tipo de usuario e valido
+        std::cout << "Tipo de usuario invalido!" << std::endl;
+        return; // sai da funcao
+    }
     std::cout << "Digite o seu ID de usuario: ";
     std::getline(std::cin, id);  // Recebe o id do usuario
 
@@ -246,6 +270,10 @@ void Calendario::pesquisarEventoPorTitulo() {
     std::cout << "Digite o titulo do evento a ser pesquisado: ";
     std::getline(std::cin, titulo); // Recebe o titulo do evento
     std::cout << "Digite o seu tipo de usuario (ADMIN - PROF - ALUNO): ";
+    if(tipo != "ADMIN" && tipo != "PROF" && tipo != "ALUNO") {    // Verifica se o tipo de usuario e valido
+        std::cout << "Tipo de usuario invalido!" << std::endl;
+        return; // sai da funcao
+    }
     std::getline(std::cin, tipo);   // Recebe o tipo de usuario
     std::cout << "Digite o seu ID de usuario: ";
     std::getline(std::cin, id); // Recebe o id do usuario
@@ -327,8 +355,16 @@ void Calendario::listarEventosTipo() {
     std::string tipoUsuario, tipoEvento, id;    // Variaveis para armazenar o tipo de usuario, o tipo de evento e o id do usuario
     std::cout << "Digite o seu tipo de usuario (ADMIN - PROF - ALUNO): ";
     std::getline(std::cin, tipoUsuario);    // Recebe o tipo de usuario
+    if(tipoUsuario != "ADMIN" && tipoUsuario != "PROF" && tipoUsuario != "ALUNO") {    // Verifica se o tipo de usuario e valido
+        std::cout << "Tipo de usuario invalido!" << std::endl;
+        return; // sai da funcao
+    }
     std::cout << "Digite o tipo de evento a ser listado (PROVA - TRABALHO - APRESENTACAO - OUTRO): ";
     std::getline(std::cin, tipoEvento); 
+    if(tipoEvento != "PROVA" && tipoEvento != "TRABALHO" && tipoEvento != "APRESENTACAO" && tipoEvento != "OUTRO") {    // Verifica se o tipo de evento e valido
+        std::cout << "Tipo de evento invalido!" << std::endl;
+        return; // sai da funcao
+    }
     std::cout << "Digite o seu ID de usuario: ";
     std::getline(std::cin, id); // Recebe o id do usuario
 
@@ -400,6 +436,10 @@ void Calendario::pesquisarEventoPorData() {
     std::string data, tipo;   // Variaveis para armazenar a data e o tipo de usuario
     std::cout << "Digite a data do evento a ser pesquisado (DD-MM-AAAA): ";
     std::getline(std::cin, data);   // Recebe a data do evento
+    if(data.size() != 10 || data[2] != '-' || data[5] != '-') { // Verifica se a data possui o tamanho correto
+        std::cout << "Data invalida!" << std::endl;
+        return; // sai da funcao
+    }
     std::cout << "Digite o seu tipo de usuario: ";
     std::getline(std::cin, tipo);   // Recebe o tipo de usuario
 
@@ -457,6 +497,10 @@ void Calendario::listarEventosTodos() {
     std::string id, criador;    // Variaveis para armazenar o id e o tipo de usuario
     std::cout << "Digite o seu tipo de usuario (ADMIN - PROF - ALUNO): ";
     std::getline(std::cin, criador);    // Recebe o tipo de usuario
+    if(criador != "ADMIN" && criador != "PROF" && criador != "ALUNO") {    // Verifica se o tipo de usuario e valido
+        std::cout << "Tipo de usuario invalido!" << std::endl;
+        return; // sai da funcao
+    }
     std::cout << "Digite o seu ID de usuario: ";
     std::getline(std::cin, id); // Recebe o id do usuario
 
