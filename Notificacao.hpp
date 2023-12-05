@@ -30,12 +30,7 @@ public:
     void setMensagem(const std::string& mensagem);
     void setData(const std::string& data);
     void setHora(const std::string& hora);
-    bool umaSemanaAntes(const std::vector<Evento>& eventos);
-    bool tresDiasAntes(const Evento& eventos);
-    bool umDiaAntes(const std::vector<Evento>& eventos);
-    bool umaHoraAntes(const std::vector<Evento>& eventos);
-    bool quinzeMinutosAntes(const std::vector<Evento>& eventos);
-    void exibirNotificacao(const std::vector<Evento>& eventos);
+    void exibirNotificacao();
 };
 
 #endif

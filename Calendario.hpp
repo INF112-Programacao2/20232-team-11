@@ -16,15 +16,14 @@ public:
     ~Calendario();      // Destrutor
 
     // Métodos
-    void adicionarEvento(const Evento& evento);
-    void excluirEvento(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
-    void editarEvento(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
-    void pesquisarEventoPorTitulo(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
-    void pesquisarEventoPorData(std::vector<Evento>& eventos);
-    void pesquisarEventoPorTipo(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
-    void listarEventosTodos(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
-    void listarEventosTipo(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
-    void listarMeusEventos(std::vector<Evento>& eventos, std::vector<Usuario>& usuarios);
+    void excluirEvento();
+    void editarEvento();
+    void pesquisarEventoPorTitulo();
+    void pesquisarEventoPorData();
+    void pesquisarEventoPorTipo();
+    void listarEventosTodos();
+    void listarEventosTipo();
+    void listarMeusEventos();
     std::vector<Evento> getEventos() const;
     void imprimirEvento(const Evento& evento);
 };

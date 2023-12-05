@@ -1,9 +1,12 @@
-#ifndef USUARIO_HPP
+#ifndef USUARIO_HPP 
 #define USUARIO_HPP
 
 #include <string>
 #include "Evento.hpp"
 #include <vector>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 //classe usuario
 class Usuario{
