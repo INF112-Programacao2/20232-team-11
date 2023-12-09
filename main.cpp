@@ -28,7 +28,7 @@ int main(){
     int cont = 0;
 
     do{
-        std::cout << "Você é: \n";
+        std::cout << "\nVocê é: \n";
         std::cout << "1 - Administrador" << std::endl;
         std::cout << "2 - Professor" << std::endl;
         std::cout << "3 - Estudante" << std::endl;

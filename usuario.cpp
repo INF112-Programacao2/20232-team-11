@@ -74,7 +74,7 @@ std::vector<Usuario> Usuario::getUsuarios() const {
    
 
 void Usuario::logout() {
-    std::cout << "Logout realizado com sucesso!" << std::endl;
+    std::cout << "Logout realizado com sucesso!\n" << std::endl;
     exit(0);
 }
 
