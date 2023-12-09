@@ -154,6 +154,7 @@ void Calendario::editarEvento(){        // Edita o evento
             }
 
             std::cout << "Digite a nova hora do evento (HH:MM): ";
+            std::getline(std::cin, novaHora);   // Recebe a nova hora do evento
             while(novaHora.size() != 5 || novaHora[2] != ':') { // Verifica se a hora possui o tamanho correto
                 std::cout << "Hora invalida!" << std::endl;
                 std::cout << "Digite a nova hora do evento (HH:MM): ";
@@ -269,7 +270,7 @@ void Calendario::listarMeusEventos() {
 // Método para imprimir eventos
 void Calendario::imprimirEvento(const Evento& evento) {
     std::cout << "=========DETALHES DO EVENTO=========\n\n";
-    // Imprimez les détails de l'événement
+    // Imprime os detalhes do evento
     std::cout << "Tipo: " << evento.getTipo() << std::endl;
     std::cout << "Titulo: " << evento.getTitulo() << std::endl;
     std::cout << "Descricao: " << evento.getDescricao() << std::endl;

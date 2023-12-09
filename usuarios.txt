@@ -9,3 +9,4 @@ PROF|prof1|user7
 PROF|prof2|user8
 PROF|prof3|user9
 PROF|prof4|user10
+ALUNO|111|222
