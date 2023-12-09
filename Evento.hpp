@@ -3,6 +3,7 @@
 
 #include <string>
 
+
 class Evento {
 private:
     std::string _tipo;  //variável que armazena o tipo de evento

@@ -1,13 +1,22 @@
 #ifndef PROFESSOR_HPP
 #define PROFESSOR_HPP
 
-#include "Usuario.hpp"
+#include "Calendario.hpp"
 
 //classe professor
-class Professor : public Usuario {
+class Professor : public Calendario {
 public:
-    Professor(const std::string& tipo, const std::string& id, const std::string& senha); // Construtor
+    Professor(); // Construtor
     ~Professor();  // Destrutor
+
+    // Métodos
+    void pesquisarEventoPorTitulo() override;
+    void pesquisarEventoPorData() override;
+    void pesquisarEventoPorTipo() override;
+    void listarEventosTodos() override;
+    void exibirNotificacoes() override;
+    int getNumeroNotificacao() override;
+    void contTipoEvento() const;
 };
 
 #endif

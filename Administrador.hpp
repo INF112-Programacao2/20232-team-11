@@ -1,15 +1,13 @@
-#ifndef ALUNO_HPP
-#define ALUNO_HPP
+#ifndef ADMINISTRADOR_HPP
+#define ADMINISTRADOR_HPP
 
 #include "Calendario.hpp"
-#include <string>
-#include <iostream>
 
-//classe aluno
-class Aluno : public Calendario {
+//classe administrador
+class Administrador : public Calendario {
 public:
-    Aluno(); // Construtor
-    ~Aluno();   // Destrutor
+    Administrador();  // Construtor
+    ~Administrador();    // Destrutor
 
     // Métodos
     void pesquisarEventoPorTitulo() override;
