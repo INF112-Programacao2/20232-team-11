@@ -38,8 +38,8 @@ O **Calendário Acadêmico** é uma plataforma projetada para facilitar a troca 
 ## Manuel Usuario
  * 1- Certifique-se de ter todos os arquivos em um único diretório a partir do qual você executará o programa.
  * 2- No terminal, execute os segintes comandos:
-        - comando 1: make
-        - comando 2: ./Calendario
+      - comando 1: make
+      - comando 2: ./Calendario
  * 3- Explorar o programa "Calendario Academico".
 
 
