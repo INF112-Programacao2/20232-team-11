@@ -1,0 +1,15 @@
+administrador.o: src/administrador.cpp include/Administrador.hpp \
+ include/Calendario.hpp include/Evento.hpp include/Usuario.hpp
+aluno.o: src/aluno.cpp include/Aluno.hpp include/Calendario.hpp \
+ include/Evento.hpp include/Usuario.hpp
+calendario.o: src/calendario.cpp include/Calendario.hpp \
+ include/Evento.hpp include/Usuario.hpp include/Evento.hpp
+evento.o: src/evento.cpp include/Evento.hpp
+main.o: src/main.cpp include/Usuario.hpp include/Evento.hpp \
+ include/Aluno.hpp include/Calendario.hpp include/Usuario.hpp \
+ include/Professor.hpp include/Administrador.hpp include/Evento.hpp \
+ include/Calendario.hpp
+professor.o: src/professor.cpp include/Professor.hpp \
+ include/Calendario.hpp include/Evento.hpp include/Usuario.hpp
+usuario.o: src/usuario.cpp include/Usuario.hpp include/Evento.hpp \
+ include/Evento.hpp
