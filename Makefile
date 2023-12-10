@@ -2,28 +2,33 @@ CXX := g++
 CXXFLAGS := -std=c++11 -Wall
 EXECUTABLE := Calendario
 
-SOURCES := administrador.cpp aluno.cpp calendario.cpp evento.cpp professor.cpp usuario.cpp main.cpp
-OBJECTS := $(SOURCES:.cpp=.o)
+# Diretórios
+SRC_DIR := src
+BUILD_DIR := build
+INCLUDE_DIR := include
+
+SOURCES := $(wildcard $(SRC_DIR)/*.cpp)
+OBJECTS := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SOURCES))
 
 all: $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
 	$(CXX) $(OBJECTS) -o $@
 
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) -c $< -o $@
 
 # Gera as dependências
 depend: .depend
 
-	.depend: $(SOURCES)
-		$(RM) ./.depend
-		$(CXX) $(CXXFLAGS) -MM $^>>./.depend;
+.depend: $(SOURCES)
+	$(RM) ./.depend
+	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) -MM $^>>./.depend;
 
-	clean:
-		$(RM) $(OBJECTS) $(EXECUTABLE)
+clean:
+	$(RM) $(OBJECTS) $(EXECUTABLE)
 
-	distclean: clean
-		$(RM) *~ .depend
+distclean: clean
+	$(RM) *~ .depend
 
-	include .depend
+include .depend
