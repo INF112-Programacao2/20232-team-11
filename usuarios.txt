@@ -1,12 +1,5 @@
 ADMIN|admin|admin
-ALUNO|aluno0|user1
-ALUNO|aluno1|user2
-ALUNO|aluno2|user3
-ALUNO|aluno3|user4
-ALUNO|aluno4|user5
-PROF|prof0|user6
-PROF|prof1|user7
-PROF|prof2|user8
-PROF|prof3|user9
-PROF|prof4|user10
-ALUNO|111|222
+ALUNO|aluno0|user0
+ALUNO|aluno1|user1
+PROF|prof0|user2
+PROF|prof1|user3

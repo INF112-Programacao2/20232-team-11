@@ -37,9 +37,11 @@ public:
     void criarEvento(std::vector<Evento>& eventos);   // Cria um evento  
     void adicionarEvento(const Evento& evento); // Adiciona um evento
     std::vector<Evento> getEventos(); // Retorna os eventos
-    void listarUsuarios(); // Lista os usuarios
     std::vector<Usuario> getUsuarios() const; // Retorna os usuarios
     void trocarSenha(); // Troca a senha do usuario
+    bool dataValida(const std::string& data); // Verifica se a data é valida
+    bool horaValida(const std::string& hora); // Verifica se a hora é valida
+    void avaliarPrograma(); // Avalia o programa
 };
 
 #endif

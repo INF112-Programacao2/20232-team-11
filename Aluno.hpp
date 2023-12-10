@@ -15,10 +15,11 @@ public:
     void pesquisarEventoPorTitulo() override;
     void pesquisarEventoPorData() override;
     void pesquisarEventoPorTipo() override;
-    void listarEventosTodos() override;
+    void listarTodosEventosFuturos() override;
+    void listarTodosEventosPassados() override;
     void exibirNotificacoes() override;
     int getNumeroNotificacao() override;
-    void contTipoEvento() const;
+    void contTipoEvento() const override;
 };
 
 #endif

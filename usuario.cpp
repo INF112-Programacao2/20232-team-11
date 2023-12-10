@@ -4,12 +4,12 @@
 
 
 Usuario::Usuario() {
-    _tipo = "";
     _id = "";
     _senha = "";
+    _tipo = "";
 }       //construtor
 
-Usuario::Usuario(const std::string& tipo, const std::string& id, const std::string& senha) : _tipo(tipo), _id(id), _senha(senha) {}       //construtor
+Usuario::Usuario(const std::string& tipo, const std::string& id, const std::string& senha) : _id(id), _senha(senha), _tipo(tipo) {}       //construtor
 
 Usuario::~Usuario() {}      //destrutor
 
@@ -41,7 +41,7 @@ bool Usuario::fazerLogin(){
         }
         arquivo.close(); //fecha o arquivo
     } else {
-        std::cout << "Erro ao abrir o arquivo!" << std::endl;
+        std::cout << "Erro sistema!" << std::endl;
         return false; //saia da função
     }
 
@@ -68,13 +68,97 @@ std::vector<Usuario> Usuario::getUsuarios() const {
 }
 
 
- 
 /*****************************************************************************************************************************************************************/
 /*****************************************************************************************************************************************************************/
    
+//metodo para pesquisar evento por titulo
+void Usuario::avaliarPrograma(){
+    std::cout << "=========AVALIAR PROGRAMA=========\n\n";
+    std::string avaliacao, sugestao;  //variavel para armazenar a avaliacao do usuario
+    std::cout << "Digite sua avaliação: \n";
+    std::cout << "1 - Ótimo\n";
+    std::cout << "2 - Bom\n";
+    std::cout << "3 - Regular\n";
+    std::cout << "4 - Ruim\n";
+    std::cout << "5 - Péssimo\n";
+    std::cout << "6 - Sugestão/Recomendação\n";
+    std::getline(std::cin, avaliacao);  //le a avaliacao do usuario
+    if(avaliacao == "6"){
+        std::cout << "Digite sua sugestão/recomendação (100 caracteres maximo): \n";
+        std::getline(std::cin, sugestao);  //le a avaliacao do usuario
+        while(sugestao.size() > 100){
+            std::cout << "Texto muito grande!" << std::endl;
+            std::cout << "Digite sua sugestão/recomendação (100 caracteres maximo): \n";
+            std::getline(std::cin, sugestao);  //le a avaliacao do usuario
+        }
+    }
+
+    while(avaliacao != "1" && avaliacao != "2" && avaliacao != "3" && avaliacao != "4" && avaliacao != "5" && avaliacao != "6"){
+        std::cout << "Avaliação inválida!" << std::endl;
+        std::cout << "Digite sua avaliação: \n";
+        std::cout << "1 - Ótimo\n";
+        std::cout << "2 - Bom\n";
+        std::cout << "3 - Regular\n";
+        std::cout << "4 - Ruim\n";
+        std::cout << "5 - Péssimo\n";
+        std::cout << "6 - Sugestão/Recomendação\n";
+        std::getline(std::cin, avaliacao);  //le a avaliacao do usuario
+        if(avaliacao == "6"){
+            std::cout << "Digite sua sugestão/recomendação: \n";
+            std::getline(std::cin, sugestao);  //le a avaliacao do usuario
+            while(sugestao.size() > 100){
+                std::cout << "Texto muito grande!" << std::endl;
+                std::cout << "Digite sua sugestão/recomendação (100 caracteres maximo): \n";
+                std::getline(std::cin, sugestao);  //le a avaliacao do usuario
+            }
+        }
+    }
+
+    std::ofstream arquivoOtimo("otimo.txt", std::ios::app); //abre o arquivo para escrita
+    std::ofstream arquivoBom("bom.txt", std::ios::app); //abre o arquivo para escrita
+    std::ofstream arquivoRegular("regular.txt", std::ios::app); //abre o arquivo para escrita
+    std::ofstream arquivoRuim("ruim.txt", std::ios::app); //abre o arquivo para escrita
+    std::ofstream arquivoPessimo("pessimo.txt", std::ios::app); //abre o arquivo para escrita
+    std::ofstream arquivoSugestao("sugestao.txt", std::ios::app); //abre o arquivo para escrita
+
+    if(!arquivoOtimo.is_open() || !arquivoBom.is_open() || !arquivoRegular.is_open() || !arquivoRuim.is_open() || !arquivoPessimo.is_open() || !arquivoSugestao.is_open()) {    // Verifica se o arquivo foi aberto
+        std::cout << "Erro sistema!" << std::endl;
+        return; // sai da funcao
+    }
+
+    if(avaliacao == "1"){
+        arquivoOtimo << "Ótimo" << '\n'; // Escreve no arquivo
+    }else if(avaliacao == "2"){
+        arquivoBom << "Bom" << '\n'; // Escreve no arquivo
+    }else if(avaliacao == "3"){
+        arquivoRegular << "Regular" << '\n'; // Escreve no arquivo
+    }else if(avaliacao == "4"){
+        arquivoRuim << "Ruim" << '\n'; // Escreve no arquivo
+    }else if(avaliacao == "5"){
+        arquivoPessimo << "Péssimo" << '\n'; // Escreve no arquivo
+    }else if(avaliacao == "6"){
+        arquivoSugestao << "Sugestão/Recomendação: " << sugestao << '\n'; // Escreve no arquivo
+    }
+
+    std::cout << "Avaliação salva com sucesso!" << std::endl;
+    
+    //fecha os arquivos
+    arquivoOtimo.close();   
+    arquivoBom.close();     
+    arquivoRegular.close();     
+    arquivoRuim.close();    
+    arquivoPessimo.close();     
+    arquivoSugestao.close();
+
+}
+
+
+/*****************************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************************/
 
 void Usuario::logout() {
     std::cout << "Logout realizado com sucesso!\n" << std::endl;
+    std::cout << "Obrigado por usar o Calendario Academico!\n" << std::endl;
     exit(0);
 }
 
@@ -103,7 +187,7 @@ void Usuario::criarUsuario(std::vector<Usuario>& usuarios){
         }
         arquivo.close(); //fecha o arquivo
     } else {
-        std::cout << "Erro ao abrir o arquivo!" << std::endl;
+        std::cout << "Erro sistema!" << std::endl;
         return; //saia da função
     }
 
@@ -158,7 +242,6 @@ void Usuario::criarUsuario(std::vector<Usuario>& usuarios){
 /*****************************************************************************************************************************************************************/
 
 
-
 void Usuario::trocarSenha(){
     std::cout << "=========TROCANDO A SENHA=========\n\n";
     std::string tipo, id, novasenha, novaSenhaDeNovo;
@@ -178,7 +261,7 @@ void Usuario::trocarSenha(){
     std::ofstream arquivoTemporario("tempUsu.txt"); 
 
     if (!arquivoEntrada.is_open() || !arquivoTemporario.is_open()) {
-        std::cout << "Erro ao abrir o arquivo!" << std::endl;
+        std::cout << "Erro sistema!" << std::endl;
         return;
     }
 
@@ -228,6 +311,10 @@ void Usuario::trocarSenha(){
     std::cout << "Senha alterada com sucesso!" << std::endl;
 }
 
+/*****************************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************************/
+
+
 //metodo para adicionar um usuario
 void Usuario::adicionarUsuario(const Usuario& usuario){
     _usuarios.push_back(usuario);   //adiciona o usuario no vetor de usuarios
@@ -263,6 +350,67 @@ void Usuario::setSenha(const std::string& senha) {
     _senha = senha;
 }
 
+/*****************************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************************/
+
+
+//metodo para verificar se a data é valida
+bool Usuario::dataValida(const std::string& data) {
+    if (data.size() != 10) {    // Verifica se a data tem o tamanho correto
+        return false;
+    }
+
+    if (data[2] != '-' || data[5] != '-') { // Verifica se a data está no formato correto
+        return false;
+    }
+
+    int dia = std::stoi(data.substr(0, 2)); // Converte o dia para inteiro
+    int mes = std::stoi(data.substr(3, 2)); // Converte o mês para inteiro
+    int ano = std::stoi(data.substr(6, 4)); // Converte o ano para inteiro
+
+    if (dia < 1 || dia > 31) {  // Verifica se o dia é válido
+        return false;
+    }
+
+    if (mes < 1 || mes > 12) {  // Verifica se o mês é válido
+        return false;
+    }
+
+    if (ano < 2021) {   // Verifica se o ano é válido
+        return false;
+    }
+
+    return true;
+}
+
+
+/*****************************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************************/
+
+
+//metodo para verificar se a hora é valida
+bool Usuario::horaValida(const std::string& hora) {
+    if (hora.size() != 5) { // Verifica se a hora tem o tamanho correto
+        return false;
+    }
+
+    if (hora[2] != ':') {   // Verifica se a hora está no formato correto
+        return false;
+    }
+
+    int horaInt = std::stoi(hora.substr(0, 2)); // Converte a hora para inteiro
+    int minuto = std::stoi(hora.substr(3, 2));  // Converte o minuto para inteiro
+
+    if (horaInt < 0 || horaInt > 23) {  // Verifica se a hora é válida
+        return false;
+    }
+
+    if (minuto < 0 || minuto > 59) {    // Verifica se o minuto é válido
+        return false;
+    }
+
+    return true;
+}
 
 /*****************************************************************************************************************************************************************/
 /*****************************************************************************************************************************************************************/
@@ -285,7 +433,7 @@ void Usuario::criarEvento(std::vector<Evento>& eventos){
     std::ifstream arquivoEventos("eventos.txt"); //abre o arquivo para leitura
 
     if(!arquivoUsuarios.is_open() || !arquivoEventos.is_open()) {    // Verifica se o arquivo foi aberto
-        std::cout << "Erro ao abrir o arquivo!" << std::endl;
+        std::cout << "Erro sistema!" << std::endl;
         return; // sai da funcao
     }
 
@@ -316,7 +464,7 @@ void Usuario::criarEvento(std::vector<Evento>& eventos){
         }
         arquivoEventos.close(); //fecha o arquivo
     } else {
-        std::cout << "Erro ao abrir o arquivo!" << std::endl;
+        std::cout << "Erro sistema!" << std::endl;
         return; //saia da função
     }
 
@@ -352,14 +500,14 @@ void Usuario::criarEvento(std::vector<Evento>& eventos){
 
         std::cout << "Digite a data do evento (DD-MM-AAAA): ";
         std::getline(std::cin, data);  //le a data do evento
-        while(data.size() != 10 || data[2] != '-' || data[5] != '-'){
+        while(!dataValida(data)){
             std::cout << "Data inválida!" << std::endl;
             std::cout << "Digite a data do evento (DD-MM-AAAA): ";
             std::getline(std::cin, data);  //le a data do evento
         }
         std::cout << "Digite a hora do evento (HH:MM): ";
         std::getline(std::cin, hora);  //le a hora do evento
-        while(hora.size() != 5 || hora[2] != ':'){
+        while(!horaValida(hora)){
             std::cout << "Hora inválida!" << std::endl;
             std::cout << "Digite a hora do evento (HH:MM): ";
             std::getline(std::cin, hora);  //le a hora do evento
@@ -404,15 +552,5 @@ std::vector<Usuario> Usuario::getUsuarios() {
 }
 
 
-//metodo para listar os usuarios
-void Usuario::listarUsuarios(){ 
-    for(const auto user : _usuarios){   //percorre o vetor de usuarios
-        std::cout << "Tipo: " << user.getTipo() << std::endl;  //imprime o tipo do usuario
-        std::cout << "ID: " << user.getId() << std::endl;  //imprime o id do usuario
-        std::cout << "Senha: " << user.getSenha() << std::endl;  //imprime a senha do usuario
-        std::cout << "==============================" << std::endl;
-
-    }
-}
 
 

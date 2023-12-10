@@ -13,31 +13,31 @@
 
 int main(){
 
-    std::vector<Evento> eventos;
-    std::vector<Usuario> usuarios;
-    std::string id, senha;
-    Administrador admin;
-    Aluno aluno;
-    Professor prof;
-    Usuario usu;
+    std::vector<Evento> eventos;        //vetor de eventos para armazenar os eventos
+    std::vector<Usuario> usuarios;      //vetor de usuarios para armazenar os usuarios  
+    Administrador admin;        //objeto da classe administrador
+    Aluno aluno;        //objeto da classe aluno
+    Professor prof;     //objeto da classe professor
+    Usuario usu;        //objeto da classe usuario
 
 
-    int tipoUsuario;
-    bool login = false; //variavel para verificar se o usuario esta logado
+    int tipoUsuario;    //variavel para armazenar o tipo de usuario
+    bool login = false; //variavel para verificar se o usuario esta logado no programa
     bool erroLogin = false; //variavel para verificar se o usuario errou a senha 4 vezes
-    int cont = 0;
+    int cont = 0;   //variavel para contar quantas vezes o usuario errou a senha
 
-    do{
+    do{     //loop para abrir o programa
+        std::cout << "\n§§§§§§§§§§§§§§==CALENDARIO ACADEMICO==§§§§§§§§§§§§§§\n";
         std::cout << "\nVocê é: \n";
         std::cout << "1 - Administrador" << std::endl;
         std::cout << "2 - Professor" << std::endl;
         std::cout << "3 - Estudante" << std::endl;
         std::cout << "4 - Fechar o programa" << std::endl;
-        std::cin >> tipoUsuario;
-        bool rodar = true;
-        switch(tipoUsuario){
+        std::cin >> tipoUsuario;    //ler o tipo de usuario
+        bool rodar = true;      //variavel para rodar o programa
+        switch(tipoUsuario){    //switch para escolher o tipo de usuario
             case 1: 
-                while (rodar) {
+                while (rodar) { //loop para rodar o programa
                     std::cout << std::endl;
                     std::cout << "§§§§§§§§§§§§§§==CALENDARIO ACADEMICO==§§§§§§§§§§§§§§\n" << std::endl;
 
@@ -49,22 +49,21 @@ int main(){
                     std::cout << "3 - Sair" << std::endl;
 
                     int opcao;
-                    std::cin >> opcao;
-                    std::cin.ignore();
+                    std::cin >> opcao;  //ler a opcao
+                    std::cin.ignore();  
 
-                    switch (opcao) {
+                    switch (opcao) {    //switch para escolher a opcao do menu
                         case 1: {
                             bool log = false;  //variavel para verificar se o usuario esta logado
-                            if (usu.fazerLogin()) {
-                                log = true;
-                                login = true;
+                            if (usu.fazerLogin()) { //chama a funcao fazer login
+                                log = true; //usuario esta logado
+                                login = true;   //variavel para verificar se o usuario esta logado no programa 
+                                std::cout << "\n!!!  " << admin.getNumeroNotificacao() << " notificações" << "  !!!\n" << std::endl;    //imprime o numero de notificacoes
                                 std::cout << std::endl;
-                                std::cout << admin.getNumeroNotificacao() << " notificações" << std::endl;
+                                admin.contTipoEvento(); //chama a funcao para contar o numero de notificacoes
                                 std::cout << std::endl;
-                                admin.contTipoEvento();
-                                while (log) {
-                                    std::cout << std::endl;
-                                    std::cout << "MENU" << std::endl;
+                                while (log) {   
+                                    std::cout << "\n=*=*=*=*=*=*=*MENU=*=*=*=*=*=*=*\n" << std::endl;
                                     std::cout << "Escolha uma opção:" << std::endl;
                                     std::cout << "1 - Criar evento" << std::endl;
                                     std::cout << "2 - Editar evento" << std::endl;
@@ -72,10 +71,12 @@ int main(){
                                     std::cout << "4 - Pesquisar evento por titulo" << std::endl;
                                     std::cout << "5 - Pesquisar evento por data" << std::endl;
                                     std::cout << "6 - Pesquisar evento por tipo" << std::endl;
-                                    std::cout << "7 - Listar meus eventos" << std::endl;
-                                    std::cout << "8 - Listar todos os eventos" << std::endl;
-                                    std::cout << "9 - Alterar senha" << std::endl;
-                                    std::cout << "10 - Voltar" << std::endl;
+                                    std::cout << "7 - Listar meus eventos futuros" << std::endl;
+                                    std::cout << "8 - Listar meus eventos passados" << std::endl;
+                                    std::cout << "9 - Listar todos os eventos futuros" << std::endl;
+                                    std::cout << "10 - Listar todos os eventos passados" << std::endl;
+                                    std::cout << "11 - Alterar senha" << std::endl;
+                                    std::cout << "12 - Voltar" << std::endl;
                                     int opcao2;
                                     std::cin >> opcao2;
                                     std::cin.ignore();
@@ -97,16 +98,23 @@ int main(){
                                             break;
                                         case 6:
                                             admin.pesquisarEventoPorTipo();
+                                            break;
                                         case 7:
-                                            admin.listarMeusEventos();
+                                            admin.listarMeusEventosFuturos();
                                             break;
                                         case 8:
-                                            admin.listarEventosTodos();
+                                            admin.listarMeusEventosPassados();
                                             break;
                                         case 9:
-                                            usu.trocarSenha();
+                                            admin.listarTodosEventosFuturos();
                                             break;
                                         case 10:
+                                            admin.listarMeusEventosPassados();
+                                            break;
+                                        case 11:
+                                            usu.trocarSenha();
+                                            break;
+                                        case 12:
                                             log = false;
                                             break;
                                         default:
@@ -118,30 +126,30 @@ int main(){
                                 }
                             } else {
                                 std::cout << "Falha no login!" << std::endl;
-                                cont++;
-                                if(cont == 4){
-                                    erroLogin = true;
+                                cont++; //conta quantas vezes o usuario errou a senha
+                                if(cont == 3){  //se o usuario errou a senha 3 vezes
+                                    erroLogin = true;   //variavel para verificar se o usuario errou a senha 4 vezes recebe true
                                 }
 
-                                if(erroLogin == true){
-                                    std::cout << "Você errou a senha 4 vezes!" << std::endl;
+                                if(erroLogin == true){  //se o usuario errou a senha 4 vezes
+                                    std::cout << "Você errou a senha 3 vezes!" << std::endl;
                                     std::cout << "1 - Trocar senha" << std::endl;
                                     std::cout << "2 - Sair" << std::endl;
-                                    int opcao3;
-                                    std::cin >> opcao3;
+                                    int opcao3; //variavel para ler a opcao
+                                    std::cin >> opcao3; //ler a opcao
                                     std::cin.ignore();
-                                    switch(opcao3){
+                                    switch(opcao3){ //switch para escolher a opcao
                                         case 1:
-                                            usu.trocarSenha();
+                                            usu.trocarSenha();  //chama a funcao trocar senha
                                             break;
                                         case 2:
-                                            usu.logout();
-                                            rodar = false;
+                                            usu.logout();   //chama a funcao logout
+                                            rodar = false;  //sai do loop
                                             break;  
                                         default:
                                             std::cout << "Opção inválida!" << std::endl;
                                             std::cin.clear(); //limpa o que foi digitado
-                                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //ignora o que foi digitado
+                                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //ignora o que foi digitado 
                                             break;
                                     }
                                 }
@@ -149,20 +157,21 @@ int main(){
                             break;
                         }
                         case 2:
-                            usu.criarUsuario(usuarios);
+                            usu.criarUsuario(usuarios); //chama a funcao criar usuario
                             break;
                         case 3:
-                            if(login == true){
+                            if(login == true){  //se o usuario estiver logado
+                                usu.avaliarPrograma();  //chama a funcao avaliar programa
                                 std::cout << "*******************************" << std::endl;
-                                admin.exibirNotificacoes();
+                                admin.exibirNotificacoes(); //chama a funcao exibir notificacoes
                                 usu.logout();
                             }
                             rodar = false; //saia do loop
                             break;
                         default:
                             std::cout << "Opção inválida!" << std::endl;
-                            std::cin.clear(); //limpa o que foi digitado
-                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //ignora o que foi digitado
+                            std::cin.clear(); 
+                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
                             break;
                     }
                 }
@@ -188,12 +197,12 @@ int main(){
                             if (usu.fazerLogin()) {
                                 log = true;
                                 login = true;
-                                std::cout << std::endl;
-                                std::cout << prof.getNumeroNotificacao() << " notificações" << std::endl;
+                                std::cout << "\n!!!  " << admin.getNumeroNotificacao() << " notificações" << "  !!!\n" << std::endl;
                                 std::cout << std::endl;
                                 prof.contTipoEvento();
+                                std::cout << std::endl;
                                 while (log) {
-                                    std::cout << "MENU" << std::endl;
+                                    std::cout << "\n=*=*=*=*=*=*=*MENU=*=*=*=*=*=*=*\n" << std::endl;
                                     std::cout << "Escolha uma opção:" << std::endl;
                                     std::cout << "1 - Criar evento" << std::endl;
                                     std::cout << "2 - Editar evento" << std::endl;
@@ -201,10 +210,12 @@ int main(){
                                     std::cout << "4 - Pesquisar evento por titulo" << std::endl;
                                     std::cout << "5 - Pesquisar evento por data" << std::endl;
                                     std::cout << "6 - Pesquisar evento por tipo" << std::endl;
-                                    std::cout << "7 - Listar meus eventos" << std::endl;
-                                    std::cout << "8 - Listar todos os eventos" << std::endl;
-                                    std::cout << "9 - Alterar senha" << std::endl;
-                                    std::cout << "10 - Voltar" << std::endl;
+                                    std::cout << "7 - Listar meus eventos futuros" << std::endl;
+                                    std::cout << "8 - Listar meus eventos passados" << std::endl;
+                                    std::cout << "9 - Listar todos os eventos futuros" << std::endl;
+                                    std::cout << "10 - Listar todos os eventos passados" << std::endl;
+                                    std::cout << "11 - Alterar senha" << std::endl;
+                                    std::cout << "12 - Voltar" << std::endl;
                                     int opcao2;
                                     std::cin >> opcao2;
                                     std::cin.ignore();
@@ -226,34 +237,41 @@ int main(){
                                             break;
                                         case 6:
                                             prof.pesquisarEventoPorTipo();
+                                            break;
                                         case 7:
-                                            prof.listarMeusEventos();
+                                            prof.listarMeusEventosFuturos();
                                             break;
                                         case 8:
-                                            prof.listarEventosTodos();
+                                            prof.listarMeusEventosPassados();
                                             break;
                                         case 9:
-                                            usu.trocarSenha();
+                                            prof.listarTodosEventosFuturos();
                                             break;
                                         case 10:
+                                            prof.listarTodosEventosPassados();
+                                            break;
+                                        case 11:
+                                            usu.trocarSenha();
+                                            break;
+                                        case 12:
                                             log = false;
                                             break;
                                         default:
                                             std::cout << "Opção inválida!" << std::endl;
-                                            std::cin.clear(); //limpa o que foi digitado
-                                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //ignora o que foi digitado
+                                            std::cin.clear(); 
+                                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
                                             break;
                                     }
                                 }
                             } else {
                                 std::cout << "Falha no login!" << std::endl;
                                 cont++;
-                                if(cont == 4){
+                                if(cont == 3){
                                     erroLogin = true;
                                 }
 
                                 if(erroLogin == true){
-                                    std::cout << "Você errou a senha 4 vezes!" << std::endl;
+                                    std::cout << "Você errou a senha 3 vezes!" << std::endl;
                                     std::cout << "1 - Trocar senha" << std::endl;
                                     std::cout << "2 - Sair" << std::endl;
                                     int opcao3;
@@ -269,8 +287,8 @@ int main(){
                                             break;  
                                         default:
                                             std::cout << "Opção inválida!" << std::endl;
-                                            std::cin.clear(); //limpa o que foi digitado
-                                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //ignora o que foi digitado
+                                            std::cin.clear(); 
+                                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
                                             break;
                                     }
                                 }
@@ -282,6 +300,7 @@ int main(){
                             break;
                         case 3:
                             if(login == true){
+                                usu.avaliarPrograma();  //chama a funcao avaliar programa
                                 std::cout << "*******************************" << std::endl;
                                 prof.exibirNotificacoes();
                                 usu.logout();
@@ -290,8 +309,8 @@ int main(){
                             break;
                         default:
                             std::cout << "Opção inválida!" << std::endl;
-                            std::cin.clear(); //limpa o que foi digitado
-                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //ignora o que foi digitado
+                            std::cin.clear(); 
+                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
                             break;
                     }
                 }
@@ -317,12 +336,12 @@ int main(){
                             if (usu.fazerLogin()) {
                                 log = true;
                                 login = true;
-                                std::cout << std::endl;
-                                std::cout << aluno.getNumeroNotificacao() << " notificações" << std::endl;
+                                std::cout << "\n!!!  " << admin.getNumeroNotificacao() << " notificações" << "  !!!\n" << std::endl;
                                 std::cout << std::endl;
                                 aluno.contTipoEvento();
+                                std::cout << std::endl;
                                 while (log) {
-                                    std::cout << "MENU" << std::endl;
+                                    std::cout << "\n=*=*=*=*=*=*=*MENU=*=*=*=*=*=*=*\n" << std::endl;
                                     std::cout << "Escolha uma opção:" << std::endl;
                                     std::cout << "1 - Criar evento" << std::endl;
                                     std::cout << "2 - Editar evento" << std::endl;
@@ -330,10 +349,12 @@ int main(){
                                     std::cout << "4 - Pesquisar evento por titulo" << std::endl;
                                     std::cout << "5 - Pesquisar evento por data" << std::endl;
                                     std::cout << "6 - Pesquisar evento por tipo" << std::endl;  
-                                    std::cout << "7 - Listar meus eventos" << std::endl;
-                                    std::cout << "8 - Listar todos os eventos" << std::endl;
-                                    std::cout << "9 - Alterar senha" << std::endl;
-                                    std::cout << "10 - Voltar" << std::endl;
+                                    std::cout << "7 - Listar meus eventos futuros" << std::endl;
+                                    std::cout << "8 - Listar meus eventos passados" << std::endl;
+                                    std::cout << "9 - Listar todos os eventos futuros" << std::endl;
+                                    std::cout << "10 - Listar todos os eventos passados" << std::endl;
+                                    std::cout << "11 - Alterar senha" << std::endl;
+                                    std::cout << "12 - Voltar" << std::endl;
                                     int opcao2;
                                     std::cin >> opcao2;
                                     std::cin.ignore();
@@ -355,16 +376,23 @@ int main(){
                                             break;
                                         case 6:
                                             aluno.pesquisarEventoPorTipo();
+                                            break;
                                         case 7:
-                                            aluno.listarMeusEventos();
+                                            aluno.listarMeusEventosFuturos();
                                             break;
                                         case 8:
-                                            aluno.listarEventosTodos();
+                                            aluno.listarMeusEventosPassados();
                                             break;
                                         case 9:
-                                            usu.trocarSenha();
+                                            aluno.listarTodosEventosFuturos();
                                             break;
                                         case 10:
+                                            aluno.listarTodosEventosPassados();
+                                            break;
+                                        case 11:
+                                            usu.trocarSenha();
+                                            break;
+                                        case 12:
                                             log = false;
                                             break;
                                         default:
@@ -376,12 +404,12 @@ int main(){
                             } else {
                                 std::cout << "Falha no login!" << std::endl;
                                 cont++;
-                                if(cont == 4){
+                                if(cont == 3){
                                     erroLogin = true;
                                 }
 
                                 if(erroLogin == true){
-                                    std::cout << "Você errou a senha 4 vezes!" << std::endl;
+                                    std::cout << "Você errou a senha 3 vezes!" << std::endl;
                                     std::cout << "1 - Trocar senha" << std::endl;
                                     std::cout << "2 - Sair" << std::endl;
                                     int opcao3;
@@ -397,8 +425,8 @@ int main(){
                                             break;  
                                         default:
                                             std::cout << "Opção inválida!" << std::endl;
-                                            std::cin.clear(); //limpa o que foi digitado
-                                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //ignora o que foi digitado
+                                            std::cin.clear(); 
+                                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
                                             break;
                                     }
                                 }
@@ -410,6 +438,7 @@ int main(){
                             break;
                         case 3:
                             if(login == true){
+                                usu.avaliarPrograma();  //chama a funcao avaliar programa
                                 std::cout << "*******************************" << std::endl;
                                 aluno.exibirNotificacoes();
                                 usu.logout();
@@ -418,8 +447,8 @@ int main(){
                             break;
                         default:
                             std::cout << "Opção inválida!" << std::endl;
-                            std::cin.clear(); //limpa o que foi digitado
-                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //ignora o que foi digitado
+                            std::cin.clear(); 
+                            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
                             break;
                         
                     }
@@ -430,11 +459,11 @@ int main(){
                 break;
             default:
                 std::cout << "Tipo invalido!" << std::endl;
-                std::cin.clear(); //limpa o que foi digitado
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //ignora o que foi digitado
+                std::cin.clear(); 
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); 
                 break;
             }
-    }while(tipoUsuario != 1 && tipoUsuario != 2 && tipoUsuario != 3 && tipoUsuario != 4);
+    }while(tipoUsuario != 1 && tipoUsuario != 2 && tipoUsuario != 3 && tipoUsuario != 4);   //enquanto o tipo de usuario for diferente de 1, 2, 3 e 4 o programa continua rodando
 
 
     return 0;

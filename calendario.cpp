@@ -64,7 +64,7 @@ void Calendario::excluirEvento() {
     }
 
     std::ofstream novoArquivoEventos("eventos.txt"); //abre o arquivo para escrita
-    for(const std::string evento : eventosAtualizados) {
+    for(const std::string& evento : eventosAtualizados) {
         novoArquivoEventos << evento << std::endl; //escreve o evento no arquivo
     }
     novoArquivoEventos.close(); //fecha o arquivo
@@ -198,8 +198,8 @@ void Calendario::editarEvento(){        // Edita o evento
 
 
 // Métodos para listar eventos criar sommente por um usuario especifico
-void Calendario::listarMeusEventos() {
-    std::cout << "==============LISTANDO MEUS EVENTOS==============\n\n";
+void Calendario::listarMeusEventosFuturos() {
+    std::cout << "==============LISTANDO MEUS EVENTOS FUTUROS==============\n\n";
     std::string id;    // Variaveis para armazenar o tipo de usuario e o id do usuario
     std::cout << "Digite o seu ID de usuario: ";
     std::getline(std::cin, id); // Recebe o id do usuario
@@ -233,6 +233,7 @@ void Calendario::listarMeusEventos() {
         return; // sai da funcao
     }
 
+    std::cout << "==========LISTA DOS EVENTOS ENCONTRADOS==========\n\n" << std::endl;
     //percorre o arquivo de eventos para encontrar os eventos associados ao id do usuário
     while (std::getline(arquivoEventos, linha)) {
         std::stringstream ss(linha);
@@ -245,12 +246,28 @@ void Calendario::listarMeusEventos() {
         std::getline(ss, localEvento, '|');
         std::getline(ss, criador, '|');
         std::getline(ss, idEvento, '|');
+
+
+        std::time_t dataHoraAtual = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); //variável para armazenar a data e hora atual
+        std::tm tempo = {};
+        std::istringstream dado(dataEvento + " " + horaEvento); //variável para armazenar a data e hora do evento
+        dado >> std::get_time(&tempo, "%d-%m-%Y %H:%M");    //converte a data e hora do evento para o tipo time_t
         
+        if (dado.fail()) {
+            continue;   //pula para a próxima iteração
+        }
+
+        std::time_t dataHoraEvento = std::mktime(&tempo);   //variável para armazenar a data e hora do evento
+
+        if(dataHoraEvento - dataHoraAtual > 0) {   //verifica se a data do evento é maior que a data atual
             if(id == idEvento) {  //verifica se o id do usuario e o id do evento sao iguais
                 Evento evento(tipoEvento, tituloEvento, descricaoEvento, dataEvento, horaEvento, localEvento, criador, idEvento); //cria um objeto do tipo evento com os dados do arquivo
                 imprimirEvento(evento); //imprime o evento
                 eventoEncontrado = true;    // Caso existam, a variavel recebe true
             }
+        }else{
+            eventoEncontrado = false;
+        }
         
     }
 
@@ -261,6 +278,93 @@ void Calendario::listarMeusEventos() {
     arquivoUsuarios.close(); //fecha o arquivo
     arquivoEventos.close(); //fecha o arquivo
 }
+
+/*****************************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************************/
+
+
+// Métodos para listar eventos passados criar sommente por um usuario especifico
+void Calendario::listarMeusEventosPassados() {
+    std::cout << "==============LISTANDO MEUS EVENTOS PASSADOS==============\n\n";
+    std::string id;    // Variaveis para armazenar o tipo de usuario e o id do usuario
+    std::cout << "Digite o seu ID de usuario: ";
+    std::getline(std::cin, id); // Recebe o id do usuario
+
+    std::ifstream arquivoUsuarios("usuarios.txt"); //abre o arquivo para leitura
+    std::ifstream arquivoEventos("eventos.txt"); //abre o arquivo para leitura
+
+    if(!arquivoUsuarios.is_open() || !arquivoEventos.is_open()) {    // Verifica se o arquivo foi aberto
+        std::cout << "Erro sistema!" << std::endl;
+        return; // sai da funcao
+    }
+
+    bool eventoIdEncontrado = false;  // Variavel para verificar se o id foi encontrado
+    bool eventoEncontrado = false;  // Variavel para verificar se o evento foi encontrado
+
+    //percorre o arquivo de usuários para encontrar o id do usuário
+    std::string linha, tipoUsuario, idUsuario, senhaUsuario;
+    while (std::getline(arquivoUsuarios, linha)) {
+        std::stringstream ss(linha);
+        std::getline(ss, tipoUsuario, '|');
+        std::getline(ss, idUsuario, '|');
+        std::getline(ss, senhaUsuario, '|');
+        Usuario usuario(tipoUsuario, idUsuario, senhaUsuario); //cria um objeto do tipo usuario com os dados do arquivo
+        if (id == idUsuario) {  // Verifica se o id existe
+            eventoIdEncontrado = true;    // Caso exista, a variavel recebe true
+        }
+    }
+
+    if(!eventoIdEncontrado) {    // Caso o id nao seja encontrado
+        std::cout << "ID nao existe!" << std::endl;
+        return; // sai da funcao
+    }
+
+    std::cout << "==========LISTA DOS EVENTOS ENCONTRADOS==========\n\n" << std::endl;
+    //percorre o arquivo de eventos para encontrar os eventos associados ao id do usuário
+    while (std::getline(arquivoEventos, linha)) {
+        std::stringstream ss(linha);
+        std::string tipoEvento, tituloEvento, descricaoEvento, dataEvento, horaEvento, localEvento, criador, idEvento;
+        std::getline(ss, tipoEvento, '|');
+        std::getline(ss, tituloEvento, '|');
+        std::getline(ss, descricaoEvento, '|');
+        std::getline(ss, dataEvento, '|');
+        std::getline(ss, horaEvento, '|');
+        std::getline(ss, localEvento, '|');
+        std::getline(ss, criador, '|');
+        std::getline(ss, idEvento, '|');
+
+
+        std::time_t dataHoraAtual = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); //variável para armazenar a data e hora atual
+        std::tm tempo = {};
+        std::istringstream dado(dataEvento + " " + horaEvento); //variável para armazenar a data e hora do evento
+        dado >> std::get_time(&tempo, "%d-%m-%Y %H:%M");    //converte a data e hora do evento para o tipo time_t
+        
+        if (dado.fail()) {
+            continue;   //pula para a próxima iteração
+        }
+
+        std::time_t dataHoraEvento = std::mktime(&tempo);   //variável para armazenar a data e hora do evento
+
+        if(dataHoraEvento - dataHoraAtual < 0) {   //verifica se a data do evento é maior que a data atual
+            if(id == idEvento) {  //verifica se o id do usuario e o id do evento sao iguais
+                Evento evento(tipoEvento, tituloEvento, descricaoEvento, dataEvento, horaEvento, localEvento, criador, idEvento); //cria um objeto do tipo evento com os dados do arquivo
+                imprimirEvento(evento); //imprime o evento
+                eventoEncontrado = true;    // Caso existam, a variavel recebe true
+            }
+        }else{
+            eventoEncontrado = false;
+        }
+        
+    }
+
+    if(!eventoEncontrado) { // Caso o evento nao seja encontrado
+        std::cout << "Nenhum evento encontrado!" << std::endl;
+    }
+
+    arquivoUsuarios.close(); //fecha o arquivo
+    arquivoEventos.close(); //fecha o arquivo
+}
+
 
 
 /*****************************************************************************************************************************************************************/

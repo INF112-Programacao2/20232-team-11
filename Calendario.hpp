@@ -32,14 +32,17 @@ public:
     virtual void pesquisarEventoPorTitulo() = 0;
     virtual void pesquisarEventoPorData() = 0;
     virtual void pesquisarEventoPorTipo() = 0;
-    virtual void listarEventosTodos() = 0;
-    virtual void listarMeusEventos();
+    virtual void listarTodosEventosFuturos() = 0;
+    virtual void listarTodosEventosPassados() = 0;
+    virtual void listarMeusEventosPassados();
+    virtual void listarMeusEventosFuturos();
     std::vector<Evento> getEventos() const;
     void imprimirEvento(const Evento& evento);
     void imprimirEventoOrdenado(const std::vector<Evento>& eventos);
     static bool compararPorData(const Evento& a, const Evento& b);
     virtual void exibirNotificacoes() = 0;
     virtual int getNumeroNotificacao() = 0;
+    virtual void contTipoEvento() const = 0;
 };
 
 #endif
