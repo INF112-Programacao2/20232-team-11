@@ -147,7 +147,7 @@ void Calendario::editarEvento(){        // Edita o evento
 
             std::cout << "Digite a nova data do evento (DD-MM-AAAA): ";
             std::getline(std::cin, novaData);   // Recebe a nova data do evento
-            while(novaData.size() != 10 || novaData[2] != '-' || novaData[5] != '-') { // Verifica se a data possui o tamanho correto
+            while(!Usuario::dataValida(novaData)) { // Verifica se a data possui o tamanho correto
                 std::cout << "Data invalida!" << std::endl;
                 std::cout << "Digite a nova data do evento (DD-MM-AAAA): ";
                 std::getline(std::cin, novaData);   // Recebe a nova data do evento
@@ -155,7 +155,7 @@ void Calendario::editarEvento(){        // Edita o evento
 
             std::cout << "Digite a nova hora do evento (HH:MM): ";
             std::getline(std::cin, novaHora);   // Recebe a nova hora do evento
-            while(novaHora.size() != 5 || novaHora[2] != ':') { // Verifica se a hora possui o tamanho correto
+            while(!Usuario::horaValida(novaHora)) { // Verifica se a hora possui o tamanho correto
                 std::cout << "Hora invalida!" << std::endl;
                 std::cout << "Digite a nova hora do evento (HH:MM): ";
                 std::getline(std::cin, novaHora);   // Recebe a nova hora do evento
