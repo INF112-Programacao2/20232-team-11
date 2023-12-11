@@ -69,7 +69,9 @@ void Calendario::excluirEvento() {
     }
     novoArquivoEventos.close(); //fecha o arquivo
 
-    std::cout << "Evento excluido com sucesso!" << std::endl;
+    if(idEncontrado && eventoEncontrado){
+        std::cout << "Evento excluido com sucesso!" << std::endl;
+    } 
 }
 
 
@@ -189,7 +191,9 @@ void Calendario::editarEvento(){        // Edita o evento
     std::remove("eventos.txt");
     std::rename("tempEvento.txt", "eventos.txt");
 
-    std::cout << "Evento editado com sucesso!" << std::endl;
+    if(eventoEncontrado && idEncontrado){
+        std::cout << "Evento editado com sucesso!" << std::endl;
+    }   
 }
 
 
