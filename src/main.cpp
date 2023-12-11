@@ -41,7 +41,7 @@ int main(){
                     std::cout << std::endl;
                     std::cout << "§§§§§§§§§§§§§§==CALENDARIO ACADEMICO==§§§§§§§§§§§§§§\n" << std::endl;
 
-                    std::cout << "Bem vindo ao Calendario Academico!" << std::endl;
+                    std::cout << "Bem vindo ao Calendario Acadêmico!" << std::endl;
                     std::cout << "Escolha uma opção:" << std::endl;
 
                     std::cout << "1 - Fazer login" << std::endl;
@@ -181,7 +181,7 @@ int main(){
                     std::cout << std::endl;
                     std::cout << "§§§§§§§§§§§§§§==CALENDARIO ACADEMICO==§§§§§§§§§§§§§§\n" << std::endl;
 
-                    std::cout << "Bem vindo ao Calendario Academico!" << std::endl;
+                    std::cout << "Bem vindo ao Calendario Acadêmico!" << std::endl;
                     std::cout << "Escolha uma opção:" << std::endl;
 
                     std::cout << "1 - Fazer login" << std::endl;
@@ -320,7 +320,7 @@ int main(){
                     std::cout << std::endl;
                     std::cout << "§§§§§§§§§§§§§§==CALENDARIO ACADEMICO==§§§§§§§§§§§§§§\n" << std::endl;
 
-                    std::cout << "Bem vindo ao Calendario Academico!" << std::endl;
+                    std::cout << "Bem vindo ao Calendario Acadêmico!" << std::endl;
                     std::cout << "Escolha uma opção:" << std::endl;
 
                     std::cout << "1 - Fazer login" << std::endl;
@@ -337,8 +337,8 @@ int main(){
                                 log = true;
                                 login = true;
                                 std::cout << "\n!!!  " << admin.getNumeroNotificacao() << " notificações" << "  !!!\n" << std::endl;
-                                aluno.contTipoEvento();
                                 aluno.calendarioComEventos();
+                                aluno.contTipoEvento();
                                 std::cout << std::endl;
                                 while (log) {
                                     std::cout << "\n=*=*=*=*=*=*=*MENU=*=*=*=*=*=*=*\n" << std::endl;

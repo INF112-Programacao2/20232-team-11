@@ -513,7 +513,7 @@ void Administrador::listarTodosEventosPassados() {
 // Métodos para exibir notificações
 void Administrador::exibirNotificacoes(){
     std::cout << "=======CALENDARIO ACADEMICO=======\n\n";
-    std::cout << "---------Você tem notificação!---------\n\n";
+    std::cout << "---------Você tem uma notificação dos eventos!---------\n\n";
     bool notificacao = false; // variável para verificar se a notificação foi encontrada
     std::time_t dataHoraAtual = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); //variável para armazenar a data e hora atual
 
@@ -611,7 +611,7 @@ int Administrador::getNumeroNotificacao(){
 
         std::time_t dataHoraEvento = std::mktime(&tempo);   //variável para armazenar a data e hora do evento
        
-        if(dataHoraEvento - dataHoraAtual > 0 ){
+        if(dataHoraEvento - dataHoraAtual > 0 ){   //verifica se a data do evento é maior que a data atual
             if(tipoEvento == "ACADEMICO" || (tipoEvento == "PESSOAL" && criador == "ADMIN") || tipoEvento == "APRESENTACAO" || tipoEvento == "PROVA"){  // 1 dia em segundos (1 jour * 24 heures * 60 minutes * 60 secondes = 86400)
                 if (dataHoraEvento >= dataHoraAtual) { 
                     Evento evento(tipoEvento, tituloEvento, descricaoEvento, dataEvento, horaEvento, localEvento, criador, idEvento); // Cria um evento
@@ -680,15 +680,27 @@ void Administrador::calendarioComEventos(){
         std::getline(ss, criador, '|');
         std::getline(ss, idEvento, '|');
 
-        if(tipoEvento == "ACADEMICO" || (tipoEvento == "PESSOAL" && criador == "ADMIN") || tipoEvento == "APRESENTACAO" || tipoEvento == "PROVA"){
-            std::istringstream dataStream(dataEvento); // Criar um fluxo de string para a data
-            std::string token;
-            while (std::getline(dataStream, token, '-')) { // Percorrer a string separando por '-'
-                try {
-                    int diaEvento = std::stoi(token); // Converter a parte da data para inteiro
-                    diasEventos.insert(diaEvento); // Inserir o dia do evento no conjunto
-                } catch (const std::invalid_argument& e) {
-                    std::cout << "Erreur sistema" << e.what() << std::endl;
+        std::tm tempo = {};
+        std::istringstream dado(dataEvento + " " + horaEvento); //variável para armazenar a data e hora do evento
+        dado >> std::get_time(&tempo, "%d-%m-%Y %H:%M");    //converte a data e hora do evento para o tipo time_t
+        std::time_t dataHoraAtual = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); //variável para armazenar a data e hora atual
+        
+        if (dado.fail()) {
+            continue;   //pula para a próxima iteração
+        }
+
+        std::time_t dataHoraEvento = std::mktime(&tempo);   //variável para armazenar a data e hora do evento
+        if(dataHoraEvento - dataHoraAtual > 0 ){    //verifica se o evento é futuro
+            if(tipoEvento == "ACADEMICO" || (tipoEvento == "PESSOAL" && criador == "ADMIN") || tipoEvento == "APRESENTACAO" || tipoEvento == "PROVA"){
+                std::istringstream dataStream(dataEvento); // Criar um fluxo de string para a data
+                std::string token;
+                while (std::getline(dataStream, token, '-')) { // Percorrer a string separando por '-'
+                    try {
+                        int diaEvento = std::stoi(token); // Converter a parte da data para inteiro
+                        diasEventos.insert(diaEvento); // Inserir o dia do evento no conjunto
+                    } catch (const std::invalid_argument& e) {
+                        std::cout << "Erreur sistema" << e.what() << std::endl;
+                    }
                 }
             }
         }
@@ -704,7 +716,7 @@ void Administrador::calendarioComEventos(){
     int diasPorMes[] = {31, ((anoAtual % 4 == 0 && anoAtual % 100 != 0) || anoAtual % 400 == 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     std::string nomesMeses[] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 
-    std::cout << "Calendário para os eventos de " << nomesMeses[mesAtual] << " de " << anoAtual << ":" << std::endl;
+    std::cout << "Calendário dos eventos de " << nomesMeses[mesAtual] << " de " << anoAtual << ":" << std::endl;
     std::cout << "______________________" << std::endl;
     std::cout << "|      " << nomesMeses[mesAtual] << "       |" << std::endl;
     std::cout << "|____________________|" << std::endl;

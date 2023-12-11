@@ -85,11 +85,11 @@ void Usuario::avaliarPrograma(){
     std::cout << "7 - Não avaliar\n";
     std::getline(std::cin, avaliacao);  //le a avaliacao do usuario
     if(avaliacao == "6"){
-        std::cout << "Digite sua sugestão/recomendação (100 caracteres maximo): \n";
+        std::cout << "Digite sua sugestão/recomendação (100 caracteres máximo): \n";
         std::getline(std::cin, sugestao);  //le a avaliacao do usuario
         while(sugestao.size() > 100){
             std::cout << "Texto muito grande!" << std::endl;
-            std::cout << "Digite sua sugestão/recomendação (100 caracteres maximo): \n";
+            std::cout << "Digite sua sugestão/recomendação (100 caracteres máximo): \n";
             std::getline(std::cin, sugestao);  //le a avaliacao do usuario
         }
     }else if(avaliacao == "7"){
@@ -112,7 +112,7 @@ void Usuario::avaliarPrograma(){
             std::getline(std::cin, sugestao);  //le a avaliacao do usuario
             while(sugestao.size() > 100){
                 std::cout << "Texto muito grande!" << std::endl;
-                std::cout << "Digite sua sugestão/recomendação (100 caracteres maximo): \n";
+                std::cout << "Digite sua sugestão/recomendação (100 caracteres máximo): \n";
                 std::getline(std::cin, sugestao);  //le a avaliacao do usuario
             }
         }else if(avaliacao == "7"){
@@ -164,7 +164,7 @@ void Usuario::avaliarPrograma(){
 
 void Usuario::logout() {
     std::cout << "Logout realizado com sucesso!\n" << std::endl;
-    std::cout << "Obrigado por usar o Calendario Academico!\n" << std::endl;
+    std::cout << "Obrigado por usar o Calendario Acadêmico!\n" << std::endl;
     exit(0);
 }
 

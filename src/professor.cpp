@@ -514,7 +514,7 @@ void Professor::listarTodosEventosPassados() {
 // Métodos para exibir notificações
 void Professor::exibirNotificacoes(){
     std::cout << "=======CALENDARIO ACADEMICO=======\n\n";
-    std::cout << "---------Você tem notificação!---------\n\n";
+    std::cout << "---------Você tem uma notificação dos eventos!---------\n\n";
 
     bool notificacao = false; // variável para verificar se a notificação foi encontrada
     std::time_t dataHoraAtual = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); //variável para armazenar a data e hora atual
@@ -679,15 +679,27 @@ void Professor::calendarioComEventos(){
         std::getline(ss, criador, '|');
         std::getline(ss, idEvento, '|');
 
-        if(tipoEvento == "ACADEMICO" || (tipoEvento == "PESSOAL" && criador == "PROF") || tipoEvento == "APRESENTACAO" || tipoEvento == "PROVA"){
-            std::istringstream dataStream(dataEvento);  
-            std::string token;
-            while (std::getline(dataStream, token, '-')) {  
-                try {
-                    int diaEvento = std::stoi(token);   
-                    diasEventos.insert(diaEvento); 
-                } catch (const std::invalid_argument& e) {
-                    std::cout << "Erreur lors de la conversion de la date en entier : " << e.what() << std::endl;
+        std::tm tempo = {};
+        std::istringstream dado(dataEvento + " " + horaEvento); //variável para armazenar a data e hora do evento
+        dado >> std::get_time(&tempo, "%d-%m-%Y %H:%M");    //converte a data e hora do evento para o tipo time_t
+        std::time_t dataHoraAtual = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()); //variável para armazenar a data e hora atual
+        
+        if (dado.fail()) {
+            continue;   //pula para a próxima iteração
+        }
+
+        std::time_t dataHoraEvento = std::mktime(&tempo);   //variável para armazenar a data e hora do evento
+        if(dataHoraEvento - dataHoraAtual > 0 ){
+            if(tipoEvento == "ACADEMICO" || (tipoEvento == "PESSOAL" && criador == "PROF") || tipoEvento == "APRESENTACAO" || tipoEvento == "PROVA"){
+                std::istringstream dataStream(dataEvento);  
+                std::string token;
+                while (std::getline(dataStream, token, '-')) {  
+                    try {
+                        int diaEvento = std::stoi(token);   
+                        diasEventos.insert(diaEvento); 
+                    } catch (const std::invalid_argument& e) {
+                        std::cout << "Erreur lors de la conversion de la date en entier : " << e.what() << std::endl;
+                    }
                 }
             }
         }
@@ -703,7 +715,7 @@ void Professor::calendarioComEventos(){
     int diasPorMes[] = {31, ((anoAtual % 4 == 0 && anoAtual % 100 != 0) || anoAtual % 400 == 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     std::string nomesMeses[] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 
-    std::cout << "Calendário os eventos de " << nomesMeses[mesAtual] << " de " << anoAtual << ":" << std::endl;
+    std::cout << "Calendário dos eventos de " << nomesMeses[mesAtual] << " de " << anoAtual << ":" << std::endl;
     std::cout << "______________________" << std::endl;
     std::cout << "|      " << nomesMeses[mesAtual] << "       |" << std::endl;
     std::cout << "|____________________|" << std::endl;
@@ -720,7 +732,9 @@ void Professor::calendarioComEventos(){
     }
 
     while (dia <= diasPorMes[mesAtual]) {   // Imprime os dias do mês enquanto o dia for menor ou igual ao último dia do mês
-        for (int i = primeiroDiaSemana; i < 7 && dia <= diasPorMes[mesAtual]; i++) {    
+        for (int i = primeiroDiaSemana; i < 7 && dia <= diasPorMes[mesAtual]; i++) {   
+
+            // Imprime o dia do mês com um * se o dia possuir evento 
             if (diasEventos.find(dia) != diasEventos.end()) {   // Verifica se o dia possui evento
                 std::cout << std::setw(2) << dia << "* ";
             } else {

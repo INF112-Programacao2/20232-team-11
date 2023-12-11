@@ -14,7 +14,7 @@ O **Calendário Acadêmico** é uma plataforma projetada para facilitar a troca 
      - Avaliar o programa
 
    * Funcionalidades principais:
-     - Criação de eventos de tipo academicos (prova, trabalho, apresentação) e de tipo pessaois.
+     - Criação de eventos de tipo acadêmicos (prova, trabalho, apresentação) e de tipo pessaois.
      - Edição de eventos.
      - Exclusão de eventos.
      - Listagem de eventos:
@@ -29,9 +29,9 @@ O **Calendário Acadêmico** é uma plataforma projetada para facilitar a troca 
 
      - Enviar notificações aos usuários no momento adequado dependendo do tipo de usúario e do tipo de evento.
 
-     ![Alt text](Interface1.png)
-     ![Alt text](Interface2.png)
-     ![Alt text](Interface3.png)
+     ![Alt text](Interface-1.png)
+     ![Alt text](Interface-2.png)
+     ![Alt text](Interface-3.png)
 
 
 ## Manuel Usuario
@@ -39,7 +39,7 @@ O **Calendário Acadêmico** é uma plataforma projetada para facilitar a troca 
  * 2- No terminal, execute os segintes comandos:
       - comando 1: make
       - comando 2: ./Calendario
- * 3- Explorar o programa "Calendario Academico".
+ * 3- Explorar o programa "Calendario Acadêmico".
 
 
 ## Autores
