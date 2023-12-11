@@ -411,8 +411,6 @@ void Professor::listarTodosEventosFuturos() {
                 imprimirEvento(evento); // Imprime o evento
                 eventoEncontrado = true;  //eventoEncontrado recebe true
             }
-        }else{
-            eventoEncontrado = false;  //eventoEncontrado recebe false
         }
     }
 
@@ -498,8 +496,6 @@ void Professor::listarTodosEventosPassados() {
                 imprimirEvento(evento); // Imprime o evento
                 eventoEncontrado = true;  //eventoEncontrado recebe true
             }
-        }else{
-            eventoEncontrado = false;  //eventoEncontrado recebe false
         }
     }
 
@@ -653,4 +649,87 @@ void Professor::contTipoEvento() const {
     std::cout << "- " << contEventoApresentacao << " eventos de apresentacao" << std::endl;
     std::cout << "- " << contEventoProva << " eventos de prova" << std::endl;
     std::cout << "- " << contEventoTrabalho << " eventos de trabalho" << std::endl;
+}
+
+/*****************************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************************/
+
+void Professor::calendarioComEventos(){
+    std::set<int> diasEventos;  //variável para armazenar os dias dos eventos
+    std::ifstream arquivoEventos("eventos.txt");
+
+    if (!arquivoEventos.is_open()) {
+        std::cout << "Erro ao abrir o arquivo." << std::endl;
+        return;
+    }
+
+    std::string linha;
+    while (std::getline(arquivoEventos, linha)) {
+        std::stringstream ss(linha);
+        std::string linha, tipoEvento, tituloEvento, descricaoEvento, dataEvento, horaEvento, localEvento, criador, idEvento;
+        std::string palavra;
+
+        // Ler os dados do arquivo
+        std::getline(ss, tipoEvento, '|');  
+        std::getline(ss, tituloEvento, '|');
+        std::getline(ss, descricaoEvento, '|');
+        std::getline(ss, dataEvento, '|');
+        std::getline(ss, horaEvento, '|');
+        std::getline(ss, localEvento, '|');
+        std::getline(ss, criador, '|');
+        std::getline(ss, idEvento, '|');
+
+        if(tipoEvento == "ACADEMICO" || (tipoEvento == "PESSOAL" && criador == "PROF") || tipoEvento == "APRESENTACAO" || tipoEvento == "PROVA"){
+            std::istringstream dataStream(dataEvento);  
+            std::string token;
+            while (std::getline(dataStream, token, '-')) {  
+                try {
+                    int diaEvento = std::stoi(token);   
+                    diasEventos.insert(diaEvento); 
+                } catch (const std::invalid_argument& e) {
+                    std::cout << "Erreur lors de la conversion de la date en entier : " << e.what() << std::endl;
+                }
+            }
+        }
+    }
+    arquivoEventos.close();
+
+    time_t agora = time(0); //variável para armazenar a data e hora atual
+    tm *tempo = localtime(&agora);  //variável para armazenar a data e hora atual
+    int mesAtual = tempo->tm_mon;   //variável para armazenar o mês atual
+    int anoAtual = tempo->tm_year + 1900;   //variável para armazenar o ano atual
+
+    //logica para imprimir o calendario
+    int diasPorMes[] = {31, ((anoAtual % 4 == 0 && anoAtual % 100 != 0) || anoAtual % 400 == 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    std::string nomesMeses[] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+
+    std::cout << "Calendário os eventos de " << nomesMeses[mesAtual] << " de " << anoAtual << ":" << std::endl;
+    std::cout << "______________________" << std::endl;
+    std::cout << "|      " << nomesMeses[mesAtual] << "       |" << std::endl;
+    std::cout << "|____________________|" << std::endl;
+    std::cout << "| Seg Ter Qua Qui Sex Sáb Dom |" << std::endl;
+    std::cout << "|____________________|" << std::endl;
+
+    int dia = 1;
+    tm primeiroDia = { 0, 0, 0, 1, mesAtual, anoAtual - 1900 }; //variável para armazenar o primeiro dia do mês
+    mktime(&primeiroDia);
+    int primeiroDiaSemana = primeiroDia.tm_wday;    //variável para armazenar o primeiro dia da semana
+
+    for (int i = 0; i < primeiroDiaSemana; i++) {       // Imprime os espaços para o primeiro dia da semana
+        std::cout << "    ";
+    }
+
+    while (dia <= diasPorMes[mesAtual]) {   // Imprime os dias do mês enquanto o dia for menor ou igual ao último dia do mês
+        for (int i = primeiroDiaSemana; i < 7 && dia <= diasPorMes[mesAtual]; i++) {    
+            if (diasEventos.find(dia) != diasEventos.end()) {   // Verifica se o dia possui evento
+                std::cout << std::setw(2) << dia << "* ";
+            } else {
+                std::cout << std::setw(3) << dia << " ";
+            }
+            dia++;
+        }
+        std::cout << std::endl;
+        primeiroDiaSemana = 0;  // Reseta o primeiro dia da semana
+    }
+    std::cout << std::endl;
 }

@@ -155,7 +155,7 @@ void Calendario::editarEvento(){        // Edita o evento
 
             std::cout << "Digite a nova hora do evento (HH:MM): ";
             std::getline(std::cin, novaHora);   // Recebe a nova hora do evento
-            while(!Usuario::horaValida(novaHora)) { // Verifica se a hora possui o tamanho correto
+            while(!Usuario::horaValida(novaHora )) { // Verifica se a hora possui o tamanho correto
                 std::cout << "Hora invalida!" << std::endl;
                 std::cout << "Digite a nova hora do evento (HH:MM): ";
                 std::getline(std::cin, novaHora);   // Recebe a nova hora do evento
@@ -265,10 +265,7 @@ void Calendario::listarMeusEventosFuturos() {
                 imprimirEvento(evento); //imprime o evento
                 eventoEncontrado = true;    // Caso existam, a variavel recebe true
             }
-        }else{
-            eventoEncontrado = false;
         }
-        
     }
 
     if(!eventoEncontrado) { // Caso o evento nao seja encontrado
@@ -351,10 +348,7 @@ void Calendario::listarMeusEventosPassados() {
                 imprimirEvento(evento); //imprime o evento
                 eventoEncontrado = true;    // Caso existam, a variavel recebe true
             }
-        }else{
-            eventoEncontrado = false;
         }
-        
     }
 
     if(!eventoEncontrado) { // Caso o evento nao seja encontrado

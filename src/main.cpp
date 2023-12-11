@@ -59,7 +59,7 @@ int main(){
                                 log = true; //usuario esta logado
                                 login = true;   //variavel para verificar se o usuario esta logado no programa 
                                 std::cout << "\n!!!  " << admin.getNumeroNotificacao() << " notificações" << "  !!!\n" << std::endl;    //imprime o numero de notificacoes
-                                std::cout << std::endl;
+                                admin.calendarioComEventos();   //chama a funcao calendario com eventos
                                 admin.contTipoEvento(); //chama a funcao para contar o numero de notificacoes
                                 std::cout << std::endl;
                                 while (log) {   
@@ -198,7 +198,7 @@ int main(){
                                 log = true;
                                 login = true;
                                 std::cout << "\n!!!  " << admin.getNumeroNotificacao() << " notificações" << "  !!!\n" << std::endl;
-                                std::cout << std::endl;
+                                prof.calendarioComEventos();
                                 prof.contTipoEvento();
                                 std::cout << std::endl;
                                 while (log) {
@@ -337,8 +337,8 @@ int main(){
                                 log = true;
                                 login = true;
                                 std::cout << "\n!!!  " << admin.getNumeroNotificacao() << " notificações" << "  !!!\n" << std::endl;
-                                std::cout << std::endl;
                                 aluno.contTipoEvento();
+                                aluno.calendarioComEventos();
                                 std::cout << std::endl;
                                 while (log) {
                                     std::cout << "\n=*=*=*=*=*=*=*MENU=*=*=*=*=*=*=*\n" << std::endl;

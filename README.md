@@ -29,8 +29,9 @@ O **Calendário Acadêmico** é uma plataforma projetada para facilitar a troca 
 
      - Enviar notificações aos usuários no momento adequado dependendo do tipo de usúario e do tipo de evento.
 
-     ![Alt text](<Captura de tela de 2023-12-10 12-14-25.png>)
-     ![Alt text](<Captura de tela de 2023-12-10 12-15-08.png>)
+     ![Alt text](Interface1.png)
+     ![Alt text](Interface2.png)
+     ![Alt text](Interface3.png)
 
 
 ## Manuel Usuario

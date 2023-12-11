@@ -18,6 +18,7 @@ public:
     void exibirNotificacoes() override;
     int getNumeroNotificacao() override;
     void contTipoEvento() const override;
+    void calendarioComEventos() override;
 };
 
 #endif

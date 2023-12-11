@@ -82,6 +82,7 @@ void Usuario::avaliarPrograma(){
     std::cout << "4 - Ruim\n";
     std::cout << "5 - Péssimo\n";
     std::cout << "6 - Sugestão/Recomendação\n";
+    std::cout << "7 - Não avaliar\n";
     std::getline(std::cin, avaliacao);  //le a avaliacao do usuario
     if(avaliacao == "6"){
         std::cout << "Digite sua sugestão/recomendação (100 caracteres maximo): \n";
@@ -91,9 +92,11 @@ void Usuario::avaliarPrograma(){
             std::cout << "Digite sua sugestão/recomendação (100 caracteres maximo): \n";
             std::getline(std::cin, sugestao);  //le a avaliacao do usuario
         }
+    }else if(avaliacao == "7"){
+        return;
     }
 
-    while(avaliacao != "1" && avaliacao != "2" && avaliacao != "3" && avaliacao != "4" && avaliacao != "5" && avaliacao != "6"){
+    while(avaliacao != "1" && avaliacao != "2" && avaliacao != "3" && avaliacao != "4" && avaliacao != "5" && avaliacao != "6" && avaliacao != "7"){
         std::cout << "Avaliação inválida!" << std::endl;
         std::cout << "Digite sua avaliação: \n";
         std::cout << "1 - Ótimo\n";
@@ -102,6 +105,7 @@ void Usuario::avaliarPrograma(){
         std::cout << "4 - Ruim\n";
         std::cout << "5 - Péssimo\n";
         std::cout << "6 - Sugestão/Recomendação\n";
+        std::cout << "7 - Não avaliar\n";
         std::getline(std::cin, avaliacao);  //le a avaliacao do usuario
         if(avaliacao == "6"){
             std::cout << "Digite sua sugestão/recomendação: \n";
@@ -111,6 +115,8 @@ void Usuario::avaliarPrograma(){
                 std::cout << "Digite sua sugestão/recomendação (100 caracteres maximo): \n";
                 std::getline(std::cin, sugestao);  //le a avaliacao do usuario
             }
+        }else if(avaliacao == "7"){
+            return;
         }
     }
 

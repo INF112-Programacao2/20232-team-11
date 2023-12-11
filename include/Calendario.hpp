@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <chrono>
 #include <algorithm>
+#include <set>
 
 class Calendario : public Usuario{
 protected:
@@ -43,6 +44,7 @@ public:
     virtual void exibirNotificacoes() = 0;
     virtual int getNumeroNotificacao() = 0;
     virtual void contTipoEvento() const = 0;
+    virtual void calendarioComEventos() = 0;
 };
 
 #endif
