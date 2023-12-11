@@ -644,9 +644,9 @@ int Professor::getNumeroNotificacao(){
 // Métodos para contar o número de eventos por tipo
 void Professor::contTipoEvento() const {
     
-    std::cout << "- " << contEventoAcademico << " eventos academicos" << std::endl;
+    std::cout << "- " << contEventoAcademico << " eventos acadêmicos" << std::endl;
     std::cout << "- " << contEventoPessoal << " eventos pessoal" << std::endl;
-    std::cout << "- " << contEventoApresentacao << " eventos de apresentacao" << std::endl;
+    std::cout << "- " << contEventoApresentacao << " eventos de apresentação" << std::endl;
     std::cout << "- " << contEventoProva << " eventos de prova" << std::endl;
     std::cout << "- " << contEventoTrabalho << " eventos de trabalho" << std::endl;
 }
