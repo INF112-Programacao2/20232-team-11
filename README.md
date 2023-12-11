@@ -30,6 +30,7 @@ O **Calendário Acadêmico** é uma plataforma projetada para facilitar a troca 
      - Enviar notificações aos usuários no momento adequado dependendo do tipo de usúario e do tipo de evento.
 
      ![Alt text](Interface-1.png)
+     ![Alt text](Interface-1-1.png)
      ![Alt text](Interface-2.png)
      ![Alt text](Interface-3.png)
 
