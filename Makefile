@@ -21,14 +21,14 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 # Gera as dependências
 depend: .depend
 
-.depend: $(SOURCES)
-	$(RM) ./.depend
-	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) -MM $^>>./.depend;
+	.depend: $(SOURCES)
+		$(RM) ./.depend
+		$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) -MM $^>>./.depend;
 
-clean:
-	$(RM) $(OBJECTS) $(EXECUTABLE)
+	clean:
+		$(RM) $(OBJECTS) $(EXECUTABLE)
 
-distclean: clean
-	$(RM) *~ .depend
+	distclean: clean
+		$(RM) *~ .depend
 
-include .depend
+	include .depend

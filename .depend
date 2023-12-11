@@ -13,3 +13,12 @@ professor.o: src/professor.cpp include/Professor.hpp \
  include/Calendario.hpp include/Evento.hpp include/Usuario.hpp
 usuario.o: src/usuario.cpp include/Usuario.hpp include/Evento.hpp \
  include/Evento.hpp
+-Wall
+-MM
+src/administrador.cpp
+src/aluno.cpp
+src/calendario.cpp
+src/evento.cpp
+src/main.cpp
+src/professor.cpp
+src/usuario.cpp
