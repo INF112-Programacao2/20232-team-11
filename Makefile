@@ -25,6 +25,12 @@ depend: .depend
 		$(RM) ./.depend
 		$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) -MM $^>>./.depend;
 
+run: $(EXECUTABLE)
+	./$(EXECUTABLE)
+
+clean:
+	$(RM) $(OBJECTS)
+
 	clean:
 		$(RM) $(OBJECTS) $(EXECUTABLE)
 
