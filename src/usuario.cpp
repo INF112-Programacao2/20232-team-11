@@ -17,7 +17,7 @@ Usuario::~Usuario() {}      //destrutor
 /*****************************************************************************************************************************************************************/
 /*****************************************************************************************************************************************************************/
 
-
+//metodo para fazer login
 bool Usuario::fazerLogin(){ 
     std::cout << "=========LOGIN=========\n\n";
     std::string id, senha;  //variaveis para armazenar o id e a senha do usuario
@@ -108,7 +108,7 @@ void Usuario::avaliarPrograma(){
         std::cout << "7 - Não avaliar\n";
         std::getline(std::cin, avaliacao);  //le a avaliacao do usuario
         if(avaliacao == "6"){
-            std::cout << "Digite sua sugestão/recomendação: \n";
+            std::cout << "Digite sua sugestão/recomendação (100 caracteres máximo): \n";
             std::getline(std::cin, sugestao);  //le a avaliacao do usuario
             while(sugestao.size() > 100){
                 std::cout << "Texto muito grande!" << std::endl;
@@ -199,7 +199,7 @@ void Usuario::criarUsuario(std::vector<Usuario>& usuarios){
 
     std::ofstream arquivoSaida("usuarios.txt", std::ios::app); //abre o arquivo para escrita
 
-    std::string tipo, id, senha;    //variaveis para armazenar os dados do usuario
+    std::string tipo, id, senha, senhaDeNovo;    //variaveis para armazenar os dados do usuario
 
     std::cout << "Digite o tipo de usuário (ADMIN, PROF, ALUNO): ";
     std::getline(std::cin, tipo);  //le o tipo do usuario
@@ -213,12 +213,37 @@ void Usuario::criarUsuario(std::vector<Usuario>& usuarios){
     if(tipo == "ALUNO"){
         std::cout << "ID de usuário: Digite seu Matricula: ";
     }else{
-        std::cout << "Crie um ID de usuário: ";
+        std::cout << "Crie um ID de usuário (16 caracteres máximo): ";
     }
     std::getline(std::cin, id);  //le o id do usuario   
+    while(id.size() > 16){
+        std::cout << "ID muito grande!" << std::endl;
+        std::cout << "Crie um ID de usuário (16 caracteres máximo): ";
+        std::getline(std::cin, id);  //le o id do usuario
+    }
 
-    std::cout << "Crie uma senha de usuário: ";
+    std::cout << "Crie uma senha de usuário (5 caracteres mínimo): ";
     std::getline(std::cin, senha);  //le a senha do usuario
+    while(senha.size() < 5){
+        std::cout << "Senha muito pequena!" << std::endl;
+        std::cout << "Crie uma senha de usuário (5 caracteres mínimo): ";
+        std::getline(std::cin, senha);  //le a senha do usuario
+    }
+
+    std::cout << "Digite sua senha novamente: ";
+    std::getline(std::cin, senhaDeNovo);  //le a senha do usuario
+    while(senhaDeNovo != senha){
+        std::cout << "As senhas não coincidem!" << std::endl;
+        std::cout << "Criar uma senha de usuário (5 caracteres mínimo): ";
+        std::getline(std::cin, senha);  //le a senha do usuario
+        while(senha.size() < 5){
+            std::cout << "Senha muito pequena!" << std::endl;
+            std::cout << "Criar uma senha de usuário (5 caracteres mínimo): ";
+            std::getline(std::cin, senha);  //le a senha do usuario
+        }
+        std::cout << "Digite sua senha novamente: ";
+        std::getline(std::cin, senhaDeNovo);  //le a senha do usuario
+    }
 
     Usuario novoUsuario(tipo, id, senha);   //cria um novo usuario
 
@@ -247,7 +272,7 @@ void Usuario::criarUsuario(std::vector<Usuario>& usuarios){
 /*****************************************************************************************************************************************************************/
 /*****************************************************************************************************************************************************************/
 
-
+//metodo para trocar a senha do usuario
 void Usuario::trocarSenha(){
     std::cout << "=========TROCANDO A SENHA=========\n\n";
     std::string tipo, id, novasenha, novaSenhaDeNovo;
@@ -284,15 +309,25 @@ void Usuario::trocarSenha(){
         if (idUsuario == id) {
             usuarioEncontrado = true;
 
-            std::cout << "Digite sua nova senha: ";
+            std::cout << "Digite sua nova senha (5 caracteres mínimo): ";
             std::getline(std::cin, novasenha);
+            while (novasenha.size() < 5) {
+                std::cout << "Senha muito pequena!" << std::endl;
+                std::cout << "Digite sua nova senha (5 caracteres mínimo): ";
+                std::getline(std::cin, novasenha);
+            }
             std::cout << "Digite sua nova senha novamente: ";
             std::getline(std::cin, novaSenhaDeNovo);
 
             while (novasenha != novaSenhaDeNovo) {
                 std::cout << "As senhas não coincidem!" << std::endl;
-                std::cout << "Digite sua nova senha: ";
+                std::cout << "Digite sua nova senha (5 caracteres mínimo): ";
                 std::getline(std::cin, novasenha);
+                while (novasenha.size() < 5) {
+                    std::cout << "Senha muito pequena!" << std::endl;
+                    std::cout << "Digite sua nova senha (5 caracteres mínimo): ";
+                    std::getline(std::cin, novasenha);
+                }
                 std::cout << "Digite sua nova senha novamente: ";
                 std::getline(std::cin, novaSenhaDeNovo);
             }
@@ -416,125 +451,6 @@ bool Usuario::horaValida(const std::string& hora) {
     }
 
     return true;
-}
-
-/*****************************************************************************************************************************************************************/
-/*****************************************************************************************************************************************************************/
-
-
-//metodo para criar um evento
-void Usuario::criarEvento(std::vector<Evento>& eventos){
-    
-    int numEventos = 0; //variavel para armazenar o numero de eventos que o usuario deseja criar
-    std::cout << "=========CRIANDO EVENTO=========\n\n";
-    std::cout << "Digite o número de eventos que deseja criar: ";
-    std::cin >> numEventos; //le o numero de eventos que o usuario deseja criar
-    if(numEventos < 1){
-        std::cout << "Número inválido!" << std::endl;
-        return;
-    }
-    std::cin.ignore();  //ignora o enter
-
-    std::ifstream arquivoUsuarios("usuarios.txt"); //abre o arquivo para leitura
-    std::ifstream arquivoEventos("eventos.txt"); //abre o arquivo para leitura
-
-    if(!arquivoUsuarios.is_open() || !arquivoEventos.is_open()) {    // Verifica se o arquivo foi aberto
-        std::cout << "Erro sistema!" << std::endl;
-        return; // sai da funcao
-    }
-
-    //percorre o arquivo de usuários para encontrar o id do usuário
-    std::string linha, tipoUsuario, idUsuario, senhaUsuario;
-    while (std::getline(arquivoUsuarios, linha)) {
-        std::stringstream ss(linha);
-        std::getline(ss, tipoUsuario, '|');
-        std::getline(ss, idUsuario, '|');
-        std::getline(ss, senhaUsuario, '|');
-
-    }
-
-    arquivoUsuarios.close(); //fecha o arquivo
-
-    if (arquivoEventos.is_open()) { // Verifica se o arquivo foi aberto
-        std::string linha;  //variavel para armazenar a linha do arquivo
-        while (std::getline(arquivoEventos, linha)) {  //percorre o arquivo
-            std::stringstream ss(linha);    //cria um fluxo de string
-            std::string tipo, titulo, data, hora, descricao, criador, id;   //variaveis para armazenar os dados do evento
-            std::getline(ss, titulo, '|');  //le o titulo do evento
-            std::getline(ss, data, '|');    //le a data do evento
-            std::getline(ss, hora, '|');    //le a hora do evento
-            std::getline(ss, tipo, '|');    //le o tipo do evento
-            std::getline(ss, descricao, '|');  //le a descricao do evento
-            Evento evento(tipo, titulo, data, hora, tipo, descricao, criador, id);  //cria um novo evento
-            eventos.push_back(evento); // Adiciona o evento ao vetor
-        }
-        arquivoEventos.close(); //fecha o arquivo
-    } else {
-        std::cout << "Erro sistema!" << std::endl;
-        return; //saia da função
-    }
-
-    std::ofstream arquivoSaida("eventos.txt", std::ios::app); //abre o arquivo para escrita
-
-    for (int i = 0; i < numEventos; ++i) {  //percorre o vetor de eventos
-        std::string tipo, titulo, descricao, data, hora, local, criador, id;   //variaveis para armazenar os dados do evento
-
-        std::cout << "Criação de evento n°" << i + 1 << std::endl;
-        std::cout << "Digite seu tipo de usuario (ADMIN, PROF, ALUNO): ";
-        std::getline(std::cin, criador);  //le o tipo do evento
-        while(criador != "ADMIN" && criador != "PROF" && criador != "ALUNO"){
-            std::cout << "Tipo de usuário inválido!" << std::endl;
-            std::cout << "Digite seu tipo de usuario (ADMIN, PROF, ALUNO): ";
-            std::getline(std::cin, criador);  //le o tipo do evento
-        }
-        if(criador == "ADMIN"){
-            std::cout << "Digite o tipo de evento (ACADEMICO, PROVA, TRABALHO, APRESENTACAO, PESSOAL): ";
-        }else{
-            std::cout << "Digite o tipo de evento (PROVA, TRABALHO, APRESENTACAO, PESSOAL): ";
-        }
-        std::getline(std::cin, tipo);  //le o tipo do evento
-        while(tipo != "PROVA" && tipo != "TRABALHO" && tipo != "APRESENTACAO" && tipo != "PESSOAL"){
-            std::cout << "Tipo de evento inválido!" << std::endl;
-            std::cout << "Digite o tipo de evento (PROVA, TRABALHO, APRESENTACAO, PESSOAL): ";
-            std::getline(std::cin, tipo);  //le o tipo do evento
-        }
-        std::cout << "Digite o título do evento: ";
-        std::getline(std::cin, titulo);  //le o titulo do evento
-
-        std::cout << "Digite a descrição do evento: ";
-        std::getline(std::cin, descricao);  //le a descricao do evento
-
-        std::cout << "Digite a data do evento (DD-MM-AAAA): ";
-        std::getline(std::cin, data);  //le a data do evento
-        while(!dataValida(data)){
-            std::cout << "Data inválida!" << std::endl;
-            std::cout << "Digite a data do evento (DD-MM-AAAA): ";
-            std::getline(std::cin, data);  //le a data do evento
-        }
-        std::cout << "Digite a hora do evento (HH:MM): ";
-        std::getline(std::cin, hora);  //le a hora do evento
-        while(!horaValida(hora)){
-            std::cout << "Hora inválida!" << std::endl;
-            std::cout << "Digite a hora do evento (HH:MM): ";
-            std::getline(std::cin, hora);  //le a hora do evento
-        }
-
-        std::cout << "Digite o local do evento: ";
-        std::getline(std::cin, local);  //le o local do evento
-        
-        
-        std::cout << "Digite seu id : ";
-        std::getline(std::cin, id);  //le o id do evento
-
-        Evento novoEvento(tipo, titulo, data, hora, tipo, descricao, criador, id);  //cria um novo evento
-        eventos.push_back(novoEvento); // Adiciona o novo evento ao vetor
-
-        arquivoSaida << tipo << '|' << titulo << '|' << descricao << "|" <<  data << '|' << hora << '|' << local << '|' << criador << '|' << id << '\n'; // Escreve no arquivo
-        std::cout << "Evento criado e salvo com sucesso!" << std::endl;
-        
-
-    }
-    arquivoSaida.close(); //fecha o arquivo
 }
 
 

@@ -12,6 +12,8 @@ public:
     ~Aluno();   // Destrutor
 
     // Métodos
+    void criarEvento(std::vector<Evento>& eventos) override;
+    void editarEvento() override;
     void pesquisarEventoPorTitulo() override;
     void pesquisarEventoPorData() override;
     void pesquisarEventoPorTipo() override;

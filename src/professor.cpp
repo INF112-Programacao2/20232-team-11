@@ -6,6 +6,231 @@ Professor::~Professor() {}  // Destrutor
 
 // Métodos
 
+// Métodos para criar eventos
+void Professor::criarEvento(std::vector<Evento>& eventos){
+    int numEventos = 0; //variavel para armazenar o numero de eventos que o usuario deseja criar
+    std::cout << "=========CRIANDO EVENTO=========\n\n";
+    std::cout << "Digite o número de eventos que deseja criar: ";
+    std::cin >> numEventos; //le o numero de eventos que o usuario deseja criar
+    if(numEventos < 1){
+        std::cout << "Número inválido!" << std::endl;
+        return;
+    }
+    std::cin.ignore();  //ignora o enter
+
+    std::ifstream arquivoUsuarios("usuarios.txt"); //abre o arquivo para leitura
+    std::ifstream arquivoEventos("eventos.txt"); //abre o arquivo para leitura
+
+    if(!arquivoUsuarios.is_open() || !arquivoEventos.is_open()) {    // Verifica se o arquivo foi aberto
+        std::cout << "Erro sistema!" << std::endl;
+        return; // sai da funcao
+    }
+
+    //percorre o arquivo de usuários para encontrar o id do usuário
+    std::string linha, tipoUsuario, idUsuario, senhaUsuario;
+    while (std::getline(arquivoUsuarios, linha)) {
+        std::stringstream ss(linha);
+        std::getline(ss, tipoUsuario, '|');
+        std::getline(ss, idUsuario, '|');
+        std::getline(ss, senhaUsuario, '|');
+
+    }
+
+    arquivoUsuarios.close(); //fecha o arquivo
+
+    if (arquivoEventos.is_open()) { // Verifica se o arquivo foi aberto
+        std::string linha;  //variavel para armazenar a linha do arquivo
+        while (std::getline(arquivoEventos, linha)) {  //percorre o arquivo
+            std::stringstream ss(linha);    //cria um fluxo de string
+            std::string tipo, titulo, data, hora, descricao, criador, id;   //variaveis para armazenar os dados do evento
+            std::getline(ss, titulo, '|');  //le o titulo do evento
+            std::getline(ss, data, '|');    //le a data do evento
+            std::getline(ss, hora, '|');    //le a hora do evento
+            std::getline(ss, tipo, '|');    //le o tipo do evento
+            std::getline(ss, descricao, '|');  //le a descricao do evento
+            Evento evento(tipo, titulo, data, hora, tipo, descricao, criador, id);  //cria um novo evento
+            eventos.push_back(evento); // Adiciona o evento ao vetor
+        }
+        arquivoEventos.close(); //fecha o arquivo
+    } else {
+        std::cout << "Erro sistema!" << std::endl;
+        return; //saia da função
+    }
+
+    std::ofstream arquivoSaida("eventos.txt", std::ios::app); //abre o arquivo para escrita
+
+    for (int i = 0; i < numEventos; ++i) {  //percorre o vetor de eventos
+        std::string tipo, titulo, descricao, data, hora, local, criador, id;   //variaveis para armazenar os dados do evento
+
+        std::cout << "Criação de evento n°" << i + 1 << std::endl;
+       criador = "PROF"; //criador recebe PROF
+        std::cout << "Digite o tipo de evento (PROVA, TRABALHO, APRESENTACAO, PESSOAL): ";
+
+        std::getline(std::cin, tipo);  //le o tipo do evento
+        while(tipo != "PROVA" && tipo != "TRABALHO" && tipo != "APRESENTACAO" && tipo != "PESSOAL"){
+            std::cout << "Tipo de evento inválido!" << std::endl;
+            std::cout << "Digite o tipo de evento (PROVA, TRABALHO, APRESENTACAO, PESSOAL): ";
+            std::getline(std::cin, tipo);  //le o tipo do evento
+        }
+        std::cout << "Digite o título do evento: ";
+        std::getline(std::cin, titulo);  //le o titulo do evento
+
+        std::cout << "Digite a descrição do evento: ";
+        std::getline(std::cin, descricao);  //le a descricao do evento
+
+        std::cout << "Digite a data do evento (DD-MM-AAAA): ";
+        std::getline(std::cin, data);  //le a data do evento
+        while(!Usuario::dataValida(data)){
+            std::cout << "Data inválida!" << std::endl;
+            std::cout << "Digite a data do evento (DD-MM-AAAA): ";
+            std::getline(std::cin, data);  //le a data do evento
+        }
+        std::cout << "Digite a hora do evento (HH:MM): ";
+        std::getline(std::cin, hora);  //le a hora do evento
+        while(!Usuario::horaValida(hora)){
+            std::cout << "Hora inválida!" << std::endl;
+            std::cout << "Digite a hora do evento (HH:MM): ";
+            std::getline(std::cin, hora);  //le a hora do evento
+        }
+
+        std::cout << "Digite o local do evento: ";
+        std::getline(std::cin, local);  //le o local do evento
+        
+        
+        std::cout << "Digite seu id : ";
+        std::getline(std::cin, id);  //le o id do evento
+
+        Evento novoEvento(tipo, titulo, data, hora, tipo, descricao, criador, id);  //cria um novo evento
+        eventos.push_back(novoEvento); // Adiciona o novo evento ao vetor
+
+        arquivoSaida << tipo << '|' << titulo << '|' << descricao << "|" <<  data << '|' << hora << '|' << local << '|' << criador << '|' << id << '\n'; // Escreve no arquivo
+        std::cout << "Evento criado e salvo com sucesso!" << std::endl;
+        
+
+    }
+    arquivoSaida.close(); //fecha o arquivo
+}
+
+
+/*****************************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************************/
+
+// Métodos para editar eventos
+void Professor::editarEvento(){        // Edita o evento
+    std::cout << "==============EDITANDO EVENTO==============\n\n";
+    std::string id, titulo, novoTipo, novaDescricao, novaData, novaHora, novoLocal, novoCriador, novoTitulo; // Variables pour stocker les informations de l'événement
+    std::cout << "Digite o titulo do evento: ";
+    std::getline(std::cin, titulo); // Saisie du titre de l'événement
+    std::cout << "Digite o seu ID de usuario: ";
+    std::getline(std::cin, id); // Saisie de l'ID de l'utilisateur
+
+    std::ifstream arquivoUsuarios("usuarios.txt");
+    std::ifstream arquivoEventos("eventos.txt");
+
+    if (!arquivoUsuarios.is_open() || !arquivoEventos.is_open()) {
+        std::cout << "Erro sistema!" << std::endl;
+        return;
+    }
+
+    bool idEncontrado = false;
+    bool eventoEncontrado = false;
+
+    std::ofstream arquivoTemporario("tempEvento.txt");
+
+    std::string linha, tipoUsuario, idUsuario, senhaUsuario;
+    while (std::getline(arquivoUsuarios, linha)) {
+        std::stringstream ss(linha);
+        std::getline(ss, tipoUsuario, '|');
+        std::getline(ss, idUsuario, '|');
+        std::getline(ss, senhaUsuario, '|');
+        if (id == idUsuario) {
+            idEncontrado = true;
+            break;
+        }
+    }
+
+    if (!idEncontrado) {
+        std::cout << "ID nao existe!" << std::endl;
+        return;
+    }
+
+    while (std::getline(arquivoEventos, linha)) {
+        std::stringstream ss(linha);
+        std::string tipoEvento, tituloEvento, descricaoEvento, dataEvento, horaEvento, localEvento, criador, idEvento;
+        std::getline(ss, tipoEvento, '|');
+        std::getline(ss, tituloEvento, '|');
+        std::getline(ss, descricaoEvento, '|');
+        std::getline(ss, dataEvento, '|');
+        std::getline(ss, horaEvento, '|');
+        std::getline(ss, localEvento, '|');
+        std::getline(ss, criador, '|');
+        std::getline(ss, idEvento, '|');
+
+        if (id == idEvento && titulo == tituloEvento) {
+            eventoEncontrado = true;
+                
+            std::cout << "Digite o novo tipo de evento (PROVA - TRABALHO - APRESENTACAO - PESSOAL): ";
+            std::getline(std::cin, novoTipo);   // Recebe o novo tipo de evento
+            while(novoTipo != "PROVA" && novoTipo != "TRABALHO" && novoTipo != "APRESENTACAO" && novoTipo != "PESSOAL") {    // Verifica se o tipo de evento e valido
+                std::cout << "Tipo de evento invalido!" << std::endl;
+                std::cout << "Digite o novo tipo de evento (PROVA - TRABALHO - APRESENTACAO - PESSOAL): ";
+                std::getline(std::cin, novoTipo);   // Recebe o novo tipo de evento
+            }
+
+            std::cout << "Digite o novo titulo do evento: ";
+            std::getline(std::cin, novoTitulo);   // Recebe o novo titulo do evento
+
+            std::cout << "Digite a nova descricao do evento: ";
+            std::getline(std::cin, novaDescricao);  // Recebe a nova descricao do evento
+
+            std::cout << "Digite a nova data do evento (DD-MM-AAAA): ";
+            std::getline(std::cin, novaData);   // Recebe a nova data do evento
+            while(!Usuario::dataValida(novaData)) { // Verifica se a data possui o tamanho correto
+                std::cout << "Data invalida!" << std::endl;
+                std::cout << "Digite a nova data do evento (DD-MM-AAAA): ";
+                std::getline(std::cin, novaData);   // Recebe a nova data do evento
+            }
+
+            std::cout << "Digite a nova hora do evento (HH:MM): ";
+            std::getline(std::cin, novaHora);   // Recebe a nova hora do evento
+            while(!Usuario::horaValida(novaHora )) { // Verifica se a hora possui o tamanho correto
+                std::cout << "Hora invalida!" << std::endl;
+                std::cout << "Digite a nova hora do evento (HH:MM): ";
+                std::getline(std::cin, novaHora);   // Recebe a nova hora do evento
+            }
+
+            std::cout << "Digite o novo local do evento: ";
+            std::getline(std::cin, novoLocal);  // Recebe o novo local do evento
+
+            novoCriador = "PROF";  //o criador do evento é o administrador
+            arquivoTemporario << novoTipo << "|" << novoTitulo << "|" << novaDescricao << "|" << novaData << "|" << novaHora << "|" << novoLocal << "|" << novoCriador << "|" << id << std::endl;
+        } else {
+            arquivoTemporario << linha << std::endl;
+        }
+        
+    }
+
+    arquivoEventos.close();
+    arquivoTemporario.close();
+
+    if (!eventoEncontrado) {
+        std::cout << "Evento não encontrado!" << std::endl;
+        return;
+    }
+
+    std::remove("eventos.txt");
+    std::rename("tempEvento.txt", "eventos.txt");
+
+    if(eventoEncontrado && idEncontrado){
+        std::cout << "Evento editado com sucesso!" << std::endl;
+    }   
+}
+
+
+/*****************************************************************************************************************************************************************/
+/*****************************************************************************************************************************************************************/
+
+
 // Métodos para pesquisar eventos por tipo
 void Professor::pesquisarEventoPorTipo() {
     std::cout << "==============PESQUISANDO EVENTO POR TIPO==============\n\n";
@@ -563,10 +788,10 @@ void Professor::exibirNotificacoes(){
                 }
             }
         }
+    }
 
-        if(!notificacao){
-            std::cout << "Nenhuma notificação!" << std::endl;
-        }
+    if(!notificacao) {  // Verifica se a notificação foi encontrada
+        std::cout << "Nenhuma notificação encontrada." << std::endl;
     }
 }
 
@@ -645,10 +870,10 @@ int Professor::getNumeroNotificacao(){
 void Professor::contTipoEvento() const {
     
     std::cout << "- " << contEventoAcademico << " eventos acadêmicos" << std::endl;
-    std::cout << "- " << contEventoPessoal << " eventos pessoal" << std::endl;
     std::cout << "- " << contEventoApresentacao << " eventos de apresentação" << std::endl;
     std::cout << "- " << contEventoProva << " eventos de prova" << std::endl;
     std::cout << "- " << contEventoTrabalho << " eventos de trabalho" << std::endl;
+    std::cout << "- " << contEventoPessoal << " eventos pessoal" << std::endl;
 }
 
 /*****************************************************************************************************************************************************************/

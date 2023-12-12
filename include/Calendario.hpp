@@ -28,8 +28,9 @@ public:
     ~Calendario();      // Destrutor
 
     // Métodos
+    virtual void criarEvento(std::vector<Evento>& eventos) = 0;
     void excluirEvento();
-    void editarEvento();
+    virtual void editarEvento() = 0;
     virtual void pesquisarEventoPorTitulo() = 0;
     virtual void pesquisarEventoPorData() = 0;
     virtual void pesquisarEventoPorTipo() = 0;

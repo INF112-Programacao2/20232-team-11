@@ -33,8 +33,7 @@ public:
     virtual std::string getSenha() const;   // Retorna a senha do usuario
     void criarUsuario(std::vector<Usuario>& usuarios);                        // Cria um usuario
     void adicionarUsuario(const Usuario& usuario); // Adiciona um usuario
-    std::vector<Usuario> getUsuarios(); // Retorna os usuarios
-    void criarEvento(std::vector<Evento>& eventos);   // Cria um evento  
+    std::vector<Usuario> getUsuarios(); // Retorna os usuarios  
     void adicionarEvento(const Evento& evento); // Adiciona um evento
     std::vector<Evento> getEventos(); // Retorna os eventos
     std::vector<Usuario> getUsuarios() const; // Retorna os usuarios

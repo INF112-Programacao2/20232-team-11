@@ -82,7 +82,7 @@ int main(){
                                     std::cin.ignore();
                                     switch (opcao2) {
                                         case 1:
-                                            usu.criarEvento(eventos);
+                                            admin.criarEvento(eventos);
                                             break;
                                         case 2:
                                             admin.editarEvento();
@@ -221,7 +221,7 @@ int main(){
                                     std::cin.ignore();
                                     switch (opcao2) {
                                         case 1:
-                                            usu.criarEvento(eventos);
+                                            prof.criarEvento(eventos);
                                             break;
                                         case 2:
                                             prof.editarEvento();
@@ -360,7 +360,7 @@ int main(){
                                     std::cin.ignore();
                                     switch (opcao2) {
                                         case 1:
-                                            usu.criarEvento(eventos);
+                                            aluno.criarEvento(eventos);
                                             break;
                                         case 2:
                                             aluno.editarEvento();
