@@ -40,7 +40,7 @@ O **Calendário Acadêmico** é uma plataforma projetada para facilitar a troca 
       - comando 1: make run
  * 3- Explorar o programa "Calendario Acadêmico".
    
-    # Modo do exibição das notificações:
+    ## Modo do exibição das notificações:
       * para os usuários do tipo administrador ou professor, as notificações começam três dias, um dia, e uma hora antes do evento independentemente do tipo.
       * para os usúarios do tipo estudante, as notificações variam conforme o tipo de evento:
             - uma semana, três dias, um dia, e uma hora antes para eventos de prova.
