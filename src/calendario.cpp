@@ -274,10 +274,8 @@ std::vector<Evento>  Calendario::getEventos() const {
 void Calendario::imprimirEventoOrdenado(const std::vector<Evento> &eventos){
     std::vector<Evento> eventosOrdenados = eventos;
 
-    // Trier les événements par date
     std::sort(eventosOrdenados.begin(), eventosOrdenados.end(), compararPorData);
 
-    // Imprimer les événements triés
     for (const auto& evento : eventosOrdenados) {
         imprimirEvento(evento);
         std::cout << "------------------------------\n";

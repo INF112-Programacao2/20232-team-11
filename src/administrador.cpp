@@ -357,8 +357,6 @@ void Administrador::pesquisarEventoPorTitulo() {
         return; // sai da funcao
     }
 
-    //percorre o arquivo de usuários para encontrar o id do usuário
-
     std::string linha; //variavel para armazenar a linha do arquivo
     bool eventoEncontrado = false;  //variavel para verificar se o evento foi encontrado
     bool idEncontrado = false; //variavel para verificar se o usuario foi encontrado
@@ -518,10 +516,10 @@ void Administrador::pesquisarEventoPorData() {
 
         std::time_t dataHoraEvento = std::mktime(&tempo);   //variável para armazenar a data e hora do evento
 
-        if(dataHoraEvento - dataHoraAtual > 0) {   //verifica se a data do evento é maior que a data atual
+        if(dataHoraEvento - dataHoraAtual > 0) {   //verifica se a data do evento é maior que a data atual (se o evento ainda não tiver passado)
             if (((data == dataEvento && criador == "ADMIN") || (data == dataEvento && criador == "PROF")) && tipoEvento != "PESSOAL") {   // Verifica se o titulo e o id do usuario existem
                 Evento evento(tipoEvento, tituloEvento, descricaoEvento, dataEvento, horaEvento, localEvento, criador, idEvento); // Cria um evento
-                std::cout << "Evento futuro" << std::endl;
+                std::cout << "Evento futuro" << std::endl;  //imprime o evento com uma specificação para indicar que é um evento futuro
                 imprimirEvento(evento); // Imprime o evento
                 eventoEncontrado = true;    //eventoEncontrado recebe true
             }else if(data == dataEvento && tipoEvento == "PESSOAL"){
@@ -532,10 +530,10 @@ void Administrador::pesquisarEventoPorData() {
                     eventoEncontrado = true;    //eventoEncontrado recebe true
                 }
             }
-        }else{
+        }else{  //se a data do evento for menor que a data atual (se o evento já tiver passado)
             if(((data == dataEvento && criador == "ADMIN") || (data == dataEvento && criador == "PROF")) && tipoEvento != "PESSOAL") {   // Verifica se o titulo e o id do usuario existem
                 Evento evento(tipoEvento, tituloEvento, descricaoEvento, dataEvento, horaEvento, localEvento, criador, idEvento); // Cria um evento
-                std::cout << "Evento passado" << std::endl;
+                std::cout << "Evento passado" << std::endl; //imprime o evento com uma specificação para indicar que é um evento passado
                 imprimirEvento(evento); // Imprime o evento
                 eventoEncontrado = true;    //eventoEncontrado recebe true
             }else if(data == dataEvento && tipoEvento == "PESSOAL"){
@@ -801,9 +799,10 @@ int Administrador::getNumeroNotificacao(){
         return 0; // sai da funcao
     }
 
+    
+    
     //percorre o arquivo de usuários para encontrar o id do usuário
-    std::string linha;
-
+    std::string linha;      //variável para armazenar a linha do arquivo
     while (std::getline(arquivoEventos, linha)) {
         std::stringstream ss(linha);    //cria um fluxo de string
         std::string linha, tipoEvento, tituloEvento, descricaoEvento, dataEvento, horaEvento, localEvento, criador, idEvento;  //variáveis para armazenar os dados do evento
@@ -927,7 +926,7 @@ void Administrador::calendarioComEventos(){
     int anoAtual = tempo->tm_year + 1900;   //variável para armazenar o ano atual
 
     //logica para imprimir o calendario
-    int diasPorMes[] = {31, ((anoAtual % 4 == 0 && anoAtual % 100 != 0) || anoAtual % 400 == 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int diasPorMes[] = {31, ((anoAtual % 4 == 0 && anoAtual % 100 != 0) || anoAtual % 400 == 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; //verificar se o ano é bissexto
     std::string nomesMeses[] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 
     std::cout << "Calendário dos eventos de " << nomesMeses[mesAtual] << " de " << anoAtual << ":" << std::endl;
@@ -942,16 +941,16 @@ void Administrador::calendarioComEventos(){
     mktime(&primeiroDia);
     int primeiroDiaSemana = primeiroDia.tm_wday;    //variável para armazenar o primeiro dia da semana
 
-    for (int i = 0; i < primeiroDiaSemana; i++) {       // Imprime os espaços para o primeiro dia da semana
+    for (int i = 0; i < primeiroDiaSemana; i++) {       // Imprime os espaços para o primeiro dia da semana caso o primeiro dia do mês não seja domingo e assim por diante
         std::cout << "    ";
     }
 
     while (dia <= diasPorMes[mesAtual]) {   // Imprime os dias do mês enquanto o dia for menor ou igual ao último dia do mês
-        for (int i = primeiroDiaSemana; i < 7 && dia <= diasPorMes[mesAtual]; i++) {    
+        for (int i = primeiroDiaSemana; i < 7 && dia <= diasPorMes[mesAtual]; i++) {     // Imprime os dias da semana 
             if (diasEventos.find(dia) != diasEventos.end()) {   // Verifica se o dia possui evento
-                std::cout << std::setw(2) << dia << "* ";
+                std::cout << std::setw(2) << dia << "* ";   // Imprime o dia com um '*' ao lado caso possua evento
             } else {
-                std::cout << std::setw(3) << dia << " ";
+                std::cout << std::setw(3) << dia << " ";    // Imprime o dia sem o '*' ao lado caso não possua evento
             }
             dia++;
         }

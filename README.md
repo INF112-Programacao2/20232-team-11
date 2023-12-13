@@ -45,7 +45,22 @@ O **Calendário Acadêmico** é uma plataforma projetada para facilitar a troca 
       * para os usúarios do tipo estudante, as notificações variam conforme o tipo de evento:
          - uma semana, três dias, um dia, e uma hora antes para eventos de prova.
          - três dias, um dia, e uma hora antes para eventos de apresentação ou do tipo acadêmico.
-         - três dias, um dia, uma hora e quinze minutos antes para eventos de trabalho.
+         - três dias, um dia, uma hora e quinze minutos antes para eventos de trabalho e pessoal.
+
+## Desafios Futuros: Oferecer Personalização de Notificações aos Usuários
+
+Para melhorar ainda mais o Calendário Acadêmico, um desafio futuro significativo é a implementação da capacidade de personalizar as notificações para os usuários. Isso garantirá uma experiência mais adaptada e conveniente, permitindo que cada usuário ajuste as notificações de acordo com suas preferências individuais.
+
+ * Personalização de Notificações
+    - Notificações Configuráveis: Permitir que os usuários escolham o tipo de eventos para os quais desejam receber notificações (aulas, exames, eventos acadêmicos, etc.).
+    - Frequência e Horário: Oferecer opções para personalizar a frequência e o horário das notificações, permitindo que os usuários ajustem a periodicidade e os momentos mais adequados para receberem alertas.
+    - Métodos de Notificação: Disponibilizar opções para escolha do método de notificação preferido (notificações push, e-mail, mensagens SMS, etc.).
+    - Localização e Idioma: Permitir que as notificações sejam adaptadas à localização e preferências de idioma do usuário.
+    
+ * Benefícios da Personalização
+    - Melhor Experiência do Usuário: Oferecer controle sobre as notificações proporciona uma experiência mais personalizada e adaptada às necessidades individuais de cada usuário.
+    - Maior Engajamento: Ao permitir que os usuários personalizem as notificações de acordo com suas preferências, é mais provável que eles se envolvam mais com o calendário acadêmico.
+    - Eficiência e Produtividade: Notificações mais personalizadas podem ajudar os usuários a gerenciar melhor seu tempo e a se manterem informados sobre os eventos acadêmicos mais relevantes para eles.
 
 
 ## Autores

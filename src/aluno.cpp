@@ -15,7 +15,7 @@ void Aluno::criarEvento(std::vector<Evento>& eventos){
         std::cout << "Número inválido!" << std::endl;
         return;
     }
-    std::cin.ignore();  //ignora o enter
+    std::cin.ignore();  //ignora o \n
 
     std::ifstream arquivoUsuarios("usuarios.txt"); //abre o arquivo para leitura
     std::ifstream arquivoEventos("eventos.txt"); //abre o arquivo para leitura

@@ -2,14 +2,14 @@
 #include "Evento.hpp"
 #include <iostream>
 
-
+//construtor
 Usuario::Usuario() {
     _id = "";
     _senha = "";
     _tipo = "";
-}       //construtor
+}       
 
-Usuario::Usuario(const std::string& tipo, const std::string& id, const std::string& senha) : _id(id), _senha(senha), _tipo(tipo) {}       //construtor
+Usuario::Usuario(const std::string& tipo, const std::string& id, const std::string& senha) : _id(id), _senha(senha), _tipo(tipo) {}   //construtor
 
 Usuario::~Usuario() {}      //destrutor
 
