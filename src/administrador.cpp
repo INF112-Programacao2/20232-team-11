@@ -72,11 +72,21 @@ void Administrador::criarEvento(std::vector<Evento>& eventos){
             std::cout << "Digite o tipo de evento (ACADEMICO, PROVA, TRABALHO, APRESENTACAO, PESSOAL): ";
             std::getline(std::cin, tipo);  //le o tipo do evento
         }
-        std::cout << "Digite o título do evento: ";
+        std::cout << "Digite o título do evento (30 caracteres máximo): ";
         std::getline(std::cin, titulo);  //le o titulo do evento
+        while(titulo.size() > 30){
+            std::cout << "Título inválido!" << std::endl;
+            std::cout << "Digite o título do evento (30 caracteres máximo): ";
+            std::getline(std::cin, titulo);  //le o titulo do evento
+        }
 
-        std::cout << "Digite a descrição do evento: ";
+        std::cout << "Digite a descrição do evento (100 caracteres máximo): ";
         std::getline(std::cin, descricao);  //le a descricao do evento
+        while(descricao.size() > 100){
+            std::cout << "Descrição inválida!" << std::endl;
+            std::cout << "Digite a descrição do evento (100 caracteres máximo): ";
+            std::getline(std::cin, descricao);  //le a descricao do evento
+        }
 
         std::cout << "Digite a data do evento (DD-MM-AAAA): ";
         std::getline(std::cin, data);  //le a data do evento
@@ -93,8 +103,13 @@ void Administrador::criarEvento(std::vector<Evento>& eventos){
             std::getline(std::cin, hora);  //le a hora do evento
         }
 
-        std::cout << "Digite o local do evento: ";
+        std::cout << "Digite o local do evento (20 caracteres máximo): ";
         std::getline(std::cin, local);  //le o local do evento
+        while(local.size() > 20){
+            std::cout << "Local inválido!" << std::endl;
+            std::cout << "Digite o local do evento (20 caracteres máximo): ";
+            std::getline(std::cin, local);  //le o local do evento
+        }
         
         
         std::cout << "Digite seu id : ";
@@ -177,11 +192,21 @@ void Administrador::editarEvento(){        // Edita o evento
                 std::getline(std::cin, novoTipo);   // Recebe o novo tipo de evento
             }
 
-            std::cout << "Digite o novo titulo do evento: ";
+            std::cout << "Digite o novo titulo do evento (30 caracteres máximo): ";
             std::getline(std::cin, novoTitulo);   // Recebe o novo titulo do evento
+            while(novoTitulo.size() > 30) {   // Verifica se o titulo possui o tamanho correto
+                std::cout << "Titulo invalido!" << std::endl;
+                std::cout << "Digite o novo titulo do evento (30 caracteres máximo): ";
+                std::getline(std::cin, novoTitulo);   // Recebe o novo titulo do evento
+            }
 
-            std::cout << "Digite a nova descricao do evento: ";
+            std::cout << "Digite a nova descricao do evento (100 caracteres máximo): ";
             std::getline(std::cin, novaDescricao);  // Recebe a nova descricao do evento
+            while(novaDescricao.size() > 100) { // Verifica se a descricao possui o tamanho correto
+                std::cout << "Descricao invalida!" << std::endl;
+                std::cout << "Digite a nova descricao do evento (100 caracteres máximo): ";
+                std::getline(std::cin, novaDescricao);  // Recebe a nova descricao do evento
+            }
 
             std::cout << "Digite a nova data do evento (DD-MM-AAAA): ";
             std::getline(std::cin, novaData);   // Recebe a nova data do evento
@@ -199,8 +224,13 @@ void Administrador::editarEvento(){        // Edita o evento
                 std::getline(std::cin, novaHora);   // Recebe a nova hora do evento
             }
 
-            std::cout << "Digite o novo local do evento: ";
+            std::cout << "Digite o novo local do evento (20 caracteres máximo): ";
             std::getline(std::cin, novoLocal);  // Recebe o novo local do evento
+            while(novoLocal.size() > 20) {  // Verifica se o local possui o tamanho correto
+                std::cout << "Local invalido!" << std::endl;
+                std::cout << "Digite o novo local do evento (20 caracteres máximo): ";
+                std::getline(std::cin, novoLocal);  // Recebe o novo local do evento
+            }
 
             novoCriador = "ADMIN";  //o criador do evento é o administrador
             arquivoTemporario << novoTipo << "|" << novoTitulo << "|" << novaDescricao << "|" << novaData << "|" << novaHora << "|" << novoLocal << "|" << novoCriador << "|" << id << std::endl;
