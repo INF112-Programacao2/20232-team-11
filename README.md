@@ -45,7 +45,8 @@ O **Calendário Acadêmico** é uma plataforma projetada para facilitar a troca 
       * para os usúarios do tipo estudante, as notificações variam conforme o tipo de evento:
          - uma semana, três dias, um dia, e uma hora antes para eventos de prova.
          - três dias, um dia, e uma hora antes para eventos de apresentação ou do tipo acadêmico.
-         - três dias, um dia, uma hora e quinze minutos antes para eventos de trabalho e pessoal.
+         - três dias, um dia, uma hora e quinze minutos antes para eventos de trabalho.
+      * para os eventos do tipo pessoal as notificações começam três dias, um dia, uma hora e quinze minutos antes do evento independentemente do tipo do usuário.
 
 ## Desafios Futuros: Oferecer Personalização de Notificações aos Usuários
 
