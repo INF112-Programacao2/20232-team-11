@@ -31,7 +31,7 @@ O **Calendário Acadêmico** é uma plataforma projetada para facilitar a troca 
      ![Alt text](Interface-3.png)
 
 
-## Manuel Usuario
+## Manuel Usuário
  * 1- Certifique-se de ter todos os arquivos em um único diretório a partir do qual você executará o programa.
  * 2- No terminal, execute o seginte comando:
       - comando: make run
