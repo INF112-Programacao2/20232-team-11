@@ -23,7 +23,7 @@ int main(){
 
     int tipoUsuario;    //variavel para armazenar o tipo de usuario
     bool login = false; //variavel para verificar se o usuario esta logado no programa
-    bool erroLogin = false; //variavel para verificar se o usuario errou a senha 4 vezes
+    bool erroLogin = false; //variavel para verificar se o usuario errou a senha 3 vezes
     int cont = 0;   //variavel para contar quantas vezes o usuario errou a senha
 
     do{     //loop para abrir o programa
