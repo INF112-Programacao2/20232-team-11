@@ -1,6 +1,3 @@
-# 20232-team-11
-20232-team-11
-
 # Calendário Acadêmico
 
 O **Calendário Acadêmico** é uma plataforma projetada para facilitar a troca de eventos entre administradores, professores e estudantes. Seu objetivo é permitir a gestão de eventos acadêmicos, como trabalhos, tarefas, apresentações, além de eventos pessoais. Este programa oferece a capacidade de criar, modificar, excluir eventos, realizar pesquisas por tipo, data, título, listar eventos todos, por usúario e enviar notificações aos usuários no momento apropriado.
@@ -37,11 +34,11 @@ O **Calendário Acadêmico** é uma plataforma projetada para facilitar a troca 
 ## Manuel Usuario
  * 1- Certifique-se de ter todos os arquivos em um único diretório a partir do qual você executará o programa.
  * 2- No terminal, execute o seginte comando:
-      - comando 1: make run
+      - comando: make run
  * 3- Explorar o programa "Calendario Acadêmico".
 
     ## Criação dos eventos:
-      O programa define cinco tipos de eventos: Puramente Acadêmico, Prova, Trabalho, Apresentação e Evento Pessoal. Apenas os administradores têm permissão para criar eventos do tipo Puramente Acadêmico, além dos outros tipos de eventos. Os professores têm permissão para criar todos os tipos de eventos, exceto os eventos Puramente Acadêmicos. Por fim, os estudantes podem criar somente eventos do tipo Evento Pessoal.
+      O programa define cinco tipos de eventos: Puramente Acadêmico, Prova, Trabalho, Apresentação e Evento Pessoal. Apenas os administradores têm permissão para criar eventos do tipo Puramente Acadêmico (visível para todoas os usuários), além dos outros tipos de eventos. Os professores têm permissão para criar todos os tipos de eventos, exceto os eventos Puramente Acadêmicos. Por fim, os estudantes podem criar somente eventos do tipo Evento Pessoal.
    
     ## Modo de exibição das notificações:
       * para os usuários do tipo administrador ou professor, as notificações começam três dias, um dia, e uma hora antes do evento independentemente do tipo.
