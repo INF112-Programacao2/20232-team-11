@@ -931,44 +931,50 @@ void Professor::calendarioComEventos(){
     }
     arquivoEventos.close();
 
-    time_t agora = time(0); //variável para armazenar a data e hora atual
-    tm *tempo = localtime(&agora);  //variável para armazenar a data e hora atual
-    int mesAtual = tempo->tm_mon;   //variável para armazenar o mês atual
-    int anoAtual = tempo->tm_year + 1900;   //variável para armazenar o ano atual
+    time_t agora = time(0);
+    tm *tempo = localtime(&agora);
+    int mesAtual = tempo->tm_mon;
+    int anoAtual = tempo->tm_year + 1900;
 
-    //logica para imprimir o calendario
-    int diasPorMes[] = {31, ((anoAtual % 4 == 0 && anoAtual % 100 != 0) || anoAtual % 400 == 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+   int diasPorMes[] = {31, ((anoAtual % 4 == 0 && anoAtual % 100 != 0) || anoAtual % 400 == 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     std::string nomesMeses[] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 
+    //imprime o calendário
     std::cout << "Calendário dos eventos de " << nomesMeses[mesAtual] << " de " << anoAtual << ":" << std::endl;
     std::cout << "______________________" << std::endl;
     std::cout << "|      " << nomesMeses[mesAtual] << "       |" << std::endl;
     std::cout << "|____________________|" << std::endl;
-    std::cout << "| Seg Ter Qua Qui Sex Sáb Dom |" << std::endl;
+    std::cout << "|Seg Ter Qua Qui Sex Sáb Dom |" << std::endl;
     std::cout << "|____________________|" << std::endl;
 
-    int dia = 1;
+    int dia = 1;    //variável para armazenar o dia do mês
     tm primeiroDia = { 0, 0, 0, 1, mesAtual, anoAtual - 1900 }; //variável para armazenar o primeiro dia do mês
-    mktime(&primeiroDia);
-    int primeiroDiaSemana = primeiroDia.tm_wday;    //variável para armazenar o primeiro dia da semana
+    mktime(&primeiroDia);       //converte a data para o tipo time_t
+    int primeiroDiaSemana = (primeiroDia.tm_wday + 6) % 7;      
 
-    for (int i = 0; i < primeiroDiaSemana; i++) {       // Imprime os espaços para o primeiro dia da semana
-        std::cout << "    ";
+    for (int i = 0; i < primeiroDiaSemana; i++) {
+        std::cout << "    ";        //imprime os espaços em branco para alinhar os dias do mês
     }
 
-    while (dia <= diasPorMes[mesAtual]) {   // Imprime os dias do mês enquanto o dia for menor ou igual ao último dia do mês
-        for (int i = primeiroDiaSemana; i < 7 && dia <= diasPorMes[mesAtual]; i++) {   
-
-            // Imprime o dia do mês com um * se o dia possuir evento 
-            if (diasEventos.find(dia) != diasEventos.end()) {   // Verifica se o dia possui evento
-                std::cout << std::setw(2) << dia << "* ";
+    //imprime os dias do mês
+    while (dia <= diasPorMes[mesAtual] || primeiroDiaSemana != 0) {     //enquanto o dia for menor ou igual ao número de dias do mês ou o primeiro dia da semana for diferente de 0
+        for (int i = primeiroDiaSemana; i < 7; i++) {
+            if (dia <= diasPorMes[mesAtual]) {    //verifica se o dia é menor ou igual ao número de dias do mês
+                if (dia < 10) {     //verifica se o dia é menor que 10
+                    std::cout << " ";   
+                }
+                if (diasEventos.find(dia) != diasEventos.end()) {
+                    std::cout << dia << "* ";       //imprime o dia do mês com um '*' para indicar que há um evento neste dia
+                } else {
+                    std::cout << dia << "  ";       //imprime o sem um '*' para indicar que não há um evento neste dia
+                }
             } else {
-                std::cout << std::setw(3) << dia << " ";
+                std::cout << "   ";     //imprime os espaços em branco para alinhar os dias do mês
             }
-            dia++;
+            dia++;      //incrementa o dia
         }
         std::cout << std::endl;
-        primeiroDiaSemana = 0;  // Reseta o primeiro dia da semana
+        primeiroDiaSemana = 0;      //primeiroDiaSemana recebe 0 para que o dia da semana seja reiniciado
     }
     std::cout << std::endl;
 }
