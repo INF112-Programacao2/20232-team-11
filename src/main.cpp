@@ -131,7 +131,7 @@ int main(){
                                     erroLogin = true;   //variavel para verificar se o usuario errou a senha 4 vezes recebe true
                                 }
 
-                                if(erroLogin == true){  //se o usuario errou a senha 4 vezes
+                                if(erroLogin == true){  //se o usuario errou a senha 3 vezes
                                     std::cout << "Você errou a senha 3 vezes!" << std::endl;
                                     std::cout << "1 - Trocar senha" << std::endl;
                                     std::cout << "2 - Sair" << std::endl;
