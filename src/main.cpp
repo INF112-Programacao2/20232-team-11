@@ -128,7 +128,7 @@ int main(){
                                 std::cout << "Falha no login!" << std::endl;
                                 cont++; //conta quantas vezes o usuario errou a senha
                                 if(cont == 3){  //se o usuario errou a senha 3 vezes
-                                    erroLogin = true;   //variavel para verificar se o usuario errou a senha 4 vezes recebe true
+                                    erroLogin = true;   //variavel para verificar se o usuario errou a senha 3 vezes recebe true
                                 }
 
                                 if(erroLogin == true){  //se o usuario errou a senha 3 vezes
